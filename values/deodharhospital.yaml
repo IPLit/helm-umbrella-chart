@@ -1,7 +1,7 @@
 global:
   storageClass: bahmni-efs-sc
   nodeSelector:
-    eks.amazonaws.com/nodegroup: nonprod
+    eks.amazonaws.com/nodegroup: prod
 
 metadata:
   labels:
@@ -52,10 +52,12 @@ hiu:
     RABBITMQ_HOST: "bahmni-deodharhospital-rabbitmq"
     HIU_ID: "iplitdeodharhospital"
     HIU_NAME: "iplitdeodharhospital"
-    # GATEWAY_BASE_URL: "https://nha-suma-azb7fa3pfa-el.a.run.app"
-    # GATEWAY_REQUEST_TIMEOUT: 21000
-    # GATEWAY_URL: "https://nha-suma-azb7fa3pfa-el.a.run.app"
-    # CORS_ALLOWED_ORIGIN: "https://nha-suma-azb7fa3pfa-el.a.run.app"
+    CONSENT_MANAGEMENT_SUFFIX: "@abdm"
+    CONSENT_MANAGEMENT_URL: "https://live.ndhm.gov.in/cm"
+    GATEWAY_BASE_URL: "https://live.ndhm.gov.in/gateway/v0.5"
+    GATEWAY_JWK_URL: "https://live.ndhm.gov.in/gateway/v0.5/certs"
+    HFR_AFFINITY_DOMAINS: "facility.abdm.gov.in"
+    IDENTITY_JWK_URL : "https://live.ndhm.gov.in/auth/realms/consent-manager/protocol/openid-connect/certs"
   metadata:
     labels:
       environment: deodharhospital
@@ -80,9 +82,11 @@ hip:
     CONNECTION_STRING: "Host=bahmni-deodharhospital-postgresql;Port=5432;Username=postgres;Password=welcome;Database=hipservice"
     RABBITMQ_HOST: "bahmni-deodharhospital-rabbitmq"
     BAHMNI_ID: "iplitdeodharhospital"
-    # GATEWAY_URL: "https://nha-suma-azb7fa3pfa-el.a.run.app"
-    # SESSION_GATEWAY_URL: "https://dev.abdm.gov.in/gateway"
-    # CORS_ALLOWED_ORIGIN: "https://nha-suma-azb7fa3pfa-el.a.run.app"
+    BAHMNI_URL: http://openmrs:8080/openmrs
+    ABHA_NUMBER_URL: "https://healthid.abdm.gov.in/api"
+    ABHA_ADDRESS_URL: "https://phr.abdm.gov.in/api"
+    GATEWAY_URL: "https://live.ndhm.gov.in/gateway"
+    GATEWAY_CMSUFFIX: "abdm"
   metadata:
     labels:
       environment: deodharhospital
@@ -112,7 +116,7 @@ postgresql:
       accessModes:
         - ReadWriteMany
     nodeSelector:
-      eks.amazonaws.com/nodegroup: nonprod
+      eks.amazonaws.com/nodegroup: prod
   image:
     tag: 14-debian-11
 
@@ -125,7 +129,7 @@ rabbitmq:
     accessModes:
       - ReadWriteMany
   nodeSelector:
-    eks.amazonaws.com/nodegroup: nonprod
+    eks.amazonaws.com/nodegroup: prod
   image:
     repository: rabbitmq
     tag: alpine

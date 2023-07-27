@@ -1,7 +1,7 @@
 global:
   storageClass: bahmni-efs-sc
   nodeSelector:
-    eks.amazonaws.com/nodegroup: nonprod
+    eks.amazonaws.com/nodegroup: prod
 
 metadata:
   labels:
@@ -12,19 +12,26 @@ metadata:
 
 openmrs:
   enabled: true
+  image:
+    repository: bahmniindiadistro
+    name: openmrs
+    tag: 1.0.0-590
   metadata:
     labels:
       environment: shreeclinic
+
 bahmni-web:
   enabled: true
   metadata:
     labels:
       environment: shreeclinic
+
 bahmni-lab:
   enabled: true
   metadata:
     labels:
       environment: shreeclinic
+
 crater:
   enabled: true
   metadata:
@@ -38,6 +45,7 @@ crater:
     COUNTRY_ID: 101
   secrets:
     ADMIN_EMAIL: "superman@bahmni.org"
+
 reports:
   enabled: true
   metadata:
@@ -45,16 +53,24 @@ reports:
       environment: shreeclinic
   config:
     OPENMRS_HOST: "openmrs"
+
 hiu:
   enabled: true
   config:
     POSTGRES_HOST: "bahmni-shreeclinic-postgresql"
     RABBITMQ_HOST: "bahmni-shreeclinic-rabbitmq"
-    HIU_ID: "shreeclinic"
-    HIU_NAME: "shreeclinic"
+    HIU_ID: "IN2710015434"
+    HIU_NAME: "Shree Clinic"
+    CONSENT_MANAGEMENT_SUFFIX: "@abdm"
+    CONSENT_MANAGEMENT_URL: "https://live.ndhm.gov.in/cm"
+    GATEWAY_BASE_URL: "https://live.ndhm.gov.in/gateway/v0.5"
+    GATEWAY_JWK_URL: "https://live.ndhm.gov.in/gateway/v0.5/certs"
+    HFR_AFFINITY_DOMAINS: "facility.abdm.gov.in"
+    IDENTITY_JWK_URL : "https://live.ndhm.gov.in/auth/realms/consent-manager/protocol/openid-connect/certs"
   metadata:
     labels:
       environment: shreeclinic
+
 hiu-db:
   enabled: true
   config:
@@ -62,6 +78,7 @@ hiu-db:
   metadata:
     labels:
       environment: shreeclinic
+
 hiu-ui:
   enabled: true
   config:
@@ -70,15 +87,26 @@ hiu-ui:
   metadata:
     labels:
       environment: shreeclinic
+
 hip:
   enabled: true
+  image:
+    repository: bahmniindiadistro
+    name: hip
+    tag: 1.0.0-328
   config:
     CONNECTION_STRING: "Host=bahmni-shreeclinic-postgresql;Port=5432;Username=postgres;Password=welcome;Database=hipservice"
     RABBITMQ_HOST: "bahmni-shreeclinic-rabbitmq"
-    BAHMNI_ID: "shreeclinic"
+    BAHMNI_ID: "IN2710015434"
+    BAHMNI_URL: http://openmrs:8080/openmrs
+    ABHA_NUMBER_URL: "https://healthid.abdm.gov.in/api"
+    ABHA_ADDRESS_URL: "https://phr.abdm.gov.in/api"
+    GATEWAY_URL: "https://live.ndhm.gov.in/gateway"
+    GATEWAY_CMSUFFIX: "abdm"
   metadata:
     labels:
       environment: shreeclinic
+
 otp-service:
   enabled: true
   config:
@@ -105,7 +133,7 @@ postgresql:
       accessModes:
         - ReadWriteMany
     nodeSelector:
-      eks.amazonaws.com/nodegroup: nonprod
+      eks.amazonaws.com/nodegroup: prod
   image:
     tag: 14-debian-11
 
@@ -118,7 +146,7 @@ rabbitmq:
     accessModes:
       - ReadWriteMany
   nodeSelector:
-    eks.amazonaws.com/nodegroup: nonprod
+    eks.amazonaws.com/nodegroup: prod
   image:
     repository: rabbitmq
     tag: alpine

@@ -14,6 +14,14 @@ on:
         required: true
         type: boolean
         default: false
+      cluster:
+        description: 'Cluster to deploy'
+        required: false
+        type: choice
+        default: bahmni-cluster-nonprod
+        options:
+          - bahmni-cluster-nonprod
+          - bahmni-cluster-prod
       environment:
         description: 'Environment to deploy'
         required: true
@@ -42,7 +50,7 @@ jobs:
       url: ${{ (github.event.inputs.environment || 'dev') == 'demo' && 'bahmnilite.in' || format('{0}.{1}', github.event.inputs.environment || 'dev', 'bahmnilite.in') }}
     runs-on: ubuntu-latest
     env:
-      CLUSTER_NAME: bahmni-cluster-nonprod
+      CLUSTER_NAME: ${{ github.event.inputs.cluster || 'bahmni-cluster-nonprod'}}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2

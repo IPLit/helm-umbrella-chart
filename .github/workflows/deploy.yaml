@@ -18,10 +18,10 @@ on:
         description: 'Cluster to deploy'
         required: false
         type: choice
-        default: bahmni-cluster-nonprod
+        default: nonprod
         options:
-          - bahmni-cluster-nonprod
-          - bahmni-cluster-prod
+          - nonprod
+          - prod
       environment:
         description: 'Environment to deploy'
         required: true
@@ -40,7 +40,7 @@ on:
 env:
   ENVIRONMENT: ${{ github.event.inputs.environment || 'dev'}}
   ENVIRONMENT_DNS: ${{ (github.event.inputs.environment || 'dev') == 'demo' && 'bahmnilite.in' || format('{0}.{1}', github.event.inputs.environment || 'dev', 'bahmnilite.in') }}
-
+  ENVIRONMENT_CLUSTER: ${{ github.event.inputs.cluster }}
 jobs:
   deploy:
     name: Deploy to ${{ github.event.inputs.environment || 'dev'}} environment
@@ -50,7 +50,7 @@ jobs:
       url: ${{ (github.event.inputs.environment || 'dev') == 'demo' && 'bahmnilite.in' || format('{0}.{1}', github.event.inputs.environment || 'dev', 'bahmnilite.in') }}
     runs-on: ubuntu-latest
     env:
-      CLUSTER_NAME: ${{ github.event.inputs.cluster || 'bahmni-cluster-nonprod'}}
+      CLUSTER_NAME: bahmni-cluster-${{ github.event.inputs.cluster }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -64,7 +64,10 @@ jobs:
           role-duration-seconds: 900 # 15 mins
           role-session-name: BahmniInfraAdminSession
       - name: Authorise Kubectl with EKS
-        run: aws eks update-kubeconfig --name $CLUSTER_NAME
+        run: |
+          EKS_ENVIRONMENT=nonprod
+          
+          aws eks update-kubeconfig --name $CLUSTER_NAME
       - name: Install Nginx Ingress
         run: |
           kubectl apply -f custom-error-pages/custom-error.yaml -n ingress-nginx
@@ -85,7 +88,7 @@ jobs:
           aws route53 change-resource-record-sets --hosted-zone-id ${{ secrets.HOSTED_ZONE_ID }} --change-batch file://recordset
       - name: Setup Environment secrets
         shell: bash
-        run: bash .github/setupEnvSecrets.sh ${{ env.ENVIRONMENT }}
+        run: bash .github/setupEnvSecrets.sh ${{ env.ENVIRONMENT }} ${{ env.ENVIRONMENT_CLUSTER }}
       - name: Setup databases
         if: ${{ github.event.inputs.enable_db_setup == 'true' }}
         run: |

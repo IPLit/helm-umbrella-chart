@@ -37,10 +37,17 @@ on:
           - qa
           - demo
           - performance
+      db_tenant:
+        description: 'If dedicated RDS instanse is created'
+        required: false
+        type: string
+        default: ""
+
 env:
   ENVIRONMENT: ${{ github.event.inputs.environment || 'dev'}}
   ENVIRONMENT_DNS: ${{ (github.event.inputs.environment || 'dev') == 'demo' && 'bahmnilite.in' || format('{0}.{1}', github.event.inputs.environment || 'dev', 'bahmnilite.in') }}
   ENVIRONMENT_CLUSTER: ${{ github.event.inputs.cluster }}
+  DB_TENANT:  ${{ github.event.inputs.db_tenant }}
 jobs:
   deploy:
     name: Deploy to ${{ github.event.inputs.environment || 'dev'}} environment
@@ -88,7 +95,7 @@ jobs:
           aws route53 change-resource-record-sets --hosted-zone-id ${{ secrets.HOSTED_ZONE_ID }} --change-batch file://recordset
       - name: Setup Environment secrets
         shell: bash
-        run: bash .github/setupEnvSecrets.sh ${{ env.ENVIRONMENT }} ${{ env.ENVIRONMENT_CLUSTER }}
+        run: bash .github/setupEnvSecrets.sh ${{ env.ENVIRONMENT }} ${{ env.ENVIRONMENT_CLUSTER }} ${{ env.DB_TENANT }}
       - name: Setup databases
         if: ${{ github.event.inputs.enable_db_setup == 'true' }}
         run: |

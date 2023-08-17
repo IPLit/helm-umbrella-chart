@@ -4,10 +4,9 @@ set -e
 function exportWithMask {
     SSM_PARAMETER_NAME=$1
     ENV_VARIABLE_NAME=$2
-
+    
     PARAMETER_VALUE=$(aws ssm get-parameter --with-decryption --name "$SSM_PARAMETER_NAME" --query "Parameter.Value" --output text)
-    echo "::add-mask::$PARAMETER_VALUE"
-    echo "$ENV_VARIABLE_NAME=$PARAMETER_VALUE" >> $GITHUB_ENV
+    echo "export $ENV_VARIABLE_NAME=\"$PARAMETER_VALUE\""
 }
 
 ENVIRONMENT=$1
@@ -19,7 +18,7 @@ if [ -n "$DB_TENANT" ]; then
 else
     DB_TENANT=$ENVIRONMENT_CLUSTER
 fi;
-
+echo $DB_TENANT
 exportWithMask "/$ENVIRONMENT/openmrs/DB_USERNAME" 'OPENMRS_DB_USERNAME'
 exportWithMask "/$ENVIRONMENT/openmrs/DB_PASSWORD" 'OPENMRS_DB_PASSWORD'
 exportWithMask "/$ENVIRONMENT/reports/DB_USERNAME" 'REPORTS_DB_USERNAME'

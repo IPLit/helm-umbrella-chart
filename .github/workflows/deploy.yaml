@@ -28,12 +28,13 @@ on:
         type: choice
         default: demo
         options:
-          - shreeclinic
           - dev
           - clinic1
           - clinic2
           - clinic3
+          - shreeclinic
           - deodharhospital
+          - getwellpolyclinic
           - qa
           - demo
           - performance

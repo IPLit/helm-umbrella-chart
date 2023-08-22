@@ -81,7 +81,7 @@ hip:
   config:
     CONNECTION_STRING: "Host=bahmni-getwellpolyclinic-postgresql;Port=5432;Username=postgres;Password=welcome;Database=hipservice"
     RABBITMQ_HOST: "bahmni-getwellpolyclinic-rabbitmq"
-    BAHMNI_ID: "getwellpolyclinic"
+    BAHMNI_ID: "Get Well Polyclinic"
     BAHMNI_URL: http://openmrs:8080/openmrs
     GATEWAY_URL: "https://dev.abdm.gov.in/gateway"
     GATEWAY_CMSUFFIX: "sbx"

@@ -14,6 +14,11 @@ on:
         required: true
         type: boolean
         default: false
+      is_config_from_ssm:
+        description: 'Set true if the helm-charts values-file should be generated from SSM.'
+        required: true
+        type: boolean
+        default: false
       cluster:
         description: 'Cluster to deploy'
         required: false
@@ -35,6 +40,7 @@ on:
           - shreeclinic
           - deodharhospital
           - getwellpolyclinic
+          - drbarvaliaclinic
           - qa
           - demo
           - performance
@@ -44,11 +50,13 @@ on:
         type: string
         default: ""
 
+        
 env:
   ENVIRONMENT: ${{ github.event.inputs.environment || 'dev'}}
   ENVIRONMENT_DNS: ${{ (github.event.inputs.environment || 'dev') == 'demo' && 'bahmnilite.in' || format('{0}.{1}', github.event.inputs.environment || 'dev', 'bahmnilite.in') }}
   ENVIRONMENT_CLUSTER: ${{ github.event.inputs.cluster }}
   DB_TENANT:  ${{ github.event.inputs.db_tenant }}
+  IS_CONFIG_FROM_SSM: ${{ github.event.inputs.is_config_from_ssm }}
 jobs:
   deploy:
     name: Deploy to ${{ github.event.inputs.environment || 'dev'}} environment
@@ -96,7 +104,7 @@ jobs:
           aws route53 change-resource-record-sets --hosted-zone-id ${{ secrets.HOSTED_ZONE_ID }} --change-batch file://recordset
       - name: Setup Environment secrets
         shell: bash
-        run: bash .github/setupEnvSecrets.sh ${{ env.ENVIRONMENT }} ${{ env.ENVIRONMENT_CLUSTER }} ${{ env.DB_TENANT }}
+        run: bash .github/setupEnvSecrets.sh ${{ env.ENVIRONMENT }} ${{ env.ENVIRONMENT_CLUSTER }} ${{ env.IS_CONFIG_FROM_SSM }} ${{ env.DB_TENANT }}
       - name: Setup databases
         if: ${{ github.event.inputs.enable_db_setup == 'true' }}
         run: |

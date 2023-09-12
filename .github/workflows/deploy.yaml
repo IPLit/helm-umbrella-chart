@@ -35,6 +35,8 @@ on:
           - shreeclinic
           - deodharhospital
           - getwellpolyclinic
+          - arogyahospital
+          - sandhuhospital
           - qa
           - demo
           - performance

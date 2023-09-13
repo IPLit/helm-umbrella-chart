@@ -15,6 +15,11 @@ openmrs:
   metadata:
     labels:
       environment: arogyahospital
+  image:
+    repository: bahmni
+    name: openmrs
+    tag: 1.1.0-735
+
 bahmni-web:
   enabled: true
   metadata:

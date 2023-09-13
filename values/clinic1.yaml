@@ -18,7 +18,7 @@ openmrs:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: openmrs
-    tag: 1.0.0-587
+    tag: 1.0.0-598-iplit
 
 bahmni-web:
   enabled: true
@@ -26,9 +26,9 @@ bahmni-web:
     labels:
       environment: clinic1
   image:
-    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
-    name: bahmni-web
-    tag: 1.0.0
+    repository: infoiplitin
+    name: bahmni-iplit-web
+    tag: 1.0.0-62
 
 bahmni-lab:
   enabled: true
@@ -236,9 +236,9 @@ clinic-config:
     labels:
       environment: clinic1
   image:
-    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
+    repository: infoiplitin
     name: clinic-config
-    tag: 1.0.0-16
+    tag: 1.1.0-3
 
 abha-verification:
   enabled: true

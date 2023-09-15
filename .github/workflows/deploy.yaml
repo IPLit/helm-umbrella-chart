@@ -40,6 +40,11 @@ on:
           - qa
           - demo
           - performance
+      with_cloudfront:
+        description: 'If custom static webfiles and cloudfront distribution are required'
+        required: true
+        type: boolean
+        default: false
       db_tenant:
         description: 'If dedicated RDS instanse is created'
         required: false
@@ -51,6 +56,9 @@ env:
   ENVIRONMENT_DNS: ${{ (github.event.inputs.environment || 'dev') == 'demo' && 'bahmnilite.in' || format('{0}.{1}', github.event.inputs.environment || 'dev', 'bahmnilite.in') }}
   ENVIRONMENT_CLUSTER: ${{ github.event.inputs.cluster }}
   DB_TENANT:  ${{ github.event.inputs.db_tenant }}
+  TERRAFORM_VERSION: 1.3.9
+  IPLIT_TF_REPOSITORY: "gitlab.iplit.in"
+  CLOUDFRONT_CERT_ARN: "arn:aws:acm:us-east-1:600047163007:certificate/f5ce8586-4abc-4f6b-ab20-7c4a30fe76cb"
 jobs:
   deploy:
     name: Deploy to ${{ github.event.inputs.environment || 'dev'}} environment
@@ -91,11 +99,14 @@ jobs:
       - name: Upsert Route53 A record with INGRESS_DNS
         run: |
           INGRESS_DNS=$(kubectl -n ingress-nginx  get svc ingress-nginx-controller -o jsonpath="{.status.loadBalancer.ingress[0].hostname}")
+          echo "INGRESS_DNS=$INGRESS_DNS" >> $GITHUB_ENV
           jq --arg ingress_dns "$INGRESS_DNS" \
              --arg environment_dns "$ENVIRONMENT_DNS" \
              '.Changes[].ResourceRecordSet.AliasTarget.DNSName = $ingress_dns | .Changes[0].ResourceRecordSet.Name = $environment_dns | .Changes[1].ResourceRecordSet.Name = "payments-"+$environment_dns' \
               aws/route53/lite.mybahmni.in.json > recordset
           aws route53 change-resource-record-sets --hosted-zone-id ${{ secrets.HOSTED_ZONE_ID }} --change-batch file://recordset
+
+
       - name: Setup Environment secrets
         shell: bash
         run: bash .github/setupEnvSecrets.sh ${{ env.ENVIRONMENT }} ${{ env.ENVIRONMENT_CLUSTER }} ${{ env.DB_TENANT }}
@@ -206,41 +217,34 @@ jobs:
           --install \
           --namespace ${{ env.ENVIRONMENT }} --create-namespace
 
-  # notification:
-  #   name: Slack notification
-  #   needs:
-  #     - deploy
-  #   runs-on: ubuntu-latest
-  #   if: always()
-  #   steps:
-  #     - name: Success
-  #       if: ${{ needs.deploy.result == 'success' }}
-  #       run: |
-  #         curl -X POST -H 'Content-type: application/json' --data '{"text":">🟢 Bahmni India Distro deployed. \n>*Bahmni* https://${{env.ENVIRONMENT_DNS}} \n>*Payments* https://payments-${{env.ENVIRONMENT_DNS}} \n> <https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}|Umbrella Chart Job #${{github.run_id}}>"}' ${{ secrets.SLACK_WEBHOOK_URL }}
-  #     - name: Failure
-  #       if: ${{ needs.deploy.result == 'failure' }}
-  #       run: |
-  #         curl -X POST -H 'Content-type: application/json' --data '{"text":"🔴 Bahmni India Distro deployment failed!!! This is where you go look what happened → <https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}|Umbrella Chart Job #${{github.run_id}}>"}' ${{ secrets.SLACK_WEBHOOK_URL }}
+      - uses: webfactory/ssh-agent@v0.4.1
+        if: ${{ github.event.inputs.with_cloudfront == 'true' }}
+        with:
+          ssh-private-key: ${{ secrets.GITLAB_USER_SSH_PRIVATE_KEY }}
+          
+      - uses: hashicorp/setup-terraform@v2
+        if: ${{ github.event.inputs.with_cloudfront == 'true' }}
+        with:
+          terraform_version: ${{env.TERRAFORM_VERSION}}
 
-  # trigger-e2e-smoke-test-lite:
-      # name: Trigger E2E Smoke Test in Dev.Lite 
-      # needs:
-        # - deploy
-      # runs-on: ubuntu-latest
-      # if: ${{ ((github.event.inputs.environment || 'dev') == 'dev') && (needs.deploy.result == 'success') }}
-      # steps:
-        # - name: Create repository_dispatch
-          # env:
-            # REPOSITORY_NAME: "bahmni-e2e-tests"
-            # ORG_NAME: "Bahmni"
-            # EVENT_TYPE: "Smoke-Test-Dev-Lite"
-            # TEST_CONTEXT: "clinic & smoke"
-          # run: |
-            # trigger_result=$(curl -s -o trigger_response.txt -w "%{http_code}" -X POST -H "Accept: application/vnd.github.v3+json" -H 'authorization: Bearer ${{ secrets.BAHMNI_PAT }}' https://api.github.com/repos/${ORG_NAME}/${REPOSITORY_NAME}/dispatches -d '{"event_type":"'"${EVENT_TYPE}"'","client_payload":{"context":"'"${TEST_CONTEXT}"'"}}')
-            # if [ $trigger_result == 204 ];then
-              # echo "Trigger to $ORG_NAME/$REPOSITORY_NAME Success"
-            # else
-              # echo "Trigger to $ORG_NAME/$REPOSITORY_NAME Failed"
-              # cat trigger_response.txt
-              # exit 1
-            # fi
+      - name: Deploy CloudFront distribution
+        if: ${{ github.event.inputs.with_cloudfront == 'true' }}
+        run: |
+          ssh-keyscan -H $IPLIT_TF_REPOSITORY >> ~/.ssh/known_hosts
+          cd cloudfront/
+          ./generate_tf_file_from_template.sh $ENVIRONMENT ${{env.CLOUDFRONT_CERT_ARN}} $INGRESS_DNS
+          terraform init -backend-config=config.s3.tfbackend
+          terraform apply -auto-approve
+          echo "CLOUDFRONT_DNS=$(aws ssm get-parameter --with-decryption --name "/$ENVIRONMENT/cloudfront_distribution/domain_name" --query "Parameter.Value" --output text --region=us-east-1)" >> $GITHUB_ENV
+
+      - name: Upsert Route53 A record with CLOUDFRONT_DNS
+        if: ${{ github.event.inputs.with_cloudfront == 'true' }}
+        run: |
+          cd cloudfront/
+          
+          cd ../
+          jq --arg cloudfront_dns "$CLOUDFRONT_DNS" \
+             --arg environment_dns "$ENVIRONMENT_DNS" \
+             '.Changes[].ResourceRecordSet.AliasTarget.DNSName = $cloudfront_dns | .Changes[0].ResourceRecordSet.Name = $environment_dns' \
+              aws/route53/cloudfront.lite.mybahmni.in.json > cloudfront.recordset
+          aws route53 change-resource-record-sets --hosted-zone-id ${{ secrets.HOSTED_ZONE_ID }} --change-batch file://cloudfront.recordset

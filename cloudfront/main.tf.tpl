@@ -1,0 +1,31 @@
+terraform {
+  required_version = "~>1.3.0"
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "4.9.0"
+    }
+  }
+
+  backend "s3" {
+    key = "cloudfront/TENANT/terraform.tfstate"
+  }
+}
+
+provider "aws" {
+  region = "us-east-1"
+}
+
+module "TENANT_cloudfront_distribution" {
+  source                     = "git@gitlab.iplit.in:devops/terraform-modules/cloudfront-s3-cdn.git?ref=1.0.1"
+  tenant_name                = "TENANT"
+  application_dns_name       = "INGRESS_NLB_DNS_NAME"
+  webapp_domain_name         = "TENANT.bahmnilite.in"
+  static_files_folder        = "static"
+  webapp_acm_certificate_arn = "CERTIFICATE_ARN"
+}
+
+output "cloudfront_distribution_domain_name" {
+  value = module.TENANT_cloudfront_distribution.cloudfront_distribution_domain_name
+}

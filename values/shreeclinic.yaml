@@ -13,9 +13,9 @@ metadata:
 openmrs:
   enabled: true
   image:
-    repository: bahmniindiadistro
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: openmrs
-    tag: 1.0.0-590
+    tag: 1.0.0-598-iplit
   metadata:
     labels:
       environment: shreeclinic
@@ -25,6 +25,10 @@ bahmni-web:
   metadata:
     labels:
       environment: shreeclinic
+  image:
+    repository: infoiplitin
+    name: bahmni-iplit-web
+    tag: 1.0.0-62
 
 bahmni-lab:
   enabled: true
@@ -179,6 +183,10 @@ clinic-config:
   metadata:
     labels:
       environment: shreeclinic
+  image:
+    repository: infoiplitin
+    name: clinic-config
+    tag: 1.1.0-3
 
 abha-verification:
   enabled: true

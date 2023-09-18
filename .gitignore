@@ -36,3 +36,10 @@ Session.vim
 
 .history
 Chart.lock
+
+**/.terraform/*
+.terraform*
+
+# .tfstate files
+*.tfstate
+*.tfstate.*

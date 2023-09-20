@@ -60,8 +60,8 @@ hiu:
   config:
     POSTGRES_HOST: "bahmni-sandhuhospital-postgresql"
     RABBITMQ_HOST: "bahmni-sandhuhospital-rabbitmq"
-    HIU_ID: "Get Well Polyclinic"
-    HIU_NAME: "Get Well Polyclinic"
+    HIU_ID: "IN2710000190"
+    HIU_NAME: "Sandhu Hospital"
     CONSENT_MANAGEMENT_SUFFIX: "@sbx"
     CONSENT_MANAGEMENT_URL: "https://live.ndhm.gov.in/cm"
     GATEWAY_BASE_URL: "https://dev.abdm.gov.in/gateway/v0.5"
@@ -91,7 +91,7 @@ hip:
   config:
     CONNECTION_STRING: "Host=bahmni-sandhuhospital-postgresql;Port=5432;Username=postgres;Password=welcome;Database=hipservice"
     RABBITMQ_HOST: "bahmni-sandhuhospital-rabbitmq"
-    BAHMNI_ID: "Get Well Polyclinic"
+    BAHMNI_ID: "IN2710000190"
     BAHMNI_URL: http://openmrs:8080/openmrs
     GATEWAY_URL: "https://dev.abdm.gov.in/gateway"
     GATEWAY_CMSUFFIX: "sbx"

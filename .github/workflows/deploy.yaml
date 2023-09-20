@@ -99,10 +99,16 @@ jobs:
       - name: Upsert Route53 A record with INGRESS_DNS
         run: |
           INGRESS_DNS=$(kubectl -n ingress-nginx  get svc ingress-nginx-controller -o jsonpath="{.status.loadBalancer.ingress[0].hostname}")
+          ABDM_DNS="iplit-dev-proxy.bahmnilite.in"
+          if [ "$ENVIRONMENT_CLUSTER" == "prod" ]; then
+            ABDM_DNS="iplit-proxy.bahmnilite.in"
+          fi
           echo "INGRESS_DNS=$INGRESS_DNS" >> $GITHUB_ENV
+          echo "ABDM_DNS=$ABDM_DNS" >> $GITHUB_ENV
           jq --arg ingress_dns "$INGRESS_DNS" \
              --arg environment_dns "$ENVIRONMENT_DNS" \
-             '.Changes[].ResourceRecordSet.AliasTarget.DNSName = $ingress_dns | .Changes[0].ResourceRecordSet.Name = $environment_dns | .Changes[1].ResourceRecordSet.Name = "payments-"+$environment_dns' \
+             --arg abdm_dns "$ABDM_DNS" \
+             '.Changes[].ResourceRecordSet.AliasTarget.DNSName = $ingress_dns | .Changes[0].ResourceRecordSet.Name = $environment_dns | .Changes[1].ResourceRecordSet.Name = "payments-"+$environment_dns | .Changes[2].ResourceRecordSet.Name = $abdm_dns ' \
               aws/route53/lite.mybahmni.in.json > recordset
           aws route53 change-resource-record-sets --hosted-zone-id ${{ secrets.HOSTED_ZONE_ID }} --change-batch file://recordset
 
@@ -216,6 +222,11 @@ jobs:
           --values=values/${{ env.ENVIRONMENT }}.yaml \
           --install \
           --namespace ${{ env.ENVIRONMENT }} --create-namespace
+
+      - name: ABDM Helm Upgrade
+        run: |
+          helm upgrade --install abdm-callback-proxy abdm-callback-proxy/ \
+          --set proxy_url=$ABDM_DNS --namespace abdm --create-namespace
 
       - uses: webfactory/ssh-agent@v0.4.1
         if: ${{ github.event.inputs.with_cloudfront == 'true' }}

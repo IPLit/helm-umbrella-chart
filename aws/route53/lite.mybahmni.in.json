@@ -24,6 +24,18 @@
             "EvaluateTargetHealth": false
         }
       }
+    },
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "{abdm domain replaced in the pipeline}.bahmnilite.in",
+        "Type": "A",
+        "AliasTarget": {
+            "HostedZoneId": "ZVDDRBQ08TROA",
+            "DNSName": "bogus-DNS-will-be-replaced-in-pipeline.amazonaws.com",
+            "EvaluateTargetHealth": false
+        }
+      }
     }
   ]
 }

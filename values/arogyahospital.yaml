@@ -131,6 +131,7 @@ postgresql:
 rabbitmq:
   enabled: true
   auth:
+    securePassword: false
     erlangCookie: bahmni
   persistence:
     storageClass: bahmni-efs-sc

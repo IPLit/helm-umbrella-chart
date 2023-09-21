@@ -1,6 +1,12 @@
 #!/bin/bash
 
 TENANT_NAME=$1
+NODEGROUP_NAME=$2
+
+cat clinic.yaml.tpl | sed "s@TENANT_NAME@$TENANT_NAME@g; s@NODEGROUP_NAME@$NODEGROUP_NAME@g;" > ../values/$TENANT_NAME.yaml
+cp -r -v default_logo ../cloudfront/$TENANT_NAME
+exit 0
+
 GATEWAY_CLIENT_ID=$(aws ssm get-parameter --with-decryption --name "/bootstrap/bahmnilite/GATEWAY_CLIENT_ID" --query "Parameter.Value" --output text)
 GATEWAY_CLIENT_SECRET=$(aws ssm get-parameter --with-decryption --name "/bootstrap/bahmnilite/GATEWAY_CLIENT_SECRET" --query "Parameter.Value" --output text)
 METABASE_ADMIN_EMAIL=$(aws ssm get-parameter --with-decryption --name "/bootstrap/bahmnilite/METABASE_ADMIN_EMAIL" --query "Parameter.Value" --output text)
@@ -19,7 +25,6 @@ function createParameter {
         aws ssm put-parameter --name $PARAMETER_NAME --value $PARAMETER_VALUE --type "SecureString"
     fi
 }
-
 
 MART_DB_USERNAME="bahmni-mart"
 MART_DB_PASSWORD=$(generatePassword)

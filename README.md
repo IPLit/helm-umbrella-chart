@@ -1,6 +1,36 @@
 # helm-umbrella-chart
 
-Helm Umbrella Chart for Bahmni India Distro
+Helm Umbrella Chart for IPlit Bahmni India Distro
+
+## New clinic adding
+
+### Prerequisites
+
+1. Ensure you are using Linux bases console.
+2. Configure AWS-CLI with access to the BahmniLite AWS-account, Required permissions:
+   - `ssm:GetParameter`
+   - `ssm:PutParameter`
+   - `kms:Encrypt`
+   - `kms:Decrypt`
+
+### Steps
+
+1. Select clinic name and cluster.
+F.e. `testclinic` and `nonprod` (or `prod`)
+
+2. Run this CLI commands (linux only):
+
+   ```sh
+   cd bootstrap/
+   chmod +x generate_deployment_config.sh testclinic nonprod
+   ```
+   As a result, configuration files and SSM-parameters for the new clinic will be generated.
+
+3. Add newly generated configuration files to the repository and push them.
+
+4. Run `Deploy` pipeline with appropriate parameters.
+
+# Infrastructure Deployment
 
 ## Setting Bahmni K8s cluster using Minikube for development
 

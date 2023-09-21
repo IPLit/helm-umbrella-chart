@@ -29,6 +29,9 @@ on:
         default: demo
         options:
           - dev
+          - qa
+          - demo
+          - performance
           - clinic1
           - clinic2
           - clinic3
@@ -37,9 +40,6 @@ on:
           - getwellpolyclinic
           - arogyahospital
           - sandhuhospital
-          - qa
-          - demo
-          - performance
       with_cloudfront:
         description: 'If custom static webfiles and cloudfront distribution are required'
         required: true

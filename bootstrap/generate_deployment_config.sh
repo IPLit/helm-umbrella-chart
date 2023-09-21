@@ -5,7 +5,7 @@ NODEGROUP_NAME=$2
 
 cat clinic.yaml.tpl | sed "s@TENANT_NAME@$TENANT_NAME@g; s@NODEGROUP_NAME@$NODEGROUP_NAME@g;" > ../values/$TENANT_NAME.yaml
 cp -r -v default_logo ../cloudfront/$TENANT_NAME
-exit 0
+sed -i "38s@^\( *\)@\          - $TENANT_NAME\n          @" ../.github/workflows/deploy.yaml
 
 GATEWAY_CLIENT_ID=$(aws ssm get-parameter --with-decryption --name "/bootstrap/bahmnilite/GATEWAY_CLIENT_ID" --query "Parameter.Value" --output text)
 GATEWAY_CLIENT_SECRET=$(aws ssm get-parameter --with-decryption --name "/bootstrap/bahmnilite/GATEWAY_CLIENT_SECRET" --query "Parameter.Value" --output text)

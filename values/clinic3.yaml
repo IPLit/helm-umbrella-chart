@@ -109,10 +109,13 @@ postgresql:
         - ReadWriteMany
     nodeSelector:
       eks.amazonaws.com/nodegroup: nonprod
+  image:
+    tag: 14-debian-11
 
 rabbitmq:
   enabled: true
   auth:
+    securePassword: false
     erlangCookie: bahmni
   persistence:
     storageClass: bahmni-efs-sc

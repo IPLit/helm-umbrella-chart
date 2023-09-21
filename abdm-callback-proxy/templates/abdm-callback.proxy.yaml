@@ -14,12 +14,12 @@ data:
         IPLitClinic2: 'clinic2.bahmnilite.in',
         iplitclinic3: 'clinic3.bahmnilite.in',
         deodharhospital: 'deodharhospital.bahmnilite.in',
-        SandhuHospital: 'sandhuhospital.bahmni.in',
+        SandhuHospital: 'sandhuhospital.bahmnilite.in',
         'Get Well Polyclinic': 'getwellpolyclinic.bahmnilite.in',
         drbarvaliaclinic: 'drbarvaliaclinic.bahmnilite.in',
         IN0310001453: 'sukhveenhospital.bahmni.in',
-        IN2710000192: 'arogyahospital.bahmni.in',
-        IN2710000190: 'sandhuhospital.bahmni.in',
+        IN2710000192: 'arogyahospital.bahmnilite.in',
+        IN2710000190: 'sandhuhospital.bahmnilite.in',
     };
     function delegate(request) {
         var upperCaseHeaders = {};

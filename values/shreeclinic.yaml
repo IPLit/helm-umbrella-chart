@@ -15,7 +15,7 @@ openmrs:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: openmrs
-    tag: 1.0.0-598-iplit
+    tag: 1.0.0-611-iplit
   metadata:
     labels:
       environment: shreeclinic
@@ -186,8 +186,8 @@ clinic-config:
       environment: shreeclinic
   image:
     repository: infoiplitin
-    name: clinic-config
-    tag: 1.1.0-3
+    name: clinic-config-indiadistro
+    tag: 1.0.0-1
 
 abha-verification:
   enabled: true

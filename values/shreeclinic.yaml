@@ -240,7 +240,7 @@ clinic-config:
   image:
     repository: infoiplitin
     name: clinic-config-indiadistro
-    tag: 1.0.0-1
+    tag: 1.0.0-2
 
 abha-verification:
   enabled: true

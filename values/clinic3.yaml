@@ -16,13 +16,16 @@ metadata:
 
 openmrs:
   enabled: true
+  config:
+    OPENELIS_HOST: ''
+    OPENELIS_PORT: ''
   metadata:
     labels:
       environment: clinic3
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: openmrs
-    tag: 1.0.0-611.1-iplit
+    tag: 1.0.0-611.3-iplit
 
 bahmni-web:
   enabled: true
@@ -233,7 +236,7 @@ clinic-config:
   image:
     repository: infoiplitin
     name: clinic-config-indiadistro
-    tag: 1.0.0-2
+    tag: 1.0.0-4
 
 abha-verification:
   enabled: true

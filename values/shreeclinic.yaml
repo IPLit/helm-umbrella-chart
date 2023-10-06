@@ -15,7 +15,7 @@ openmrs:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: openmrs
-    tag: 1.0.0-611-iplit
+    tag: 1.0.0-611.1-iplit
   metadata:
     labels:
       environment: shreeclinic

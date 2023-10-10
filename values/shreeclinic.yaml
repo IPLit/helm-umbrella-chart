@@ -61,7 +61,7 @@ crater:
     php:
       repository: bahmni
       name: crater-php
-      tag: 1.1.0-104
+      tag: 1.0.0
 
 reports:
   enabled: true
@@ -251,7 +251,6 @@ abha-verification:
     repository: infoiplitin
     name: abha-verification
     tag: 1.0.0-3
-
 
 bahmni-metabase:
   enabled: true

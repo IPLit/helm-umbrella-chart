@@ -15,16 +15,31 @@ openmrs:
   metadata:
     labels:
       environment: deodharhospital
+  image:
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
+    name: openmrs
+    tag: 1.0.0-611.3-iplit
+
 bahmni-web:
   enabled: true
   metadata:
     labels:
       environment: deodharhospital
+  image:
+    repository: infoiplitin
+    name: bahmni-iplit-web
+    tag: 1.0.0-62
+
 bahmni-lab:
   enabled: true
   metadata:
     labels:
       environment: deodharhospital
+  image:
+    repository: bahmni
+    name: bahmni-lab
+    tag: 1.1.0-171
+
 crater:
   enabled: true
   metadata:
@@ -38,6 +53,16 @@ crater:
     COUNTRY_ID: 101
   secrets:
     ADMIN_EMAIL: "superman@bahmni.org"
+  image:
+    nginx:
+      repository: bahmni
+      name: crater-nginx
+      tag: 1.1.0-218
+    php:
+      repository: bahmni
+      name: crater-php
+      tag: 1.0.0
+
 reports:
   enabled: true
   metadata:
@@ -45,6 +70,11 @@ reports:
       environment: deodharhospital
   config:
     OPENMRS_HOST: "openmrs"
+  image:
+    repository: bahmni
+    name: reports
+    tag: 1.1.0-131
+
 hiu:
   enabled: true
   config:
@@ -61,6 +91,11 @@ hiu:
   metadata:
     labels:
       environment: deodharhospital
+  image:
+    repository: bahmniindiadistro
+    name: hiu
+    tag: 1.0.0-116
+
 hiu-db:
   enabled: true
   config:
@@ -68,6 +103,11 @@ hiu-db:
   metadata:
     labels:
       environment: deodharhospital
+  image:
+    repository: bahmniindiadistro
+    name: hiu-db
+    tag: 1.0.0-74
+
 hiu-ui:
   enabled: true
   config:
@@ -76,6 +116,11 @@ hiu-ui:
   metadata:
     labels:
       environment: deodharhospital
+  image:
+    repository: bahmniindiadistro
+    name: hiu-ui
+    tag: 1.0.0-109
+
 hip:
   enabled: true
   config:
@@ -90,6 +135,11 @@ hip:
   metadata:
     labels:
       environment: deodharhospital
+  image:
+    repository: bahmniindiadistro
+    name: hip
+    tag: 1.0.0-352
+
 otp-service:
   enabled: true
   config:
@@ -97,6 +147,11 @@ otp-service:
   metadata:
     labels:
       environment: deodharhospital
+  image:
+    repository: infoiplitin
+    name: otp-service
+    tag: 1.0.0-12
+
 hip-atomfeed:
   enabled: true
   config:
@@ -104,6 +159,10 @@ hip-atomfeed:
   metadata:
     labels:
       environment: deodharhospital
+  image:
+    repository: bahmniindiadistro
+    name: hip-atomfeed
+    tag: 1.0.0-109
 
 postgresql:
   enabled: true
@@ -142,33 +201,56 @@ patient-documents:
       environment: deodharhospital
   config:
     OPENMRS_HOST: "openmrs"
+  image:
+    repository: bahmni
+    name: patient-documents
+    tag: 1.1.0-28
 
 appointments:
   enabled: true
-
+  image:
+    repository: bahmni
+    name: appointments
+    tag: 1.1.0-81
 
 crater-atomfeed:
   enabled: true
   metadata:
     labels:
       environment: deodharhospital
+  image:
+    repository: bahmni
+    name: crater-atomfeed
+    tag: 1.1.0-125
 
 implementer-interface:
   enabled: true
   metadata:
     labels:
       environment: deodharhospital
+  image:
+    repository: bahmni
+    name: implementer-interface
+    tag: 1.1.0-62
 
 clinic-config:
   metadata:
     labels:
       environment: deodharhospital
+  image:
+    repository: infoiplitin
+    name: clinic-config-indiadistro
+    tag: 1.0.0-4
 
 abha-verification:
   enabled: true
   metadata:
     labels:
       environment: deodharhospital
+  image:
+    repository: infoiplitin
+    name: abha-verification
+    tag: 1.0.0-3
 
 bahmni-metabase:
   enabled: true
@@ -181,6 +263,10 @@ bahmni-metabase:
     MB_ADMIN_FIRST_NAME: 'Admin'
     MB_DB_HOST: 'bahmni-deodharhospital-postgresql'
     MART_DB_HOST: 'bahmni-deodharhospital-postgresql'
+  image:
+    repository: bahmni
+    name: bahmni-metabase
+    tag: 1.1.0-34
 
 bahmni-mart:
   enabled: true
@@ -188,3 +274,7 @@ bahmni-mart:
     MART_DB_NAME: martdb
   secrets:
     MART_DB_HOST: "bahmni-deodharhospital-postgresql"
+  image:
+    repository: bahmni
+    name: bahmni-mart
+    tag: 1.1.0-59

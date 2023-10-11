@@ -32,7 +32,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: bahmni-iplit-web
+                name: bahmni-web
                 port:
                   number: 8091
           {{- end }}

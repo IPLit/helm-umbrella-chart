@@ -12,6 +12,7 @@ dependencies:
 
   - repository: https://iplit.github.io/helm-charts
     name: bahmni-iplit-web
+    alias: bahmni-web
     version: ~1.0.0-0
     condition: bahmni-web.enabled
 

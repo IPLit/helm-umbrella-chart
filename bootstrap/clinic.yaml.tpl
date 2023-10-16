@@ -18,7 +18,7 @@ openmrs:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: openmrs
-    tag: 1.0.0-598-iplit
+    tag: 1.0.0-611.3-iplit
 
 bahmni-web:
   enabled: true
@@ -26,7 +26,7 @@ bahmni-web:
     labels:
       environment: TENANT_NAME
   image:
-    repository: infoiplitin
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmni-iplit-web
     tag: 1.0.0-62
 
@@ -35,6 +35,11 @@ bahmni-lab:
   metadata:
     labels:
       environment: TENANT_NAME
+  image:
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
+    name: bahmni-lab
+    tag: 1.1.0-171
+
 crater:
   enabled: true
   metadata:
@@ -48,6 +53,16 @@ crater:
     COUNTRY_ID: 101
   secrets:
     ADMIN_EMAIL: "superman@bahmni.org"
+  image:
+    nginx:
+      repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
+      name: crater-nginx
+      tag: 1.1.0-218
+    php:
+      repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
+      name: crater-php
+      tag: 1.0.0
+
 reports:
   enabled: true
   metadata:
@@ -55,6 +70,11 @@ reports:
       environment: TENANT_NAME
   config:
     OPENMRS_HOST: "openmrs"
+  image:
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
+    name: reports
+    tag: 1.1.0-131
+
 hiu:
   enabled: true
   config:
@@ -71,6 +91,11 @@ hiu:
   metadata:
     labels:
       environment: TENANT_NAME
+  image:
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
+    name: hiu
+    tag: 1.0.0-116
+
 hiu-db:
   enabled: true
   config:
@@ -78,6 +103,11 @@ hiu-db:
   metadata:
     labels:
       environment: TENANT_NAME
+  image:
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
+    name: hiu-db
+    tag: 1.0.0-74
+
 hiu-ui:
   enabled: true
   config:
@@ -86,6 +116,11 @@ hiu-ui:
   metadata:
     labels:
       environment: TENANT_NAME
+  image:
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
+    name: hiu-ui
+    tag: 1.0.0-109
+
 hip:
   enabled: true
   config:
@@ -98,6 +133,11 @@ hip:
   metadata:
     labels:
       environment: TENANT_NAME
+  image:
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
+    name: hip
+    tag: 1.0.0-352
+
 otp-service:
   enabled: true
   config:
@@ -105,6 +145,11 @@ otp-service:
   metadata:
     labels:
       environment: TENANT_NAME
+  image:
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
+    name: otp-service
+    tag: 1.0.0-12
+
 hip-atomfeed:
   enabled: true
   config:
@@ -112,6 +157,10 @@ hip-atomfeed:
   metadata:
     labels:
       environment: TENANT_NAME
+  image:
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
+    name: hip-atomfeed
+    tag: 1.0.0-109
 
 postgresql:
   enabled: true
@@ -150,37 +199,56 @@ patient-documents:
       environment: TENANT_NAME
   config:
     OPENMRS_HOST: "openmrs"
+  image:
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
+    name: patient-documents
+    tag: 1.1.0-28
 
 appointments:
   enabled: true
-
+  image:
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
+    name: appointments
+    tag: 1.1.0-81
 
 crater-atomfeed:
   enabled: true
   metadata:
     labels:
       environment: TENANT_NAME
+  image:
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
+    name: crater-atomfeed
+    tag: 1.1.0-125
 
 implementer-interface:
   enabled: true
   metadata:
     labels:
       environment: TENANT_NAME
+  image:
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
+    name: implementer-interface
+    tag: 1.1.0-62
 
 clinic-config:
   metadata:
     labels:
       environment: TENANT_NAME
   image:
-    repository: infoiplitin
-    name: clinic-config
-    tag: 1.1.0-3
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
+    name: clinic-config-indiadistro
+    tag: 1.0.0-4
 
 abha-verification:
   enabled: true
   metadata:
     labels:
       environment: TENANT_NAME
+  image:
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
+    name: abha-verification
+    tag: 1.0.0-3
 
 bahmni-metabase:
   enabled: true
@@ -193,6 +261,10 @@ bahmni-metabase:
     MB_ADMIN_FIRST_NAME: 'Admin'
     MB_DB_HOST: 'bahmni-TENANT_NAME-postgresql'
     MART_DB_HOST: 'bahmni-TENANT_NAME-postgresql'
+  image:
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
+    name: bahmni-metabase
+    tag: 1.1.0-34
 
 bahmni-mart:
   enabled: true
@@ -200,3 +272,7 @@ bahmni-mart:
     MART_DB_NAME: martdb
   secrets:
     MART_DB_HOST: "bahmni-TENANT_NAME-postgresql"
+  image:
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
+    name: bahmni-mart
+    tag: 1.1.0-59

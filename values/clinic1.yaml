@@ -18,7 +18,7 @@ openmrs:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: openmrs
-    tag: 1.0.0-598-iplit
+    tag: 1.0.0-611.3-iplit
 
 bahmni-web:
   enabled: true
@@ -26,9 +26,9 @@ bahmni-web:
     labels:
       environment: clinic1
   image:
-    repository: infoiplitin
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmni-iplit-web
-    tag: 1.0.0-62
+    tag: 1.0.0-65
 
 bahmni-lab:
   enabled: true
@@ -38,7 +38,7 @@ bahmni-lab:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmni-lab
-    tag: 1.0.0
+    tag: 1.1.0-171
 
 crater:
   enabled: true
@@ -57,7 +57,7 @@ crater:
     nginx:
       repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
       name: crater-nginx
-      tag: 1.0.0
+      tag: 1.1.0-218
     php:
       repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
       name: crater-php
@@ -72,8 +72,8 @@ reports:
     OPENMRS_HOST: "openmrs"
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
-    name: bahmni-lab
-    tag: 1.0.0
+    name: reports
+    tag: 1.1.0-131
 
 hiu:
   enabled: true
@@ -93,7 +93,7 @@ hiu:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: hiu
-    tag: 1.0.0-115
+    tag: 1.0.0-116
 
 hiu-db:
   enabled: true
@@ -105,7 +105,7 @@ hiu-db:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: hiu-db
-    tag: 1.0.0-70
+    tag: 1.0.0-74
 
 hiu-ui:
   enabled: true
@@ -118,7 +118,7 @@ hiu-ui:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: hiu-ui
-    tag: 1.0.0-9
+    tag: 1.0.0-109
 
 hip:
   enabled: true
@@ -136,7 +136,7 @@ hip:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: hip
-    tag: 1.0.0-321
+    tag: 1.0.0-352
 
 otp-service:
   enabled: true
@@ -161,7 +161,7 @@ hip-atomfeed:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: hip-atomfeed
-    tag: 1.0.0-101
+    tag: 1.0.0-109
 
 postgresql:
   enabled: true
@@ -203,14 +203,14 @@ patient-documents:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: patient-documents
-    tag: 1.0.0
+    tag: 1.1.0-28
 
 appointments:
   enabled: true
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: appointments
-    tag: 1.0.0
+    tag: 1.1.0-81
 
 crater-atomfeed:
   enabled: true
@@ -220,7 +220,7 @@ crater-atomfeed:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: crater-atomfeed
-    tag: 1.0.0
+    tag: 1.1.0-125
 
 implementer-interface:
   enabled: true
@@ -230,16 +230,16 @@ implementer-interface:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: implementer-interface
-    tag: 1.0.0
+    tag: 1.1.0-62
 
 clinic-config:
   metadata:
     labels:
       environment: clinic1
   image:
-    repository: infoiplitin
-    name: clinic-config
-    tag: 1.1.0-3
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
+    name: clinic-config-indiadistro
+    tag: 1.0.0-6
 
 abha-verification:
   enabled: true
@@ -265,7 +265,7 @@ bahmni-metabase:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmni-metabase
-    tag: 1.0.0
+    tag: 1.1.0-34
 
 bahmni-mart:
   enabled: true
@@ -276,4 +276,4 @@ bahmni-mart:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmni-mart
-    tag: 1.0.0
+    tag: 1.1.0-59

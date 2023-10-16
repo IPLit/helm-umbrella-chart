@@ -26,7 +26,7 @@ bahmni-web:
     labels:
       environment: deodharhospital
   image:
-    repository: infoiplitin
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmni-iplit-web
     tag: 1.0.0-62
 
@@ -36,7 +36,7 @@ bahmni-lab:
     labels:
       environment: deodharhospital
   image:
-    repository: bahmni
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmni-lab
     tag: 1.1.0-171
 
@@ -55,11 +55,11 @@ crater:
     ADMIN_EMAIL: "superman@bahmni.org"
   image:
     nginx:
-      repository: bahmni
+      repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
       name: crater-nginx
       tag: 1.1.0-218
     php:
-      repository: bahmni
+      repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
       name: crater-php
       tag: 1.0.0
 
@@ -71,7 +71,7 @@ reports:
   config:
     OPENMRS_HOST: "openmrs"
   image:
-    repository: bahmni
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: reports
     tag: 1.1.0-131
 
@@ -92,7 +92,7 @@ hiu:
     labels:
       environment: deodharhospital
   image:
-    repository: bahmniindiadistro
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: hiu
     tag: 1.0.0-116
 
@@ -117,7 +117,7 @@ hiu-ui:
     labels:
       environment: deodharhospital
   image:
-    repository: bahmniindiadistro
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: hiu-ui
     tag: 1.0.0-109
 
@@ -136,7 +136,7 @@ hip:
     labels:
       environment: deodharhospital
   image:
-    repository: bahmniindiadistro
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: hip
     tag: 1.0.0-352
 
@@ -148,7 +148,7 @@ otp-service:
     labels:
       environment: deodharhospital
   image:
-    repository: infoiplitin
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: otp-service
     tag: 1.0.0-12
 
@@ -160,7 +160,7 @@ hip-atomfeed:
     labels:
       environment: deodharhospital
   image:
-    repository: bahmniindiadistro
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: hip-atomfeed
     tag: 1.0.0-109
 
@@ -202,14 +202,14 @@ patient-documents:
   config:
     OPENMRS_HOST: "openmrs"
   image:
-    repository: bahmni
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: patient-documents
     tag: 1.1.0-28
 
 appointments:
   enabled: true
   image:
-    repository: bahmni
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: appointments
     tag: 1.1.0-81
 
@@ -219,7 +219,7 @@ crater-atomfeed:
     labels:
       environment: deodharhospital
   image:
-    repository: bahmni
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: crater-atomfeed
     tag: 1.1.0-125
 
@@ -229,7 +229,7 @@ implementer-interface:
     labels:
       environment: deodharhospital
   image:
-    repository: bahmni
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: implementer-interface
     tag: 1.1.0-62
 
@@ -238,7 +238,7 @@ clinic-config:
     labels:
       environment: deodharhospital
   image:
-    repository: infoiplitin
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: clinic-config-indiadistro
     tag: 1.0.0-4
 
@@ -248,7 +248,7 @@ abha-verification:
     labels:
       environment: deodharhospital
   image:
-    repository: infoiplitin
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: abha-verification
     tag: 1.0.0-3
 
@@ -264,7 +264,7 @@ bahmni-metabase:
     MB_DB_HOST: 'bahmni-deodharhospital-postgresql'
     MART_DB_HOST: 'bahmni-deodharhospital-postgresql'
   image:
-    repository: bahmni
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmni-metabase
     tag: 1.1.0-34
 
@@ -275,6 +275,6 @@ bahmni-mart:
   secrets:
     MART_DB_HOST: "bahmni-deodharhospital-postgresql"
   image:
-    repository: bahmni
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmni-mart
     tag: 1.1.0-59

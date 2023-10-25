@@ -2,7 +2,7 @@ global:
   storageClass: bahmni-efs-sc
   nodeSelector:
     eks.amazonaws.com/nodegroup: prod
-  TZ: "IST"
+  TZ: "Asia/Kolkata"
 
 metadata:
   labels:

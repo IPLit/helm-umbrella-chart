@@ -1,0 +1,34 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - all.yaml
+
+configMapGenerator:
+  - name: HealthCheck
+    env: config.properties
+generatorOptions:
+  disableNameSuffixHash: true
+  
+patches:
+  - target:
+      kind: Deployment
+      name: "(patient-documents|hiu)"
+    patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: __ignored__
+      spec:
+        template:
+          spec:
+            initContainers:
+              - name: preinit-check
+                image: alpine:latest
+                command:
+                args:
+                  - apk add postgresql-client &&
+                    pg_isready -h bahmni-$ENV_CLINIC-postgresql
+                envFrom:
+                  - configMapRef:
+                      name: HealthCheck
+                      optional: false

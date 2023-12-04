@@ -2,11 +2,10 @@ global:
   storageClass: bahmni-efs-sc
   nodeSelector:
     eks.amazonaws.com/nodegroup: prod
-  TZ: "Asia/Kolkata"
 
 metadata:
   labels:
-    environment: getwellpolyclinic
+    environment: sehatsambhalseva
   ingress:
     PROXY_BODY_SIZE: "7m"
     ABDM_PROXY_BODY_SIZE: "30m"
@@ -15,7 +14,7 @@ openmrs:
   enabled: true
   metadata:
     labels:
-      environment: getwellpolyclinic
+      environment: sehatsambhalseva
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: openmrs
@@ -25,7 +24,7 @@ bahmni-web:
   enabled: true
   metadata:
     labels:
-      environment: getwellpolyclinic
+      environment: sehatsambhalseva
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmni-iplit-web
@@ -35,7 +34,7 @@ bahmni-lab:
   enabled: true
   metadata:
     labels:
-      environment: getwellpolyclinic
+      environment: sehatsambhalseva
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmni-lab
@@ -45,7 +44,7 @@ crater:
   enabled: true
   metadata:
     labels:
-      environment: getwellpolyclinic
+      environment: sehatsambhalseva
   config:
     AUTO_INSTALL: "true"
     ADMIN_NAME: Super Man
@@ -68,7 +67,7 @@ reports:
   enabled: true
   metadata:
     labels:
-      environment: getwellpolyclinic
+      environment: sehatsambhalseva
   config:
     OPENMRS_HOST: "openmrs"
   image:
@@ -79,10 +78,10 @@ reports:
 hiu:
   enabled: true
   config:
-    POSTGRES_HOST: "bahmni-getwellpolyclinic-postgresql"
-    RABBITMQ_HOST: "bahmni-getwellpolyclinic-rabbitmq"
-    HIU_ID: "Get Well Polyclinic"
-    HIU_NAME: "Get Well Polyclinic"
+    POSTGRES_HOST: "bahmni-sehatsambhalseva-postgresql"
+    RABBITMQ_HOST: "bahmni-sehatsambhalseva-rabbitmq"
+    HIU_ID: "sehatsambhalseva"
+    HIU_NAME: "sehatsambhalseva"
     CONSENT_MANAGEMENT_SUFFIX: "@sbx"
     CONSENT_MANAGEMENT_URL: "https://live.ndhm.gov.in/cm"
     GATEWAY_BASE_URL: "https://dev.abdm.gov.in/gateway/v0.5"
@@ -91,7 +90,7 @@ hiu:
     IDENTITY_JWK_URL : "https://dev.ndhm.gov.in/auth/realms/consent-manager/protocol/openid-connect/certs"
   metadata:
     labels:
-      environment: getwellpolyclinic
+      environment: sehatsambhalseva
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: hiu
@@ -100,10 +99,10 @@ hiu:
 hiu-db:
   enabled: true
   config:
-    JAVA_TOOL_OPTIONS: "-Djdbc.url=jdbc:postgresql://bahmni-deodharhospital-postgresql:5432/ -Djdbc.username=postgres -Djdbc.password=welcome -Djdbc.database=health_information_user"
+    JAVA_TOOL_OPTIONS: "-Djdbc.url=jdbc:postgresql://bahmni-sehatsambhalseva-postgresql:5432/ -Djdbc.username=postgres -Djdbc.password=welcome -Djdbc.database=health_information_user"
   metadata:
     labels:
-      environment: getwellpolyclinic
+      environment: sehatsambhalseva
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: hiu-db
@@ -112,11 +111,11 @@ hiu-db:
 hiu-ui:
   enabled: true
   config:
-    POSTGRES_HOST: bahmni-getwellpolyclinic-postgresql
-    RABBITMQ_HOST: bahmni-getwellpolyclinic-rabbitmq
+    POSTGRES_HOST: bahmni-sehatsambhalseva-postgresql
+    RABBITMQ_HOST: bahmni-sehatsambhalseva-rabbitmq
   metadata:
     labels:
-      environment: getwellpolyclinic
+      environment: sehatsambhalseva
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: hiu-ui
@@ -125,15 +124,15 @@ hiu-ui:
 hip:
   enabled: true
   config:
-    CONNECTION_STRING: "Host=bahmni-getwellpolyclinic-postgresql;Port=5432;Username=postgres;Password=welcome;Database=hipservice"
-    RABBITMQ_HOST: "bahmni-getwellpolyclinic-rabbitmq"
-    BAHMNI_ID: "Get Well Polyclinic"
+    CONNECTION_STRING: "Host=bahmni-sehatsambhalseva-postgresql;Port=5432;Username=postgres;Password=welcome;Database=hipservice"
+    RABBITMQ_HOST: "bahmni-sehatsambhalseva-rabbitmq"
+    BAHMNI_ID: "sehatsambhalseva"
     BAHMNI_URL: http://openmrs:8080/openmrs
     GATEWAY_URL: "https://dev.abdm.gov.in/gateway"
     GATEWAY_CMSUFFIX: "sbx"
   metadata:
     labels:
-      environment: getwellpolyclinic
+      environment: sehatsambhalseva
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: hip
@@ -142,10 +141,10 @@ hip:
 otp-service:
   enabled: true
   config:
-    CONNECTION_STRING: "Host=bahmni-getwellpolyclinic-postgresql;Port=5432;Username=postgres;Password=welcome;Database=otpservice;"
+    CONNECTION_STRING: "Host=bahmni-sehatsambhalseva-postgresql;Port=5432;Username=postgres;Password=welcome;Database=otpservice;"
   metadata:
     labels:
-      environment: getwellpolyclinic
+      environment: sehatsambhalseva
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: otp-service
@@ -154,10 +153,10 @@ otp-service:
 hip-atomfeed:
   enabled: true
   config:
-    DATABASE_URL: "jdbc:postgresql://bahmni-getwellpolyclinic-postgresql:5432/"
+    DATABASE_URL: "jdbc:postgresql://bahmni-sehatsambhalseva-postgresql:5432/"
   metadata:
     labels:
-      environment: getwellpolyclinic
+      environment: sehatsambhalseva
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: hip-atomfeed
@@ -169,7 +168,7 @@ postgresql:
     enabled: true
   primary:
     persistence:
-      subPath: getwellpolyclinic
+      subPath: sehatsambhalseva
       storageClass: bahmni-efs-sc
       accessModes:
         - ReadWriteMany
@@ -181,6 +180,7 @@ postgresql:
 rabbitmq:
   enabled: true
   auth:
+    securePassword: false
     erlangCookie: bahmni
   persistence:
     storageClass: bahmni-efs-sc
@@ -196,7 +196,7 @@ patient-documents:
   enabled: true
   metadata:
     labels:
-      environment: getwellpolyclinic
+      environment: sehatsambhalseva
   config:
     OPENMRS_HOST: "openmrs"
   image:
@@ -215,7 +215,7 @@ crater-atomfeed:
   enabled: true
   metadata:
     labels:
-      environment: getwellpolyclinic
+      environment: sehatsambhalseva
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: crater-atomfeed
@@ -225,7 +225,7 @@ implementer-interface:
   enabled: true
   metadata:
     labels:
-      environment: getwellpolyclinic
+      environment: sehatsambhalseva
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: implementer-interface
@@ -234,7 +234,7 @@ implementer-interface:
 clinic-config:
   metadata:
     labels:
-      environment: getwellpolyclinic
+      environment: sehatsambhalseva
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: clinic-config-indiadistro
@@ -244,7 +244,7 @@ abha-verification:
   enabled: true
   metadata:
     labels:
-      environment: getwellpolyclinic
+      environment: sehatsambhalseva
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: abha-verification
@@ -259,8 +259,8 @@ bahmni-metabase:
     MART_DB_NAME: martdb
   secrets:
     MB_ADMIN_FIRST_NAME: 'Admin'
-    MB_DB_HOST: 'bahmni-getwellpolyclinic-postgresql'
-    MART_DB_HOST: 'bahmni-getwellpolyclinic-postgresql'
+    MB_DB_HOST: 'bahmni-sehatsambhalseva-postgresql'
+    MART_DB_HOST: 'bahmni-sehatsambhalseva-postgresql'
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmni-metabase
@@ -271,7 +271,7 @@ bahmni-mart:
   config:
     MART_DB_NAME: martdb
   secrets:
-    MART_DB_HOST: "bahmni-getwellpolyclinic-postgresql"
+    MART_DB_HOST: "bahmni-sehatsambhalseva-postgresql"
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmni-mart

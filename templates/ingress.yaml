@@ -7,7 +7,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/configuration-snippet: |
       add_header Cache-Control "no-cache, max-age=0";
-      add_header Content-Security-Policy "default-src 'self' data: *.bahmnilite.in meet.jit.si cdnjs.cloudflare.com 'unsafe-inline' 'unsafe-eval' 'img-src'; upgrade-insecure-requests; block-all-mixed-content";
+      add_header Content-Security-Policy "default-src 'self' data: *.bahmnilite.in meet.jit.si cdnjs.cloudflare.com 'unsafe-inline' 'unsafe-eval' 'img-src'; worker-src blob:; upgrade-insecure-requests; block-all-mixed-content";
       add_header Cross-Origin-Embedder-Policy "require-corp";
       add_header Cross-Origin-Opener-Policy "same-origin";
       add_header Cross-Origin-Resource-Policy "same-origin";

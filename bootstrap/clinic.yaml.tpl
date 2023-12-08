@@ -2,6 +2,7 @@ global:
   storageClass: bahmni-efs-sc
   nodeSelector:
     eks.amazonaws.com/nodegroup: NODEGROUP_NAME
+  TZ: "Asia/Kolkata"
 
 metadata:
   labels:

@@ -116,7 +116,9 @@ jobs:
 
       - name: Setup Environment secrets
         shell: bash
-        run: bash .github/setupEnvSecrets.sh ${{ env.ENVIRONMENT }} ${{ env.ENVIRONMENT_CLUSTER }} ${{ env.DB_TENANT }}
+        run: |
+          bash .github/setupEnvSecrets.sh ${{ env.ENVIRONMENT }} ${{ env.ENVIRONMENT_CLUSTER }} ${{ env.DB_TENANT }}
+          echo "ENV_CLINIC=${{ env.ENVIRONMENT }}" > helm_kustomization/config.properties
 
       - name: Setup databases
         if: ${{ github.event.inputs.enable_db_setup == 'true' }}

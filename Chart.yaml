@@ -93,6 +93,7 @@ dependencies:
 
   - repository: https://iplit.github.io/helm-charts
     name: clinic-config-indiadistro
+    alias: clinic-config
     version: ~1.0.0-0
 
   - repository: https://iplit.github.io/helm-charts

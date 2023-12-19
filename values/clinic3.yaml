@@ -22,7 +22,7 @@ openmrs:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: openmrs
-    tag: 1.0.0-611.3-iplit
+    tag: 1.0.0-620-iplit
 
 bahmni-web:
   enabled: true
@@ -32,7 +32,7 @@ bahmni-web:
   image:
     repository: infoiplitin
     name: bahmni-iplit-web
-    tag: 1.0.0-62
+    tag: 1.0.0-73
 
 bahmni-lab:
   enabled: true

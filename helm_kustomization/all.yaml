@@ -1,24 +1,30 @@
 ---
-# Source: bahmni-india-distro/charts/clinic-config-indiadistro/templates/serviceaccount.yaml
+# Source: bahmni-india-distro/charts/clinic-config/templates/serviceaccount.yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: clinic-config-indiadistro-sa
+  name: clinic-config-sa
 ---
 # Source: bahmni-india-distro/charts/rabbitmq/templates/serviceaccount.yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: bahmni-shreeclinic-rabbitmq
-  namespace: "shreeclinic"
+  name: bahmni-clinic2-rabbitmq
+  namespace: "clinic2"
   labels:
     app.kubernetes.io/name: rabbitmq
     helm.sh/chart: rabbitmq-11.1.2
-    app.kubernetes.io/instance: bahmni-shreeclinic
+    app.kubernetes.io/instance: bahmni-clinic2
     app.kubernetes.io/managed-by: Helm
 automountServiceAccountToken: true
 secrets:
-  - name: bahmni-shreeclinic-rabbitmq
+  - name: bahmni-clinic2-rabbitmq
+---
+# Source: bahmni-india-distro/templates/status-check-service-account.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: status-checker
 ---
 # Source: bahmni-india-distro/charts/bahmni-mart/templates/secrets.yaml
 apiVersion: v1
@@ -27,12 +33,12 @@ metadata:
   name: bahmni-mart-secrets
 type: Opaque
 data:
-  MART_DB_HOST: "YmFobW5pLXNocmVlY2xpbmljLXBvc3RncmVzcWw="
-  MART_DB_USERNAME: ""
-  MART_DB_PASSWORD: ""
-  OPENMRS_DB_HOST: ""
-  OPENMRS_DB_USERNAME: ""
-  OPENMRS_DB_PASSWORD: ""
+  MART_DB_HOST: "YmFobW5pLWNsaW5pYzItcG9zdGdyZXNxbA=="
+  MART_DB_USERNAME: "YmFobW5pLW1hcnQ="
+  MART_DB_PASSWORD: "cGFzc3dvcmQ="
+  OPENMRS_DB_HOST: "YmFobW5pLXJkcy1ub25wcm9kLmNkcnp0enRqMXVhdi5hcC1zb3V0aC0xLnJkcy5hbWF6b25hd3MuY29t"
+  OPENMRS_DB_USERNAME: "c3VwZXJtYW4="
+  OPENMRS_DB_PASSWORD: "SVBMaXRANjA3"
 ---
 # Source: bahmni-india-distro/charts/bahmni-metabase/templates/secrets.yaml
 apiVersion: v1
@@ -41,18 +47,18 @@ metadata:
   name: bahmni-metabase-secrets
 type: Opaque
 data:
-  MB_ADMIN_EMAIL: ""
+  MB_ADMIN_EMAIL: "aW5mb0BpcGxpdC5pbg=="
   MB_ADMIN_FIRST_NAME: "QWRtaW4="
-  MB_ADMIN_PASSWORD: ""
-  MB_DB_USER: ""
-  MB_DB_PASS: ""
-  MB_DB_HOST: "YmFobW5pLXNocmVlY2xpbmljLXBvc3RncmVzcWw="
-  OPENMRS_DB_HOST: ""
-  OPENMRS_DB_USERNAME: ""
-  OPENMRS_DB_PASSWORD: ""
-  MART_DB_HOST: "YmFobW5pLXNocmVlY2xpbmljLXBvc3RncmVzcWw="
-  MART_DB_USERNAME: ""
-  MART_DB_PASSWORD: ""
+  MB_ADMIN_PASSWORD: "QWRtaW5AMTIz"
+  MB_DB_USER: "bWV0YWJhc2UtdXNlcg=="
+  MB_DB_PASS: "cGFzc3dvcmQ="
+  MB_DB_HOST: "YmFobW5pLWNsaW5pYzItcG9zdGdyZXNxbA=="
+  OPENMRS_DB_HOST: "YmFobW5pLXJkcy1ub25wcm9kLmNkcnp0enRqMXVhdi5hcC1zb3V0aC0xLnJkcy5hbWF6b25hd3MuY29t"
+  OPENMRS_DB_USERNAME: "c3VwZXJtYW4="
+  OPENMRS_DB_PASSWORD: "SVBMaXRANjA3"
+  MART_DB_HOST: "YmFobW5pLWNsaW5pYzItcG9zdGdyZXNxbA=="
+  MART_DB_USERNAME: "YmFobW5pLW1hcnQ="
+  MART_DB_PASSWORD: "cGFzc3dvcmQ="
 ---
 # Source: bahmni-india-distro/charts/crater-atomfeed/templates/secrets.yaml
 apiVersion: v1
@@ -64,9 +70,9 @@ data:
   OPENMRS_ATOMFEED_USER:  "c3VwZXJtYW4="
   OPENMRS_ATOMFEED_PASSWORD:  "QWRtaW4xMjM="
   CRATER_USERNAME:  "c3VwZXJtYW5AYmFobW5pLm9yZw=="
-  CRATER_PASSWORD:  ""
-  CRATER_ATOMFEED_DB_USERNAME:  ""
-  CRATER_ATOMFEED_DB_PASSWORD:  ""
+  CRATER_PASSWORD:  "YWRtaW4="
+  CRATER_ATOMFEED_DB_USERNAME:  "YWRtaW4="
+  CRATER_ATOMFEED_DB_PASSWORD:  "SVBMaXQjNjA3"
 ---
 # Source: bahmni-india-distro/charts/crater/templates/secrets.yaml
 apiVersion: v1
@@ -75,10 +81,10 @@ metadata:
   name: crater-secrets
 type: Opaque
 data:
-  DB_USERNAME:  ""
-  DB_PASSWORD:  ""
+  DB_USERNAME:  "YWRtaW4="
+  DB_PASSWORD:  "SVBMaXQjNjA3"
   ADMIN_EMAIL:  "c3VwZXJtYW5AYmFobW5pLm9yZw=="
-  ADMIN_PASSWORD:  ""
+  ADMIN_PASSWORD:  "YWRtaW4="
 ---
 # Source: bahmni-india-distro/charts/hip/templates/secrets.yaml
 apiVersion: v1
@@ -87,8 +93,8 @@ metadata:
   name: hip-secrets
 type: Opaque
 data:
-  Gateway__clientSecret: ""
-  Gateway__clientId: ""
+  Gateway__clientSecret: "ZjFmZThmZTYtMTk4My00ZDQ1LWIzZjgtY2JlNTA3M2QyMTEy"
+  Gateway__clientId: "U0JYXzAwMjA5Nw=="
   OpenMrs__password: "QWRtaW4xMjM="
 ---
 # Source: bahmni-india-distro/charts/hiu/templates/secrets.yaml
@@ -98,8 +104,8 @@ metadata:
   name: hiu-secrets
 type: Opaque
 data:
-  HIU_CLIENT_ID: ""
-  HIU_CLIENT_SECRET: ""
+  HIU_CLIENT_ID: "U0JYXzAwMjA5Nw=="
+  HIU_CLIENT_SECRET: "ZjFmZThmZTYtMTk4My00ZDQ1LWIzZjgtY2JlNTA3M2QyMTEy"
 ---
 # Source: bahmni-india-distro/charts/openmrs/templates/secrets.yaml
 apiVersion: v1
@@ -108,60 +114,60 @@ metadata:
   name: openmrs-secrets
 type: Opaque
 data:
-  OMRS_DB_HOSTNAME: ""
-  OMRS_DB_USERNAME: ""
-  OMRS_DB_PASSWORD: ""
+  OMRS_DB_HOSTNAME: "YmFobW5pLXJkcy1ub25wcm9kLmNkcnp0enRqMXVhdi5hcC1zb3V0aC0xLnJkcy5hbWF6b25hd3MuY29t"
+  OMRS_DB_USERNAME: "c3VwZXJtYW4="
+  OMRS_DB_PASSWORD: "SVBMaXRANjA3"
   OPENELIS_ATOMFEED_USER: ""
   OPENELIS_ATOMFEED_PASSWORD: ""
-  MAIL_USER: ""
-  MAIL_PASSWORD: ""
+  MAIL_USER: "aW5mb0BpcGxpdC5pbg=="
+  MAIL_PASSWORD: "SVBMaXRANjA3"
 ---
 # Source: bahmni-india-distro/charts/postgresql/templates/secrets.yaml
 apiVersion: v1
 kind: Secret
 metadata:
-  name: bahmni-shreeclinic-postgresql
-  namespace: "shreeclinic"
+  name: bahmni-clinic2-postgresql
+  namespace: "clinic2"
   labels:
     app.kubernetes.io/name: postgresql
     helm.sh/chart: postgresql-12.1.2
-    app.kubernetes.io/instance: bahmni-shreeclinic
+    app.kubernetes.io/instance: bahmni-clinic2
     app.kubernetes.io/managed-by: Helm
 type: Opaque
 data:
-  postgres-password: "SU9RaVFLRWlveA=="
+  postgres-password: "d2VsY29tZQ=="
   # We don't auto-generate LDAP password when it's not provided as we do for other passwords
 ---
 # Source: bahmni-india-distro/charts/rabbitmq/templates/config-secret.yaml
 apiVersion: v1
 kind: Secret
 metadata:
-  name: bahmni-shreeclinic-rabbitmq-config
-  namespace: "shreeclinic"
+  name: bahmni-clinic2-rabbitmq-config
+  namespace: "clinic2"
   labels:
     app.kubernetes.io/name: rabbitmq
     helm.sh/chart: rabbitmq-11.1.2
-    app.kubernetes.io/instance: bahmni-shreeclinic
+    app.kubernetes.io/instance: bahmni-clinic2
     app.kubernetes.io/managed-by: Helm
 type: Opaque
 data:
   rabbitmq.conf: |-
-    IyMgVXNlcm5hbWUgYW5kIHBhc3N3b3JkCiMjCmRlZmF1bHRfdXNlciA9IAojIyBDbHVzdGVyaW5nCiMjCmNsdXN0ZXJfZm9ybWF0aW9uLnBlZXJfZGlzY292ZXJ5X2JhY2tlbmQgID0gcmFiYml0X3BlZXJfZGlzY292ZXJ5X2s4cwpjbHVzdGVyX2Zvcm1hdGlvbi5rOHMuaG9zdCA9IGt1YmVybmV0ZXMuZGVmYXVsdApjbHVzdGVyX2Zvcm1hdGlvbi5ub2RlX2NsZWFudXAuaW50ZXJ2YWwgPSAxMApjbHVzdGVyX2Zvcm1hdGlvbi5ub2RlX2NsZWFudXAub25seV9sb2dfd2FybmluZyA9IHRydWUKY2x1c3Rlcl9wYXJ0aXRpb25faGFuZGxpbmcgPSBhdXRvaGVhbAojIHF1ZXVlIG1hc3RlciBsb2NhdG9yCnF1ZXVlX21hc3Rlcl9sb2NhdG9yID0gbWluLW1hc3RlcnMKIyBlbmFibGUgZ3Vlc3QgdXNlcgpsb29wYmFja191c2Vycy5ndWVzdCA9IGZhbHNlCiNkZWZhdWx0X3Zob3N0ID0gc2hyZWVjbGluaWMtdmhvc3QKI2Rpc2tfZnJlZV9saW1pdC5hYnNvbHV0ZSA9IDUwTUI=
+    IyMgVXNlcm5hbWUgYW5kIHBhc3N3b3JkCiMjCmRlZmF1bHRfdXNlciA9IGFkbWluCmRlZmF1bHRfcGFzcyA9IGFkbWluCiMjIENsdXN0ZXJpbmcKIyMKY2x1c3Rlcl9mb3JtYXRpb24ucGVlcl9kaXNjb3ZlcnlfYmFja2VuZCAgPSByYWJiaXRfcGVlcl9kaXNjb3ZlcnlfazhzCmNsdXN0ZXJfZm9ybWF0aW9uLms4cy5ob3N0ID0ga3ViZXJuZXRlcy5kZWZhdWx0CmNsdXN0ZXJfZm9ybWF0aW9uLm5vZGVfY2xlYW51cC5pbnRlcnZhbCA9IDEwCmNsdXN0ZXJfZm9ybWF0aW9uLm5vZGVfY2xlYW51cC5vbmx5X2xvZ193YXJuaW5nID0gdHJ1ZQpjbHVzdGVyX3BhcnRpdGlvbl9oYW5kbGluZyA9IGF1dG9oZWFsCiMgcXVldWUgbWFzdGVyIGxvY2F0b3IKcXVldWVfbWFzdGVyX2xvY2F0b3IgPSBtaW4tbWFzdGVycwojIGVuYWJsZSBndWVzdCB1c2VyCmxvb3BiYWNrX3VzZXJzLmd1ZXN0ID0gZmFsc2UKI2RlZmF1bHRfdmhvc3QgPSBjbGluaWMyLXZob3N0CiNkaXNrX2ZyZWVfbGltaXQuYWJzb2x1dGUgPSA1ME1C
 ---
 # Source: bahmni-india-distro/charts/rabbitmq/templates/secrets.yaml
 apiVersion: v1
 kind: Secret
 metadata:
-  name: bahmni-shreeclinic-rabbitmq
-  namespace: "shreeclinic"
+  name: bahmni-clinic2-rabbitmq
+  namespace: "clinic2"
   labels:
     app.kubernetes.io/name: rabbitmq
     helm.sh/chart: rabbitmq-11.1.2
-    app.kubernetes.io/instance: bahmni-shreeclinic
+    app.kubernetes.io/instance: bahmni-clinic2
     app.kubernetes.io/managed-by: Helm
 type: Opaque
 data:
-  rabbitmq-password: "R2xKbzl0bk51dHhCSkI0Rw=="
+  rabbitmq-password: "YWRtaW4="
   
   rabbitmq-erlang-cookie: "YmFobW5p"
 ---
@@ -172,12 +178,12 @@ metadata:
   name: reports-secrets
 type: Opaque
 data:
-  OPENMRS_DB_HOST: ""
-  OPENMRS_DB_USERNAME: ""
-  OPENMRS_DB_PASSWORD: ""
-  REPORTS_DB_SERVER: ""
-  REPORTS_DB_USERNAME: ""
-  REPORTS_DB_PASSWORD: ""
+  OPENMRS_DB_HOST: "YmFobW5pLXJkcy1ub25wcm9kLmNkcnp0enRqMXVhdi5hcC1zb3V0aC0xLnJkcy5hbWF6b25hd3MuY29t"
+  OPENMRS_DB_USERNAME: "c3VwZXJtYW4="
+  OPENMRS_DB_PASSWORD: "SVBMaXRANjA3"
+  REPORTS_DB_SERVER: "YmFobW5pLXJkcy1ub25wcm9kLmNkcnp0enRqMXVhdi5hcC1zb3V0aC0xLnJkcy5hbWF6b25hd3MuY29t"
+  REPORTS_DB_USERNAME: "YmFobW5pLXJlcG9ydA=="
+  REPORTS_DB_PASSWORD: "SVBMaXRANjA3"
   OPENELIS_DB_SERVER: ""
   ODOO_DB_SERVER: ""
   ODOO_DB_USERNAME: ""
@@ -191,7 +197,7 @@ metadata:
 data:
   CRON_TIME: "*/15 * * * *"
   MART_DB_NAME: "martdb"
-  OPENMRS_DB_NAME: "openmrs_shreeclinic"
+  OPENMRS_DB_NAME: "openmrs_clinic2"
   TZ: "Asia/Kolkata"
 ---
 # Source: bahmni-india-distro/charts/bahmni-metabase/templates/configMap.yaml
@@ -203,11 +209,11 @@ data:
   MB_DB_TYPE: "postgres"
   MB_DB_DBNAME: "metabase"
   MB_DB_PORT: "5432"
-  OPENMRS_DB_NAME: "openmrs_shreeclinic"
+  OPENMRS_DB_NAME: "openmrs_clinic2"
   MART_DB_NAME: "martdb"
   TZ: "Asia/Kolkata"
 ---
-# Source: bahmni-india-distro/charts/clinic-config-indiadistro/templates/restart-dependencies-script-configmap.yaml
+# Source: bahmni-india-distro/charts/clinic-config/templates/restart-dependencies-script-configmap.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -232,10 +238,10 @@ kind: ConfigMap
 metadata:
   name: crater-atomfeed-config
 data:
-  CRATER_ATOMFEED_DB_HOST: ""
-  CRATER_ATOMFEED_DB_NAME:  "crater_atomfeed_shreeclinic"
+  CRATER_ATOMFEED_DB_HOST: "bahmni-rds-nonprod.cdrztztj1uav.ap-south-1.rds.amazonaws.com"
+  CRATER_ATOMFEED_DB_NAME:  "crater_atomfeed_clinic2"
   CRATER_ATOMFEED_DB_PORT:  "3306"
-  CRATER_URL:  "https://payments-shreeclinic.bahmnilite.in"
+  CRATER_URL:  "https://payments-clinic2.bahmnilite.in"
   OPENMRS_HOST: "openmrs"
   OPENMRS_PORT: "8080"
   TZ: "Asia/Kolkata"
@@ -246,12 +252,12 @@ kind: ConfigMap
 metadata:
   name: crater-config
 data:
-  APP_URL: "https://payments-shreeclinic.bahmnilite.in"
-  DB_DATABASE: "crater_shreeclinic"
-  DB_HOST:  ""
+  APP_URL: "https://payments-clinic2.bahmnilite.in"
+  DB_DATABASE: "crater_clinic2"
+  DB_HOST:  "bahmni-rds-nonprod.cdrztztj1uav.ap-south-1.rds.amazonaws.com"
   DB_PORT:  "3306"
-  SANCTUM_STATEFUL_DOMAINS: "payments-shreeclinic.bahmnilite.in"
-  SESSION_DOMAIN: "payments-shreeclinic.bahmnilite.in"
+  SANCTUM_STATEFUL_DOMAINS: "payments-clinic2.bahmnilite.in"
+  SESSION_DOMAIN: "payments-clinic2.bahmnilite.in"
   AUTO_INSTALL: "true"
   CUSTOM_SETUP: "false"
   ADMIN_NAME: "Super Man"
@@ -266,7 +272,7 @@ kind: ConfigMap
 metadata:
   name: hip-atomfeed-config
 data:
-  DATABASE_URL: "jdbc:postgresql://bahmni-shreeclinic-postgresql:5432/"
+  DATABASE_URL: "jdbc:postgresql://bahmni-clinic2-postgresql:5432/"
   DATABASE_NAME: "hip_atomfeed_listener"
   DATABASE_USERNAME: "postgres"
   DATABASE_PASSWORD: "welcome"
@@ -281,20 +287,20 @@ metadata:
   name: hip-config
 data:
 
-  Gateway__url: "https://live.ndhm.gov.in/gateway"
-  Gateway__abhaNumberServiceUrl: "https://healthid.abdm.gov.in/api"
-  Gateway__abhaAddressServiceUrl: "https://phr.abdm.gov.in/api"
-  OpenMrs__url: "https://shreeclinic.bahmnilite.in/openmrs"
-  Gateway__cmSuffix: "abdm"
+  Gateway__url: "https://dev.abdm.gov.in/gateway"
+  Gateway__abhaNumberServiceUrl: "https://healthidsbx.abdm.gov.in/api"
+  Gateway__abhaAddressServiceUrl: "https://phrsbx.abdm.gov.in/api"
+  OpenMrs__url: "https://clinic2.bahmnilite.in/openmrs"
+  Gateway__cmSuffix: "sbx"
   OtpService__BaseUrl: "http://otp-service:80"
   hip__url: "http://hip:8000"
   HEALTH_CHECK_DURATION: "30000"
   Cors__allowedOrigins: ""
-  Bahmni__Id: "IN2710015434"
-  ConnectionStrings__DefaultConnection: "Host=bahmni-shreeclinic-postgresql;Port=5432;Username=postgres;Password=welcome;Database=hipservice"
-  rabbit__HostName: "bahmni-shreeclinic-rabbitmq"
-  rabbit__UserName: ""
-  rabbit__Password: ""
+  Bahmni__Id: "IPLitClinic2"
+  ConnectionStrings__DefaultConnection: "Host=bahmni-clinic2-postgresql;Port=5432;Username=postgres;Password=welcome;Database=hipservice"
+  rabbit__HostName: "bahmni-clinic2-rabbitmq"
+  rabbit__UserName: "admin"
+  rabbit__Password: "admin"
 ---
 # Source: bahmni-india-distro/charts/hiu-db/templates/configMap.yaml
 apiVersion: v1
@@ -302,7 +308,7 @@ kind: ConfigMap
 metadata:
   name: hiu-db-config
 data:
-  JAVA_TOOL_OPTIONS: "-Djdbc.url=jdbc:postgresql://bahmni-shreeclinic-postgresql:5432/ -Djdbc.username=postgres -Djdbc.password=welcome -Djdbc.database=health_information_user"
+  JAVA_TOOL_OPTIONS: "-Djdbc.url=jdbc:postgresql://bahmni-clinic2-postgresql:5432/ -Djdbc.username=postgres -Djdbc.password=welcome -Djdbc.database=health_information_user"
 ---
 # Source: bahmni-india-distro/charts/hiu-ui/templates/configMap.yaml
 apiVersion: v1
@@ -310,7 +316,7 @@ kind: ConfigMap
 metadata:
   name: hiu-ui-config
 data:
-  BACKEND_BASE_URL: "https://shreeclinic.bahmnilite.in"
+  BACKEND_BASE_URL: "https://clinic2.bahmnilite.in"
   BASE_NAME: "/hiuser"
   BACKEND_API_PATH: "/hiu-api"
   DICOM_SERVER_PATH: "/"
@@ -324,27 +330,27 @@ kind: ConfigMap
 metadata:
   name: hiu-config
 data:
-  HIU_ID: "IN2710015434"
-  HIU_NAME: "Shree Clinic"
-  IDENTITY_JWK_URL: "https://live.ndhm.gov.in/auth/realms/consent-manager/protocol/openid-connect/certs"
-  DATA_PUSH_URL: "https://shreeclinic.bahmnilite.in/hiu-api/data/notification"
+  HIU_ID: "IPLitClinic2"
+  HIU_NAME: "IPLitClinic2"
+  IDENTITY_JWK_URL: "https://dev.ndhm.gov.in/auth/realms/consent-manager/protocol/openid-connect/certs"
+  DATA_PUSH_URL: "https://clinic2.bahmnilite.in/hiu-api/data/notification"
   CONSENT_NOTIFICATION_URL: "http://localhost:8003/consent/notification"
-  CONSENT_MANAGEMENT_SUFFIX: "@abdm"
-  CONSENT_MANAGEMENT_URL: "https://live.ndhm.gov.in/cm"
+  CONSENT_MANAGEMENT_SUFFIX: "@sbx"
+  CONSENT_MANAGEMENT_URL: "https://dev.ndhm.gov.in/cm"
   DEFAULT_PAGE_SIZE: "20"
   MAX_PAGE_SIZE: "100"
   LOCAL_STORAGE_PATH: "/tmp/"
-  POSTGRES_HOST: "bahmni-shreeclinic-postgresql"
+  POSTGRES_HOST: "bahmni-clinic2-postgresql"
   POSTGRES_PORT: "5432"
   CONSENT_MANAGER_DB_NAME: "health_information_user"
   DB_CONNECTION_POOL_SIZE: "5"
   OFFSET_IN_DAYS: "2"
   USING_GATEWAY: "true"
-  GATEWAY_BASE_URL: "https://live.ndhm.gov.in/gateway/v0.5"
+  GATEWAY_BASE_URL: "https://dev.abdm.gov.in/gateway/v0.5"
   GATEWAY_REQUEST_TIMEOUT: "3000"
-  GATEWAY_JWK_URL: "https://live.ndhm.gov.in/gateway/v0.5/certs"
-  HFR_AFFINITY_DOMAINS: "facility.abdm.gov.in"
-  RABBITMQ_HOST: "bahmni-shreeclinic-rabbitmq"
+  GATEWAY_JWK_URL: "https://dev.abdm.gov.in/gateway/v0.5/certs"
+  HFR_AFFINITY_DOMAINS: "facilitysbx.ndhm.gov.in"
+  RABBITMQ_HOST: "bahmni-clinic2-rabbitmq"
   RABBITMQ_PORT: "5672"
   MAX_IN_MEMORY_SIZE: "500MB"
   DATA_FLOW_CONSENT_REQUEST_WAIT_TIME: "1"
@@ -352,8 +358,8 @@ data:
   DATA_FLOW_PART_WAIT_TIME: "1440"
   POSTGRES_USER: "postgres"
   POSTGRES_PASSWORD: "welcome"
-  RABBITMQ_USERNAME: ""
-  RABBITMQ_PASSWORD: ""
+  RABBITMQ_USERNAME: "admin"
+  RABBITMQ_PASSWORD: "admin"
 ---
 # Source: bahmni-india-distro/charts/openmrs/templates/configMap.yaml
 apiVersion: v1
@@ -363,7 +369,7 @@ metadata:
 data:
   OMRS_AUTO_UPDATE_DATABASE: "true"
   OMRS_CREATE_TABLES: "true"
-  OMRS_DB_NAME: "openmrs_shreeclinic"
+  OMRS_DB_NAME: "openmrs_clinic2"
   OMRS_DEV_DEBUG_PORT: ""
   OMRS_MODULE_WEB_ADMIN: "false"
   OMRS_JAVA_SERVER_OPTS: ""
@@ -390,7 +396,7 @@ metadata:
   name: otp-service-config
 data:
   whitelisted__numbers:  ""
-  ConnectionStrings__DefaultConnection: "Host=bahmni-shreeclinic-postgresql;Port=5432;Username=postgres;Password=welcome;Database=otpservice;"
+  ConnectionStrings__DefaultConnection: "Host=bahmni-clinic2-postgresql;Port=5432;Username=postgres;Password=welcome;Database=otpservice;"
 ---
 # Source: bahmni-india-distro/charts/patient-documents/templates/configMap.yaml
 apiVersion: v1
@@ -407,10 +413,10 @@ kind: ConfigMap
 metadata:
   name: reports-config
 data:
-  OPENMRS_DB_NAME: "openmrs_shreeclinic"
+  OPENMRS_DB_NAME: "openmrs_clinic2"
   OPENMRS_HOST: "openmrs"
   OPENMRS_PORT: "8080"
-  REPORTS_DB_NAME: "bahmni_reports_shreeclinic"
+  REPORTS_DB_NAME: "bahmni_reports_clinic2"
   TZ: "Asia/Kolkata"
 ---
 # Source: bahmni-india-distro/templates/postgres-pv-efs.yaml
@@ -418,7 +424,7 @@ data:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: postgresql-efs-volume-shreeclinic
+  name: postgresql-efs-volume-clinic2
 spec:
   capacity:
     storage: 10Gi
@@ -429,20 +435,20 @@ spec:
     - tls
   persistentVolumeReclaimPolicy: Retain
   claimRef:
-    namespace: shreeclinic
-    name: data-bahmni-shreeclinic-postgresql-0
+    namespace: clinic2
+    name: data-bahmni-clinic2-postgresql-0
   storageClassName: bahmni-efs-sc
   csi:
     driver: efs.csi.aws.com
-    volumeHandle: fs-asgasgasfas1
+    volumeHandle: fs-0d27bc05683fedac7
 ---
-# Source: bahmni-india-distro/charts/clinic-config-indiadistro/templates/volumes/bahmni-config.yaml
+# Source: bahmni-india-distro/charts/clinic-config/templates/volumes/bahmni-config.yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   labels:
-    app: clinic-config-indiadistro
-    environment: dev
+    app: clinic-config
+    environment: clinic2
   name: bahmni-config-pvc
 spec:
   storageClassName: bahmni-efs-sc
@@ -458,7 +464,7 @@ kind: PersistentVolumeClaim
 metadata:
   labels:
     app: crater
-    environment: shreeclinic
+    environment: clinic2
   name: crater-app-data-pvc
 spec:
   storageClassName: bahmni-efs-sc
@@ -474,7 +480,7 @@ kind: PersistentVolumeClaim
 metadata:
   labels:
     app: hiu
-    environment: shreeclinic
+    environment: clinic2
   name: consent-data-store-pvc
 spec:
   storageClassName: bahmni-efs-sc
@@ -490,7 +496,7 @@ kind: PersistentVolumeClaim
 metadata:
   labels:
     app: openmrs
-    environment: shreeclinic
+    environment: clinic2
   name: bahmni-uploaded-results-pvc
 spec:
   storageClassName: bahmni-efs-sc
@@ -506,7 +512,7 @@ kind: PersistentVolumeClaim
 metadata:
   labels:
     app: openmrs
-    environment: shreeclinic
+    environment: clinic2
   name: openmrs-clinical-forms-pvc
 spec:
   storageClassName: bahmni-efs-sc
@@ -522,7 +528,7 @@ kind: PersistentVolumeClaim
 metadata:
   labels:
     app: openmrs
-    environment: shreeclinic
+    environment: clinic2
   name: openmrs-document-images-pvc
 spec:
   storageClassName: bahmni-efs-sc
@@ -538,7 +544,7 @@ kind: PersistentVolumeClaim
 metadata:
   labels:
     app: openmrs
-    environment: shreeclinic
+    environment: clinic2
   name: openmrs-initializer-checksums-pvc
 spec:
   storageClassName: bahmni-efs-sc
@@ -554,7 +560,7 @@ kind: PersistentVolumeClaim
 metadata:
   labels:
     app: openmrs
-    environment: shreeclinic
+    environment: clinic2
   name: openmrs-patient-images-pvc
 spec:
   storageClassName: bahmni-efs-sc
@@ -564,11 +570,11 @@ spec:
     requests:
       storage: 2Gi
 ---
-# Source: bahmni-india-distro/charts/clinic-config-indiadistro/templates/rbac.yaml
+# Source: bahmni-india-distro/charts/clinic-config/templates/rbac.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: clinic-config-indiadistro-restart-dependencies-role
+  name: clinic-config-restart-dependencies-role
 rules:
   - apiGroups: ["apps"]
     resources: ["deployments"]
@@ -579,12 +585,12 @@ rules:
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: bahmni-shreeclinic-rabbitmq-endpoint-reader
-  namespace: "shreeclinic"
+  name: bahmni-clinic2-rabbitmq-endpoint-reader
+  namespace: "clinic2"
   labels:
     app.kubernetes.io/name: rabbitmq
     helm.sh/chart: rabbitmq-11.1.2
-    app.kubernetes.io/instance: bahmni-shreeclinic
+    app.kubernetes.io/instance: bahmni-clinic2
     app.kubernetes.io/managed-by: Helm
 rules:
   - apiGroups: [""]
@@ -594,37 +600,61 @@ rules:
     resources: ["events"]
     verbs: ["create"]
 ---
-# Source: bahmni-india-distro/charts/clinic-config-indiadistro/templates/rbac.yaml
+# Source: bahmni-india-distro/templates/status-check-service-account.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: status-checker
+
+rules:
+- apiGroups: ["", "apps"]
+  resources: ["deployments", "statefulsets", "pods"]
+  verbs: ["get", "watch", "list"]
+---
+# Source: bahmni-india-distro/charts/clinic-config/templates/rbac.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: clinic-config-indiadistro-restart-dependencies-rolebinding
+  name: clinic-config-restart-dependencies-rolebinding
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: clinic-config-indiadistro-restart-dependencies-role
+  name: clinic-config-restart-dependencies-role
 subjects:
   - kind: ServiceAccount
-    name: clinic-config-indiadistro-sa
+    name: clinic-config-sa
 ---
 # Source: bahmni-india-distro/charts/rabbitmq/templates/rolebinding.yaml
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: bahmni-shreeclinic-rabbitmq-endpoint-reader
-  namespace: "shreeclinic"
+  name: bahmni-clinic2-rabbitmq-endpoint-reader
+  namespace: "clinic2"
   labels:
     app.kubernetes.io/name: rabbitmq
     helm.sh/chart: rabbitmq-11.1.2
-    app.kubernetes.io/instance: bahmni-shreeclinic
+    app.kubernetes.io/instance: bahmni-clinic2
     app.kubernetes.io/managed-by: Helm
 subjects:
   - kind: ServiceAccount
-    name: bahmni-shreeclinic-rabbitmq
+    name: bahmni-clinic2-rabbitmq
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: bahmni-shreeclinic-rabbitmq-endpoint-reader
+  name: bahmni-clinic2-rabbitmq-endpoint-reader
+---
+# Source: bahmni-india-distro/templates/status-check-service-account.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: status-checker-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: status-checker
+subjects:
+- kind: ServiceAccount
+  name: status-checker
 ---
 # Source: bahmni-india-distro/charts/abha-verification/templates/service.yaml
 apiVersion: v1
@@ -633,7 +663,7 @@ metadata:
   name: abha-verification
   labels:
     app: abha-verification
-    environment: shreeclinic
+    environment: clinic2
 
 spec:
   type: ClusterIP
@@ -643,7 +673,7 @@ spec:
       name: '80'
   selector:
     app: abha-verification
-    environment: shreeclinic
+    environment: clinic2
 ---
 # Source: bahmni-india-distro/charts/appointments/templates/service.yaml
 apiVersion: v1
@@ -671,7 +701,7 @@ metadata:
   name: bahmni-lab
   labels:
     app: bahmni-lab
-    environment: shreeclinic
+    environment: clinic2
 
 spec:
   type: ClusterIP
@@ -681,7 +711,7 @@ spec:
       name: '8090'
   selector:
     app: bahmni-lab
-    environment: shreeclinic
+    environment: clinic2
 ---
 # Source: bahmni-india-distro/charts/bahmni-metabase/templates/service.yaml
 apiVersion: v1
@@ -710,7 +740,7 @@ metadata:
   name: bahmni-web
   labels:
     app: bahmni-web
-    environment: shreeclinic
+    environment: clinic2
 
 spec:
   type: ClusterIP
@@ -720,7 +750,7 @@ spec:
       name: '8091'
   selector:
     app: bahmni-web
-    environment: shreeclinic
+    environment: clinic2
 ---
 # Source: bahmni-india-distro/charts/crater-atomfeed/templates/service.yaml
 apiVersion: v1
@@ -729,7 +759,7 @@ metadata:
   name: crater-atomfeed
   labels:
     app: crater-atomfeed
-    environment: shreeclinic
+    environment: clinic2
 
 spec:
   type: ClusterIP
@@ -739,7 +769,7 @@ spec:
       name: '80'
   selector:
     app: crater-atomfeed
-    environment: shreeclinic
+    environment: clinic2
 ---
 # Source: bahmni-india-distro/charts/crater/templates/service.yaml
 apiVersion: v1
@@ -748,7 +778,7 @@ metadata:
   name: crater-nginx
   labels:
     app: crater-nginx
-    environment: shreeclinic
+    environment: clinic2
 
 spec:
   type: ClusterIP
@@ -758,7 +788,7 @@ spec:
       name: '80'
   selector:
     app: crater-nginx
-    environment: shreeclinic
+    environment: clinic2
 ---
 # Source: bahmni-india-distro/charts/crater/templates/service.yaml
 apiVersion: v1
@@ -767,7 +797,7 @@ metadata:
   name: crater-php
   labels:
     app: crater-php
-    environment: shreeclinic
+    environment: clinic2
 
 spec:
   type: ClusterIP
@@ -777,7 +807,7 @@ spec:
       name: '9000'
   selector:
     app: crater-php
-    environment: shreeclinic
+    environment: clinic2
 ---
 # Source: bahmni-india-distro/charts/hip-atomfeed/templates/service.yaml
 apiVersion: v1
@@ -786,7 +816,7 @@ metadata:
   name: hip-atomfeed
   labels:
     app: hip-atomfeed
-    environment: shreeclinic
+    environment: clinic2
 
 spec:
   type: ClusterIP
@@ -797,7 +827,7 @@ spec:
       name: '80'
   selector:
     app: hip-atomfeed
-    environment: shreeclinic
+    environment: clinic2
 ---
 # Source: bahmni-india-distro/charts/hip/templates/service.yaml
 apiVersion: v1
@@ -806,7 +836,7 @@ metadata:
   name: hip
   labels:
     app: hip
-    environment: shreeclinic
+    environment: clinic2
 
 spec:
   type: ClusterIP
@@ -816,7 +846,7 @@ spec:
       name: '8000'
   selector:
     app: hip
-    environment: shreeclinic
+    environment: clinic2
 ---
 # Source: bahmni-india-distro/charts/hiu-db/templates/service.yaml
 apiVersion: v1
@@ -825,7 +855,7 @@ metadata:
   name: hiu-db
   labels:
     app: hiu-db
-    environment: shreeclinic
+    environment: clinic2
 
 spec:
   type: ClusterIP
@@ -836,7 +866,7 @@ spec:
       name: '8095'
   selector:
     app: hiu-db
-    environment: shreeclinic
+    environment: clinic2
 ---
 # Source: bahmni-india-distro/charts/hiu-ui/templates/service.yaml
 apiVersion: v1
@@ -845,7 +875,7 @@ metadata:
   name: hiu-ui
   labels:
     app: hiu-ui
-    environment: shreeclinic
+    environment: clinic2
 
 spec:
   type: ClusterIP
@@ -856,7 +886,7 @@ spec:
       name: '5000'
   selector:
     app: hiu-ui
-    environment: shreeclinic
+    environment: clinic2
 ---
 # Source: bahmni-india-distro/charts/hiu/templates/service.yaml
 apiVersion: v1
@@ -865,7 +895,7 @@ metadata:
   name: hiu
   labels:
     app: hiu
-    environment: shreeclinic
+    environment: clinic2
 
 spec:
   type: ClusterIP
@@ -876,7 +906,7 @@ spec:
       name: '9053'
   selector:
     app: hiu
-    environment: shreeclinic
+    environment: clinic2
 ---
 # Source: bahmni-india-distro/charts/implementer-interface/templates/service.yaml
 apiVersion: v1
@@ -885,7 +915,7 @@ metadata:
   name: implementer-interface
   labels:
     app: implementer-interface
-    environment: shreeclinic
+    environment: clinic2
 
 spec:
   type: ClusterIP
@@ -895,7 +925,7 @@ spec:
       name: '80'
   selector:
     app: implementer-interface
-    environment: shreeclinic
+    environment: clinic2
 ---
 # Source: bahmni-india-distro/charts/openmrs/templates/service.yaml
 apiVersion: v1
@@ -904,7 +934,7 @@ metadata:
   name: openmrs
   labels:
     app: openmrs
-    environment: shreeclinic
+    environment: clinic2
 
 spec:
   type: ClusterIP
@@ -919,7 +949,7 @@ spec:
       name: '8280'
   selector:
     app: openmrs
-    environment: shreeclinic
+    environment: clinic2
 ---
 # Source: bahmni-india-distro/charts/otp-service/templates/service.yaml
 apiVersion: v1
@@ -928,7 +958,7 @@ metadata:
   name: otp-service
   labels:
     app: otp-service
-    environment: shreeclinic
+    environment: clinic2
 
 spec:
   type: ClusterIP
@@ -938,7 +968,7 @@ spec:
       name: '80'
   selector:
     app: otp-service
-    environment: shreeclinic
+    environment: clinic2
 ---
 # Source: bahmni-india-distro/charts/patient-documents/templates/service.yaml
 apiVersion: v1
@@ -952,19 +982,19 @@ spec:
       targetPort: 80
   selector:
     app: patient-documents
-    environment: shreeclinic
+    environment: clinic2
   type: ClusterIP
 ---
 # Source: bahmni-india-distro/charts/postgresql/templates/primary/svc-headless.yaml
 apiVersion: v1
 kind: Service
 metadata:
-  name: bahmni-shreeclinic-postgresql-hl
-  namespace: "shreeclinic"
+  name: bahmni-clinic2-postgresql-hl
+  namespace: "clinic2"
   labels:
     app.kubernetes.io/name: postgresql
     helm.sh/chart: postgresql-12.1.2
-    app.kubernetes.io/instance: bahmni-shreeclinic
+    app.kubernetes.io/instance: bahmni-clinic2
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: primary
     # Use this annotation in addition to the actual publishNotReadyAddresses
@@ -985,19 +1015,19 @@ spec:
       targetPort: tcp-postgresql
   selector:
     app.kubernetes.io/name: postgresql
-    app.kubernetes.io/instance: bahmni-shreeclinic
+    app.kubernetes.io/instance: bahmni-clinic2
     app.kubernetes.io/component: primary
 ---
 # Source: bahmni-india-distro/charts/postgresql/templates/primary/svc.yaml
 apiVersion: v1
 kind: Service
 metadata:
-  name: bahmni-shreeclinic-postgresql
-  namespace: "shreeclinic"
+  name: bahmni-clinic2-postgresql
+  namespace: "clinic2"
   labels:
     app.kubernetes.io/name: postgresql
     helm.sh/chart: postgresql-12.1.2
-    app.kubernetes.io/instance: bahmni-shreeclinic
+    app.kubernetes.io/instance: bahmni-clinic2
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: primary
   annotations:
@@ -1011,19 +1041,19 @@ spec:
       nodePort: null
   selector:
     app.kubernetes.io/name: postgresql
-    app.kubernetes.io/instance: bahmni-shreeclinic
+    app.kubernetes.io/instance: bahmni-clinic2
     app.kubernetes.io/component: primary
 ---
 # Source: bahmni-india-distro/charts/rabbitmq/templates/svc-headless.yaml
 apiVersion: v1
 kind: Service
 metadata:
-  name: bahmni-shreeclinic-rabbitmq-headless
-  namespace: "shreeclinic"
+  name: bahmni-clinic2-rabbitmq-headless
+  namespace: "clinic2"
   labels:
     app.kubernetes.io/name: rabbitmq
     helm.sh/chart: rabbitmq-11.1.2
-    app.kubernetes.io/instance: bahmni-shreeclinic
+    app.kubernetes.io/instance: bahmni-clinic2
     app.kubernetes.io/managed-by: Helm
 spec:
   clusterIP: None
@@ -1042,19 +1072,19 @@ spec:
       targetPort: stats
   selector: 
     app.kubernetes.io/name: rabbitmq
-    app.kubernetes.io/instance: bahmni-shreeclinic
+    app.kubernetes.io/instance: bahmni-clinic2
   publishNotReadyAddresses: true
 ---
 # Source: bahmni-india-distro/charts/rabbitmq/templates/svc.yaml
 apiVersion: v1
 kind: Service
 metadata:
-  name: bahmni-shreeclinic-rabbitmq
-  namespace: "shreeclinic"
+  name: bahmni-clinic2-rabbitmq
+  namespace: "clinic2"
   labels:
     app.kubernetes.io/name: rabbitmq
     helm.sh/chart: rabbitmq-11.1.2
-    app.kubernetes.io/instance: bahmni-shreeclinic
+    app.kubernetes.io/instance: bahmni-clinic2
     app.kubernetes.io/managed-by: Helm
 spec:
   type: ClusterIP
@@ -1078,7 +1108,7 @@ spec:
       nodePort: null
   selector: 
     app.kubernetes.io/name: rabbitmq
-    app.kubernetes.io/instance: bahmni-shreeclinic
+    app.kubernetes.io/instance: bahmni-clinic2
 ---
 # Source: bahmni-india-distro/charts/reports/templates/service.yaml
 apiVersion: v1
@@ -1087,7 +1117,7 @@ metadata:
   name: reports
   labels:
     app: reports
-    environment: shreeclinic
+    environment: clinic2
 
 spec:
   type: ClusterIP
@@ -1098,7 +1128,7 @@ spec:
       name: '8051'
   selector:
     app: reports
-    environment: shreeclinic
+    environment: clinic2
 ---
 # Source: bahmni-india-distro/charts/abha-verification/templates/deployment.yaml
 apiVersion: apps/v1
@@ -1107,26 +1137,26 @@ metadata:
   name: abha-verification
   labels:
     app: abha-verification
-    environment: shreeclinic
+    environment: clinic2
 
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: abha-verification
-      environment: shreeclinic
+      environment: clinic2
   revisionHistoryLimit: 5
   template:
     metadata:
       labels:
         app: abha-verification
-        environment: shreeclinic
+        environment: clinic2
     spec:
       
       nodeSelector:
       
       
-        eks.amazonaws.com/nodegroup: prod
+        eks.amazonaws.com/nodegroup: nonprod
       
       
 
@@ -1166,7 +1196,7 @@ spec:
       nodeSelector:
       
       
-        eks.amazonaws.com/nodegroup: prod
+        eks.amazonaws.com/nodegroup: nonprod
       
       
 
@@ -1187,26 +1217,26 @@ metadata:
   name: bahmni-lab
   labels:
     app: bahmni-lab
-    environment: shreeclinic
+    environment: clinic2
 
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: bahmni-lab
-      environment: shreeclinic
+      environment: clinic2
   revisionHistoryLimit: 5
   template:
     metadata:
       labels:
         app: bahmni-lab
-        environment: shreeclinic
+        environment: clinic2
     spec:
       
       nodeSelector:
       
       
-        eks.amazonaws.com/nodegroup: prod
+        eks.amazonaws.com/nodegroup: nonprod
       
       
 
@@ -1253,7 +1283,7 @@ spec:
       nodeSelector:
       
       
-        eks.amazonaws.com/nodegroup: prod
+        eks.amazonaws.com/nodegroup: nonprod
       
       
 
@@ -1308,7 +1338,7 @@ spec:
       nodeSelector:
       
       
-        eks.amazonaws.com/nodegroup: prod
+        eks.amazonaws.com/nodegroup: nonprod
       
       
 
@@ -1341,26 +1371,26 @@ metadata:
   name: bahmni-web
   labels:
     app: bahmni-web
-    environment: shreeclinic
+    environment: clinic2
 
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: bahmni-web
-      environment: shreeclinic
+      environment: clinic2
   revisionHistoryLimit: 5
   template:
     metadata:
       labels:
         app: bahmni-web
-        environment: shreeclinic
+        environment: clinic2
     spec:
       
       nodeSelector:
       
       
-        eks.amazonaws.com/nodegroup: prod
+        eks.amazonaws.com/nodegroup: nonprod
       
       
 
@@ -1370,7 +1400,7 @@ spec:
 
       containers:
         - name: bahmni-web
-          image: "600047163007.dkr.ecr.ap-south-1.amazonaws.com/bahmni-iplit-web:1.0.0-72"
+          image: "600047163007.dkr.ecr.ap-south-1.amazonaws.com/bahmni-iplit-web:1.0.0-73"
           resources: {}
           volumeMounts:
             - mountPath: /usr/local/apache2/htdocs/bahmni_config
@@ -1381,33 +1411,33 @@ spec:
           persistentVolumeClaim:
             claimName: bahmni-config-pvc
 ---
-# Source: bahmni-india-distro/charts/clinic-config-indiadistro/templates/deployment.yaml
+# Source: bahmni-india-distro/charts/clinic-config/templates/deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: clinic-config-indiadistro
+  name: clinic-config
   labels:
-    app: clinic-config-indiadistro
-    environment: dev
+    app: clinic-config
+    environment: clinic2
 
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: clinic-config-indiadistro
-      environment: dev
+      app: clinic-config
+      environment: clinic2
   revisionHistoryLimit: 5
   template:
     metadata:
       labels:
-        app: clinic-config-indiadistro
-        environment: dev
+        app: clinic-config
+        environment: clinic2
     spec:
       
       nodeSelector:
       
       
-        eks.amazonaws.com/nodegroup: prod
+        eks.amazonaws.com/nodegroup: nonprod
       
       
 
@@ -1416,8 +1446,8 @@ spec:
       
 
       containers:
-        - name: clinic-config-indiadistro
-          image: "infoiplitin/clinic-config-indiadistro:1.0.0-14"
+        - name: clinic-config
+          image: "600047163007.dkr.ecr.ap-south-1.amazonaws.com/clinic-config-indiadistro:1.0.0-7"
           lifecycle:
             postStart:
               exec:
@@ -1430,7 +1460,7 @@ spec:
               readOnly: true
 
       restartPolicy: Always
-      serviceAccountName: clinic-config-indiadistro-sa
+      serviceAccountName: clinic-config-sa
       volumes:
         - name: bahmni-config
           persistentVolumeClaim:
@@ -1447,26 +1477,26 @@ metadata:
   name: crater-atomfeed
   labels:
     app: crater-atomfeed
-    environment: shreeclinic
+    environment: clinic2
 
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: crater-atomfeed
-      environment: shreeclinic
+      environment: clinic2
   revisionHistoryLimit: 5
   template:
     metadata:
       labels:
         app: crater-atomfeed
-        environment: shreeclinic
+        environment: clinic2
     spec:
       
       nodeSelector:
       
       
-        eks.amazonaws.com/nodegroup: prod
+        eks.amazonaws.com/nodegroup: nonprod
       
       
 
@@ -1497,26 +1527,26 @@ metadata:
   name: crater-nginx
   labels:
     app: crater-nginx
-    environment: shreeclinic
+    environment: clinic2
 
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: crater-nginx
-      environment: shreeclinic
+      environment: clinic2
   revisionHistoryLimit: 5
   template:
     metadata:
       labels:
         app: crater-nginx
-        environment: shreeclinic
+        environment: clinic2
     spec:
       
       nodeSelector:
       
       
-        eks.amazonaws.com/nodegroup: prod
+        eks.amazonaws.com/nodegroup: nonprod
       
       
 
@@ -1548,26 +1578,26 @@ metadata:
   name: crater-php
   labels:
     app: crater-php
-    environment: shreeclinic
+    environment: clinic2
 
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: crater-php
-      environment: shreeclinic
+      environment: clinic2
   revisionHistoryLimit: 5
   template:
     metadata:
       labels:
         app: crater-php
-        environment: shreeclinic
+        environment: clinic2
     spec:
       
       nodeSelector:
       
       
-        eks.amazonaws.com/nodegroup: prod
+        eks.amazonaws.com/nodegroup: nonprod
       
       
 
@@ -1604,26 +1634,26 @@ metadata:
   name: hip-atomfeed
   labels:
     app: hip-atomfeed
-    environment: shreeclinic
+    environment: clinic2
 
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: hip-atomfeed
-      environment: shreeclinic
+      environment: clinic2
   revisionHistoryLimit: 5
   template:
     metadata:
       labels:
         app: hip-atomfeed
-        environment: shreeclinic
+        environment: clinic2
     spec:
       
       nodeSelector:
       
       
-        eks.amazonaws.com/nodegroup: prod
+        eks.amazonaws.com/nodegroup: nonprod
       
       
 
@@ -1652,26 +1682,26 @@ metadata:
   name: hip
   labels:
     app: hip
-    environment: shreeclinic
+    environment: clinic2
 
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: hip
-      environment: shreeclinic
+      environment: clinic2
   revisionHistoryLimit: 5
   template:
     metadata:
       labels:
         app: hip
-        environment: shreeclinic
+        environment: clinic2
     spec:
       
       nodeSelector:
       
       
-        eks.amazonaws.com/nodegroup: prod
+        eks.amazonaws.com/nodegroup: nonprod
       
       
 
@@ -1703,26 +1733,26 @@ metadata:
   name: hiu-db
   labels:
     app: hiu-db
-    environment: shreeclinic
+    environment: clinic2
 
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: hiu-db
-      environment: shreeclinic
+      environment: clinic2
   revisionHistoryLimit: 5
   template:
     metadata:
       labels:
         app: hiu-db
-        environment: shreeclinic
+        environment: clinic2
     spec:
       
       nodeSelector:
       
       
-        eks.amazonaws.com/nodegroup: prod
+        eks.amazonaws.com/nodegroup: nonprod
       
       
 
@@ -1751,26 +1781,26 @@ metadata:
   name: hiu-ui
   labels:
     app: hiu-ui
-    environment: shreeclinic
+    environment: clinic2
 
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: hiu-ui
-      environment: shreeclinic
+      environment: clinic2
   revisionHistoryLimit: 5
   template:
     metadata:
       labels:
         app: hiu-ui
-        environment: shreeclinic
+        environment: clinic2
     spec:
       
       nodeSelector:
       
       
-        eks.amazonaws.com/nodegroup: prod
+        eks.amazonaws.com/nodegroup: nonprod
       
       
 
@@ -1799,26 +1829,26 @@ metadata:
   name: hiu
   labels:
     app: hiu
-    environment: shreeclinic
+    environment: clinic2
 
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: hiu
-      environment: shreeclinic
+      environment: clinic2
   revisionHistoryLimit: 5
   template:
     metadata:
       labels:
         app: hiu
-        environment: shreeclinic
+        environment: clinic2
     spec:
       
       nodeSelector:
       
       
-        eks.amazonaws.com/nodegroup: prod
+        eks.amazonaws.com/nodegroup: nonprod
       
       
 
@@ -1857,26 +1887,26 @@ metadata:
   name: implementer-interface
   labels:
     app: implementer-interface
-    environment: shreeclinic
+    environment: clinic2
 
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: implementer-interface
-      environment: shreeclinic
+      environment: clinic2
   revisionHistoryLimit: 5
   template:
     metadata:
       labels:
         app: implementer-interface
-        environment: shreeclinic
+        environment: clinic2
     spec:
       
       nodeSelector:
       
       
-        eks.amazonaws.com/nodegroup: prod
+        eks.amazonaws.com/nodegroup: nonprod
       
       
 
@@ -1897,26 +1927,26 @@ metadata:
   name: openmrs
   labels:
     app: openmrs
-    environment: shreeclinic
+    environment: clinic2
 
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: openmrs
-      environment: shreeclinic
+      environment: clinic2
   revisionHistoryLimit: 5
   template:
     metadata:
       labels:
         app: openmrs
-        environment: shreeclinic
+        environment: clinic2
     spec:
       
       nodeSelector:
       
       
-        eks.amazonaws.com/nodegroup: prod
+        eks.amazonaws.com/nodegroup: nonprod
       
       
 
@@ -1985,26 +2015,26 @@ metadata:
   name: otp-service
   labels:
     app: otp-service
-    environment: shreeclinic
+    environment: clinic2
 
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: otp-service
-      environment: shreeclinic
+      environment: clinic2
   revisionHistoryLimit: 5
   template:
     metadata:
       labels:
         app: otp-service
-        environment: shreeclinic
+        environment: clinic2
     spec:
       
       nodeSelector:
       
       
-        eks.amazonaws.com/nodegroup: prod
+        eks.amazonaws.com/nodegroup: nonprod
       
       
 
@@ -2033,7 +2063,7 @@ metadata:
   name: patient-documents
   labels:
     app: patient-documents
-    environment: shreeclinic
+    environment: clinic2
 spec:
   replicas: 1
   selector:
@@ -2045,13 +2075,13 @@ spec:
     metadata:
       labels:
         app: patient-documents
-        environment: shreeclinic
+        environment: clinic2
     spec:
       
       nodeSelector:
       
       
-        eks.amazonaws.com/nodegroup: prod
+        eks.amazonaws.com/nodegroup: nonprod
       
       
 
@@ -2088,26 +2118,26 @@ metadata:
   name: reports
   labels:
     app: reports
-    environment: shreeclinic
+    environment: clinic2
 
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: reports
-      environment: shreeclinic
+      environment: clinic2
   revisionHistoryLimit: 5
   template:
     metadata:
       labels:
         app: reports
-        environment: shreeclinic
+        environment: clinic2
     spec:
       
       nodeSelector:
       
       
-        eks.amazonaws.com/nodegroup: prod
+        eks.amazonaws.com/nodegroup: nonprod
       
       
 
@@ -2144,33 +2174,33 @@ spec:
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: bahmni-shreeclinic-postgresql
-  namespace: "shreeclinic"
+  name: bahmni-clinic2-postgresql
+  namespace: "clinic2"
   labels:
     app.kubernetes.io/name: postgresql
     helm.sh/chart: postgresql-12.1.2
-    app.kubernetes.io/instance: bahmni-shreeclinic
+    app.kubernetes.io/instance: bahmni-clinic2
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: primary
   annotations:
 spec:
   replicas: 1
-  serviceName: bahmni-shreeclinic-postgresql-hl
+  serviceName: bahmni-clinic2-postgresql-hl
   updateStrategy:
     rollingUpdate: {}
     type: RollingUpdate
   selector:
     matchLabels:
       app.kubernetes.io/name: postgresql
-      app.kubernetes.io/instance: bahmni-shreeclinic
+      app.kubernetes.io/instance: bahmni-clinic2
       app.kubernetes.io/component: primary
   template:
     metadata:
-      name: bahmni-shreeclinic-postgresql
+      name: bahmni-clinic2-postgresql
       labels:
         app.kubernetes.io/name: postgresql
         helm.sh/chart: postgresql-12.1.2
-        app.kubernetes.io/instance: bahmni-shreeclinic
+        app.kubernetes.io/instance: bahmni-clinic2
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/component: primary
       annotations:
@@ -2186,14 +2216,14 @@ spec:
                 labelSelector:
                   matchLabels:
                     app.kubernetes.io/name: postgresql
-                    app.kubernetes.io/instance: bahmni-shreeclinic
+                    app.kubernetes.io/instance: bahmni-clinic2
                     app.kubernetes.io/component: primary
                 topologyKey: kubernetes.io/hostname
               weight: 1
         nodeAffinity:
           
       nodeSelector:
-        eks.amazonaws.com/nodegroup: prod
+        eks.amazonaws.com/nodegroup: nonprod
       securityContext:
         fsGroup: 1001
       hostNetwork: false
@@ -2220,7 +2250,7 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /bitnami/postgresql
-              subPath: shreeclinic
+              subPath: clinic2
             - name: dshm
               mountPath: /dev/shm
       containers:
@@ -2242,7 +2272,7 @@ spec:
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: bahmni-shreeclinic-postgresql
+                  name: bahmni-clinic2-postgresql
                   key: postgres-password
             # Replication
             # Initdb
@@ -2306,7 +2336,7 @@ spec:
               mountPath: /dev/shm
             - name: data
               mountPath: /bitnami/postgresql
-              subPath: shreeclinic
+              subPath: clinic2
       volumes:
         - name: dshm
           emptyDir:
@@ -2326,15 +2356,15 @@ spec:
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: bahmni-shreeclinic-rabbitmq
-  namespace: "shreeclinic"
+  name: bahmni-clinic2-rabbitmq
+  namespace: "clinic2"
   labels:
     app.kubernetes.io/name: rabbitmq
     helm.sh/chart: rabbitmq-11.1.2
-    app.kubernetes.io/instance: bahmni-shreeclinic
+    app.kubernetes.io/instance: bahmni-clinic2
     app.kubernetes.io/managed-by: Helm
 spec:
-  serviceName: bahmni-shreeclinic-rabbitmq-headless
+  serviceName: bahmni-clinic2-rabbitmq-headless
   podManagementPolicy: OrderedReady
   replicas: 1
   updateStrategy:
@@ -2342,20 +2372,20 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: rabbitmq
-      app.kubernetes.io/instance: bahmni-shreeclinic
+      app.kubernetes.io/instance: bahmni-clinic2
   template:
     metadata:
       labels:
         app.kubernetes.io/name: rabbitmq
         helm.sh/chart: rabbitmq-11.1.2
-        app.kubernetes.io/instance: bahmni-shreeclinic
+        app.kubernetes.io/instance: bahmni-clinic2
         app.kubernetes.io/managed-by: Helm
       annotations:
-        checksum/config: fda409593433da25a2b3cc173f2a2ce5e87e681594d36da8d33f6f6bf73c2134
-        checksum/secret: 2dbc47643017b921549d429e08be3b2b9329b1734410534f09e0fda4cc72041a
+        checksum/config: 8a70fc6a8d147b788cf7f78414d2727182192b82dcab5a2051b3cde8c9955b14
+        checksum/secret: 184d3027cf3304c39e31ea893fb13ff72ebbd89695d3d692f06b756b4c443a7d
     spec:
       
-      serviceAccountName: bahmni-shreeclinic-rabbitmq
+      serviceAccountName: bahmni-clinic2-rabbitmq
       affinity:
         podAffinity:
           
@@ -2365,13 +2395,13 @@ spec:
                 labelSelector:
                   matchLabels:
                     app.kubernetes.io/name: rabbitmq
-                    app.kubernetes.io/instance: bahmni-shreeclinic
+                    app.kubernetes.io/instance: bahmni-clinic2
                 topologyKey: kubernetes.io/hostname
               weight: 1
         nodeAffinity:
           
       nodeSelector:
-        eks.amazonaws.com/nodegroup: prod
+        eks.amazonaws.com/nodegroup: nonprod
       securityContext:
         fsGroup: 1001
       terminationGracePeriodSeconds: 120
@@ -2411,7 +2441,7 @@ spec:
                 fieldRef:
                   fieldPath: metadata.namespace
             - name: K8S_SERVICE_NAME
-              value: bahmni-shreeclinic-rabbitmq-headless
+              value: bahmni-clinic2-rabbitmq-headless
             - name: K8S_ADDRESS_TYPE
               value: hostname
             - name: RABBITMQ_FORCE_BOOT
@@ -2433,20 +2463,20 @@ spec:
             - name: RABBITMQ_ERL_COOKIE
               valueFrom:
                 secretKeyRef:
-                  name: bahmni-shreeclinic-rabbitmq
+                  name: bahmni-clinic2-rabbitmq
                   key: rabbitmq-erlang-cookie
             - name: RABBITMQ_LOAD_DEFINITIONS
               value: "no"
             - name: RABBITMQ_DEFINITIONS_FILE
               value: "/app/load_definition.json"
             - name: RABBITMQ_SECURE_PASSWORD
-              value: "yes"
+              value: "no"
             - name: RABBITMQ_USERNAME
-              value: ""
+              value: "admin"
             - name: RABBITMQ_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: bahmni-shreeclinic-rabbitmq
+                  name: bahmni-clinic2-rabbitmq
                   key: rabbitmq-password
             - name: RABBITMQ_PLUGINS
               value: "rabbitmq_management, rabbitmq_peer_discovery_k8s, rabbitmq_auth_backend_ldap"
@@ -2493,7 +2523,7 @@ spec:
       volumes:
         - name: configuration
           secret:
-            secretName: bahmni-shreeclinic-rabbitmq-config
+            secretName: bahmni-clinic2-rabbitmq-config
             items:
               - key: rabbitmq.conf
                 path: rabbitmq.conf
@@ -2502,7 +2532,7 @@ spec:
         name: data
         labels:
           app.kubernetes.io/name: rabbitmq
-          app.kubernetes.io/instance: bahmni-shreeclinic
+          app.kubernetes.io/instance: bahmni-clinic2
       spec:
         accessModes:
             - "ReadWriteMany"
@@ -2517,7 +2547,7 @@ kind: Ingress
 metadata:
   name: bahmni-ingress
   labels:
-    environment: shreeclinic
+    environment: clinic2
   annotations:
     nginx.ingress.kubernetes.io/configuration-snippet: |
       add_header Cache-Control "no-cache, max-age=0";
@@ -2538,7 +2568,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: shreeclinic.bahmnilite.in
+    - host: clinic2.bahmnilite.in
       http:
         paths:
           - path: /
@@ -2605,7 +2635,7 @@ spec:
                 port:
                   number: 80
 
-    - host: payments-shreeclinic.bahmnilite.in
+    - host: payments-clinic2.bahmnilite.in
       http:
         paths:
           - path: /
@@ -2622,7 +2652,7 @@ kind: Ingress
 metadata:
   name: openmrs-ingress
   labels:
-    environment: shreeclinic
+    environment: clinic2
   annotations:
     nginx.ingress.kubernetes.io/configuration-snippet: |
       add_header Set-Cookie "reporting_session=$cookie_JSESSIONID;Path=/;Max-Age=86400";
@@ -2630,7 +2660,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: shreeclinic.bahmnilite.in
+    - host: clinic2.bahmnilite.in
       http:
         paths:
           - path: /openmrs
@@ -2647,7 +2677,7 @@ kind: Ingress
 metadata:
   name: abdm-ingress
   labels:
-    environment: shreeclinic
+    environment: clinic2
   annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: 30m
     nginx.ingress.kubernetes.io/rewrite-target: /$1
@@ -2661,7 +2691,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: shreeclinic.bahmnilite.in
+    - host: clinic2.bahmnilite.in
       http:
         paths:
           - path: /hiu-api/(.*)
@@ -2699,14 +2729,14 @@ kind: Ingress
 metadata:
   name: metabase-ingress
   labels:
-    environment: shreeclinic
+    environment: clinic2
   annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: 7m
     nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
   ingressClassName: nginx
   rules:
-    - host: shreeclinic.bahmnilite.in
+    - host: clinic2.bahmnilite.in
       http:
         paths:
           - path: /metabase/?(.*)

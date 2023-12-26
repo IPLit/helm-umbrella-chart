@@ -28,8 +28,8 @@ patches:
                 command: [ "/bin/sh", "-c"]
                 args:
                   - apk add postgresql-client kubectl &&
-                    kubectl wait -l statefulset.kubernetes.io/pod-name=bahmni-"$ENV_CLINIC"-rabbitmq-0 --for=condition=ready pod -n "$ENV_CLINIC" &&
-                    kubectl wait -l statefulset.kubernetes.io/pod-name=bahmni-$ENV_CLINIC-postgresql-0 --for=condition=ready pod -n "$ENV_CLINIC" &&
+                    kubectl wait -l statefulset.kubernetes.io/pod-name=bahmni-"$ENV_CLINIC"-rabbitmq-0 --for=condition=ready pod -n "$ENV_CLINIC" --timeout=900s &&
+                    kubectl wait -l statefulset.kubernetes.io/pod-name=bahmni-$ENV_CLINIC-postgresql-0 --for=condition=ready pod -n "$ENV_CLINIC" --timeout=900s &&
                     pg_isready -h bahmni-$ENV_CLINIC-postgresql
                 envFrom:
                   - configMapRef:
@@ -54,8 +54,8 @@ patches:
                 command: [ "/bin/sh", "-c"]
                 args:
                   - apk add postgresql-client kubectl curl &&
-                    kubectl wait deployment/clinic-config --for=condition=available -n "$ENV_CLINIC" &&
-                    kubectl wait deployment/openmrs --for=condition=available -n "$ENV_CLINIC" &&
+                    kubectl wait deployment/clinic-config --for=condition=available -n "$ENV_CLINIC" --timeout=900s &&
+                    kubectl wait deployment/openmrs --for=condition=available -n "$ENV_CLINIC" --timeout=900s &&
                     while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' http://openmrs:8080/openmrs/)" != "200" ]]; do sleep 5; done
                 envFrom:
                   - configMapRef:
@@ -80,12 +80,12 @@ patches:
                 command: [ "/bin/sh", "-c"]
                 args:
                   - apk add postgresql-client kubectl curl &&
-                    kubectl wait deployment/bahmni-web --for=condition=available -n "$ENV_CLINIC" &&
-                    kubectl wait deployment/implementer-interface --for=condition=available -n "$ENV_CLINIC" &&
-                    kubectl wait deployment/patient-documents --for=condition=available -n "$ENV_CLINIC" &&
-                    kubectl wait deployment/appointments --for=condition=available -n "$ENV_CLINIC" &&
-                    kubectl wait deployment/bahmni-lab --for=condition=available -n "$ENV_CLINIC" &&
-                    kubectl wait deployment/reports --for=condition=available -n "$ENV_CLINIC"
+                    kubectl wait deployment/bahmni-web --for=condition=available -n "$ENV_CLINIC" --timeout=900s &&
+                    kubectl wait deployment/implementer-interface --for=condition=available -n "$ENV_CLINIC" --timeout=900s &&
+                    kubectl wait deployment/patient-documents --for=condition=available -n "$ENV_CLINIC" --timeout=900s &&
+                    kubectl wait deployment/appointments --for=condition=available -n "$ENV_CLINIC" --timeout=900s &&
+                    kubectl wait deployment/bahmni-lab --for=condition=available -n "$ENV_CLINIC" --timeout=900s &&
+                    kubectl wait deployment/reports --for=condition=available -n "$ENV_CLINIC" --timeout=900s
                 envFrom:
                   - configMapRef:
                       name: health-check
@@ -109,11 +109,11 @@ patches:
                 command: [ "/bin/sh", "-c"]
                 args:
                   - apk add postgresql-client kubectl curl &&
-                    kubectl wait deployment/bahmni-mart --for=condition=available -n "$ENV_CLINIC" &&
-                    kubectl wait deployment/bahmni-metabase --for=condition=available -n "$ENV_CLINIC" &&
-                    kubectl wait deployment/crater-atomfeed --for=condition=available -n "$ENV_CLINIC" &&
-                    kubectl wait deployment/crater-nginx --for=condition=available -n "$ENV_CLINIC" &&
-                    kubectl wait deployment/crater-php --for=condition=available -n "$ENV_CLINIC"
+                    kubectl wait deployment/bahmni-mart --for=condition=available -n "$ENV_CLINIC" --timeout=900s &&
+                    kubectl wait deployment/bahmni-metabase --for=condition=available -n "$ENV_CLINIC" --timeout=900s &&
+                    kubectl wait deployment/crater-atomfeed --for=condition=available -n "$ENV_CLINIC" --timeout=900s &&
+                    kubectl wait deployment/crater-nginx --for=condition=available -n "$ENV_CLINIC" --timeout=900s &&
+                    kubectl wait deployment/crater-php --for=condition=available -n "$ENV_CLINIC" --timeout=900s
                 envFrom:
                   - configMapRef:
                       name: health-check

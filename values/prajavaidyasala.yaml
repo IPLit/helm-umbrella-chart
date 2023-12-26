@@ -1,12 +1,12 @@
 global:
   storageClass: bahmni-efs-sc
   nodeSelector:
-    eks.amazonaws.com/nodegroup: NODEGROUP_NAME
+    eks.amazonaws.com/nodegroup: prod
   TZ: "Asia/Kolkata"
 
 metadata:
   labels:
-    environment: TENANT_NAME
+    environment: prajavaidyasala
   ingress:
     PROXY_BODY_SIZE: "7m"
     ABDM_PROXY_BODY_SIZE: "30m"
@@ -15,7 +15,7 @@ openmrs:
   enabled: true
   metadata:
     labels:
-      environment: TENANT_NAME
+      environment: prajavaidyasala
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: openmrs
@@ -25,7 +25,7 @@ bahmni-web:
   enabled: true
   metadata:
     labels:
-      environment: TENANT_NAME
+      environment: prajavaidyasala
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmni-iplit-web
@@ -35,7 +35,7 @@ bahmni-lab:
   enabled: true
   metadata:
     labels:
-      environment: TENANT_NAME
+      environment: prajavaidyasala
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmni-lab
@@ -45,7 +45,7 @@ crater:
   enabled: true
   metadata:
     labels:
-      environment: TENANT_NAME
+      environment: prajavaidyasala
   config:
     AUTO_INSTALL: "true"
     ADMIN_NAME: Super Man
@@ -68,7 +68,7 @@ reports:
   enabled: true
   metadata:
     labels:
-      environment: TENANT_NAME
+      environment: prajavaidyasala
   config:
     OPENMRS_HOST: "openmrs"
   image:
@@ -79,10 +79,10 @@ reports:
 hiu:
   enabled: true
   config:
-    POSTGRES_HOST: "bahmni-TENANT_NAME-postgresql"
-    RABBITMQ_HOST: "bahmni-TENANT_NAME-rabbitmq"
-    HIU_ID: "TENANT_NAME"
-    HIU_NAME: "TENANT_NAME"
+    POSTGRES_HOST: "bahmni-prajavaidyasala-postgresql"
+    RABBITMQ_HOST: "bahmni-prajavaidyasala-rabbitmq"
+    HIU_ID: "prajavaidyasala"
+    HIU_NAME: "prajavaidyasala"
     CONSENT_MANAGEMENT_SUFFIX: "@sbx"
     CONSENT_MANAGEMENT_URL: "https://live.ndhm.gov.in/cm"
     GATEWAY_BASE_URL: "https://dev.abdm.gov.in/gateway/v0.5"
@@ -91,7 +91,7 @@ hiu:
     IDENTITY_JWK_URL : "https://dev.ndhm.gov.in/auth/realms/consent-manager/protocol/openid-connect/certs"
   metadata:
     labels:
-      environment: TENANT_NAME
+      environment: prajavaidyasala
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: hiu
@@ -100,10 +100,10 @@ hiu:
 hiu-db:
   enabled: true
   config:
-    JAVA_TOOL_OPTIONS: "-Djdbc.url=jdbc:postgresql://bahmni-TENANT_NAME-postgresql:5432/ -Djdbc.username=postgres -Djdbc.password=welcome -Djdbc.database=health_information_user"
+    JAVA_TOOL_OPTIONS: "-Djdbc.url=jdbc:postgresql://bahmni-prajavaidyasala-postgresql:5432/ -Djdbc.username=postgres -Djdbc.password=welcome -Djdbc.database=health_information_user"
   metadata:
     labels:
-      environment: TENANT_NAME
+      environment: prajavaidyasala
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: hiu-db
@@ -112,11 +112,11 @@ hiu-db:
 hiu-ui:
   enabled: true
   config:
-    POSTGRES_HOST: bahmni-TENANT_NAME-postgresql
-    RABBITMQ_HOST: bahmni-TENANT_NAME-rabbitmq
+    POSTGRES_HOST: bahmni-prajavaidyasala-postgresql
+    RABBITMQ_HOST: bahmni-prajavaidyasala-rabbitmq
   metadata:
     labels:
-      environment: TENANT_NAME
+      environment: prajavaidyasala
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: hiu-ui
@@ -125,15 +125,15 @@ hiu-ui:
 hip:
   enabled: true
   config:
-    CONNECTION_STRING: "Host=bahmni-TENANT_NAME-postgresql;Port=5432;Username=postgres;Password=welcome;Database=hipservice"
-    RABBITMQ_HOST: "bahmni-TENANT_NAME-rabbitmq"
-    BAHMNI_ID: "TENANT_NAME"
+    CONNECTION_STRING: "Host=bahmni-prajavaidyasala-postgresql;Port=5432;Username=postgres;Password=welcome;Database=hipservice"
+    RABBITMQ_HOST: "bahmni-prajavaidyasala-rabbitmq"
+    BAHMNI_ID: "prajavaidyasala"
     BAHMNI_URL: http://openmrs:8080/openmrs
     GATEWAY_URL: "https://dev.abdm.gov.in/gateway"
     GATEWAY_CMSUFFIX: "sbx"
   metadata:
     labels:
-      environment: TENANT_NAME
+      environment: prajavaidyasala
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: hip
@@ -142,10 +142,10 @@ hip:
 otp-service:
   enabled: true
   config:
-    CONNECTION_STRING: "Host=bahmni-TENANT_NAME-postgresql;Port=5432;Username=postgres;Password=welcome;Database=otpservice;"
+    CONNECTION_STRING: "Host=bahmni-prajavaidyasala-postgresql;Port=5432;Username=postgres;Password=welcome;Database=otpservice;"
   metadata:
     labels:
-      environment: TENANT_NAME
+      environment: prajavaidyasala
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: otp-service
@@ -154,10 +154,10 @@ otp-service:
 hip-atomfeed:
   enabled: true
   config:
-    DATABASE_URL: "jdbc:postgresql://bahmni-TENANT_NAME-postgresql:5432/"
+    DATABASE_URL: "jdbc:postgresql://bahmni-prajavaidyasala-postgresql:5432/"
   metadata:
     labels:
-      environment: TENANT_NAME
+      environment: prajavaidyasala
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: hip-atomfeed
@@ -169,12 +169,12 @@ postgresql:
     enabled: true
   primary:
     persistence:
-      subPath: TENANT_NAME
+      subPath: prajavaidyasala
       storageClass: bahmni-efs-sc
       accessModes:
         - ReadWriteMany
     nodeSelector:
-      eks.amazonaws.com/nodegroup: NODEGROUP_NAME
+      eks.amazonaws.com/nodegroup: prod
   image:
     tag: 14-debian-11
 
@@ -188,7 +188,7 @@ rabbitmq:
     accessModes:
       - ReadWriteMany
   nodeSelector:
-    eks.amazonaws.com/nodegroup: NODEGROUP_NAME
+    eks.amazonaws.com/nodegroup: prod
   image:
     repository: rabbitmq
     tag: alpine
@@ -197,7 +197,7 @@ patient-documents:
   enabled: true
   metadata:
     labels:
-      environment: TENANT_NAME
+      environment: prajavaidyasala
   config:
     OPENMRS_HOST: "openmrs"
   image:
@@ -216,7 +216,7 @@ crater-atomfeed:
   enabled: true
   metadata:
     labels:
-      environment: TENANT_NAME
+      environment: prajavaidyasala
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: crater-atomfeed
@@ -226,7 +226,7 @@ implementer-interface:
   enabled: true
   metadata:
     labels:
-      environment: TENANT_NAME
+      environment: prajavaidyasala
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: implementer-interface
@@ -235,7 +235,7 @@ implementer-interface:
 clinic-config:
   metadata:
     labels:
-      environment: TENANT_NAME
+      environment: prajavaidyasala
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: clinic-config-indiadistro
@@ -245,7 +245,7 @@ abha-verification:
   enabled: true
   metadata:
     labels:
-      environment: TENANT_NAME
+      environment: prajavaidyasala
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: abha-verification
@@ -260,8 +260,8 @@ bahmni-metabase:
     MART_DB_NAME: martdb
   secrets:
     MB_ADMIN_FIRST_NAME: 'Admin'
-    MB_DB_HOST: 'bahmni-TENANT_NAME-postgresql'
-    MART_DB_HOST: 'bahmni-TENANT_NAME-postgresql'
+    MB_DB_HOST: 'bahmni-prajavaidyasala-postgresql'
+    MART_DB_HOST: 'bahmni-prajavaidyasala-postgresql'
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmni-metabase
@@ -272,7 +272,7 @@ bahmni-mart:
   config:
     MART_DB_NAME: martdb
   secrets:
-    MART_DB_HOST: "bahmni-TENANT_NAME-postgresql"
+    MART_DB_HOST: "bahmni-prajavaidyasala-postgresql"
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmni-mart

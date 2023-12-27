@@ -4,8 +4,11 @@ TENANT=$1
 CERTIFICATE_ARN=$2
 INGRESS_NLB_DNS_NAME=$3
 
-mkdir -p static
-aws s3 sync s3://iplit-static-webapp/ ./static/
+IMAGE_TAG=$(cat ../values/$TENANT.yaml | yq .bahmni-web.image.tag)
+
+docker pull infoiplitin/bahmni-iplit-web:$IMAGE_TAG
+IMG_ID=$(docker create infoiplitin/bahmni-iplit-web:$IMAGE_TAG)
+docker cp $IMG_ID:/usr/local/apache2/htdocs ./static
 
 cp $TENANT/bahmniLogoFull.png static/bahmni/images/bahmniLogoFull.png || echo "No such file"
 cp $TENANT/visitPrintHeader.png static/bahmni/images/visitPrintHeader.png || echo "No such file"

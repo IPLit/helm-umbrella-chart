@@ -31,7 +31,7 @@ bahmni-web:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmni-iplit-web
-    tag: 1.0.0-73
+    tag: 1.0.0-79
 
 bahmni-lab:
   enabled: true
@@ -232,7 +232,7 @@ clinic-config:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: clinic-config-indiadistro
-    tag: 1.0.0-7
+    tag: 1.0.0-19
 
 abha-verification:
   enabled: true

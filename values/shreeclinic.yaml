@@ -16,7 +16,7 @@ openmrs:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: openmrs
-    tag: 1.0.0-626-9-iplit
+    tag: 1.0.0-626-10-iplit
   metadata:
     labels:
       environment: shreeclinic
@@ -84,11 +84,11 @@ hiu:
     HIU_ID: "IN2710015434"
     HIU_NAME: "Shree Clinic"
     CONSENT_MANAGEMENT_SUFFIX: "@abdm"
-    CONSENT_MANAGEMENT_URL: "https://live.ndhm.gov.in/cm"
-    GATEWAY_BASE_URL: "https://live.ndhm.gov.in/gateway/v0.5"
-    GATEWAY_JWK_URL: "https://live.ndhm.gov.in/gateway/v0.5/certs"
+    CONSENT_MANAGEMENT_URL: "https://live.abdm.gov.in/cm"
+    GATEWAY_BASE_URL: "https://live.abdm.gov.in/gateway/v0.5"
+    GATEWAY_JWK_URL: "https://live.abdm.gov.in/gateway/v0.5/certs"
     HFR_AFFINITY_DOMAINS: "facility.abdm.gov.in"
-    IDENTITY_JWK_URL : "https://live.ndhm.gov.in/auth/realms/consent-manager/protocol/openid-connect/certs"
+    IDENTITY_JWK_URL : "https://live.abdm.gov.in/auth/realms/consent-manager/protocol/openid-connect/certs"
   metadata:
     labels:
       environment: shreeclinic
@@ -127,7 +127,7 @@ hip:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: hip
-    tag: 1.0.0-352
+    tag: 1.0.0-353
   config:
     CONNECTION_STRING: "Host=bahmni-shreeclinic-postgresql;Port=5432;Username=postgres;Password=welcome;Database=hipservice"
     RABBITMQ_HOST: "bahmni-shreeclinic-rabbitmq"
@@ -135,7 +135,7 @@ hip:
     BAHMNI_URL: http://openmrs:8080/openmrs
     ABHA_NUMBER_URL: "https://healthid.abdm.gov.in/api"
     ABHA_ADDRESS_URL: "https://phr.abdm.gov.in/api"
-    GATEWAY_URL: "https://live.ndhm.gov.in/gateway"
+    GATEWAY_URL: "https://live.abdm.gov.in/gateway"
     GATEWAY_CMSUFFIX: "abdm"
   metadata:
     labels:

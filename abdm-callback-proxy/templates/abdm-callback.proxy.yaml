@@ -21,7 +21,6 @@ data:
         IN2710000192: 'arogyahospital.bahmnilite.in',
         IN2710000190: 'sandhuhospital.bahmnilite.in',
         IN0610000237: 'vibranthealing.bahmni.in',
-        IN2710015434: 'iplitdev.bahmni.in',
     };
     function delegate(request) {
         var upperCaseHeaders = {};

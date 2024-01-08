@@ -19,7 +19,7 @@ openmrs:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: openmrs
-    tag: 1.0.0-626-9-iplit
+    tag: 1.0.0-626-10-iplit
 
 bahmni-web:
   enabled: true
@@ -83,11 +83,7 @@ hiu:
     RABBITMQ_HOST: "bahmni-clinic1-rabbitmq"
     HIU_ID: "iplitclinic1"
     HIU_NAME: "iplitclinic1"
-    # GATEWAY_BASE_URL: "https://nha-suma-azb7fa3pfa-el.a.run.app/v0.5"
     GATEWAY_REQUEST_TIMEOUT: 5000
-    # GATEWAY_REQUEST_TIMEOUT: 21000
-    # GATEWAY_URL: "https://nha-suma-azb7fa3pfa-el.a.run.app"
-    # CORS_ALLOWED_ORIGIN: "https://nha-suma-azb7fa3pfa-el.a.run.app"
   metadata:
     labels:
       environment: clinic1
@@ -128,16 +124,13 @@ hip:
     RABBITMQ_HOST: "bahmni-clinic1-rabbitmq"
     BAHMNI_ID: "iplitclinic1"
     GATEWAY_URL: "https://dev.abdm.gov.in/gateway"
-    # GATEWAY_URL: "https://nha-suma-azb7fa3pfa-el.a.run.app"
-    # SESSION_GATEWAY_URL: "https://dev.abdm.gov.in/gateway"
-    # CORS_ALLOWED_ORIGIN: "https://nha-suma-azb7fa3pfa-el.a.run.app"
   metadata:
     labels:
       environment: clinic1
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: hip
-    tag: 1.0.0-352
+    tag: 1.0.0-353
 
 otp-service:
   enabled: true

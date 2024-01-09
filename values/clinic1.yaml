@@ -243,7 +243,7 @@ abha-verification:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: abha-verification
-    tag: 1.0.0-3
+    tag: 1.0.0-4
 
 bahmni-metabase:
   enabled: true

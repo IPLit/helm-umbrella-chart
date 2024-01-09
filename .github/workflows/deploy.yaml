@@ -36,6 +36,7 @@ on:
           - clinic2
           - clinic3
           - drgujarshospital
+          - drdebaratiacharya
           - prajavaidyasala
           - sehatsambhalseva
           - shreeclinic
@@ -228,7 +229,7 @@ jobs:
           --values=values/${{ env.ENVIRONMENT }}.yaml \
           --install \
           --namespace ${{ env.ENVIRONMENT }} --create-namespace
-          # --post-renderer ./helm_kustomization/kustomize.sh
+          --post-renderer ./helm_kustomization/kustomize.sh
 
       - name: ABDM Helm Upgrade
         run: |

@@ -18,13 +18,14 @@ provider "aws" {
 }
 
 module "TENANT_cloudfront_distribution" {
-  source                     = "git@gitlab.iplit.in:devops/terraform-modules/cloudfront-s3-cdn.git?ref=1.0.2"
-  tenant_name                = "TENANT"
-  application_dns_name       = "INGRESS_NLB_DNS_NAME"
-  webapp_domain_name         = "TENANT.bahmnilite.in"
-  static_files_folder        = "static"
-  webapp_acm_certificate_arn = "CERTIFICATE_ARN"
-  maintenance_page_origin    = "bahmnilite-maintenance-page"
+  source                       = "git@gitlab.iplit.in:devops/terraform-modules/cloudfront-s3-cdn.git?ref=1.0.2"
+  tenant_name                  = "TENANT"
+  application_dns_name         = "INGRESS_NLB_DNS_NAME"
+  webapp_domain_name           = "TENANT.bahmnilite.in"
+  static_files_folder          = "static"
+  static_content_path_prefixes = ["/bahmni/*.png", "/bahmni/*.css", "/bahmni/*.js", "/index.html" ]
+  webapp_acm_certificate_arn   = "CERTIFICATE_ARN"
+  maintenance_page_origin      = "bahmnilite-maintenance-page"
 }
 
 output "cloudfront_distribution_domain_name" {

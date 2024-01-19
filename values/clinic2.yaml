@@ -16,8 +16,8 @@ openmrs:
   metadata:
     labels:
       environment: clinic2
-  config:
-    OMRS_DB_EXTRA_ARGS: "&zeroDateTimeBehavior=convertToNull"
+  # config:
+  #   OMRS_DB_EXTRA_ARGS: "&zeroDateTimeBehavior=convertToNull"
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: openmrs

@@ -7,21 +7,26 @@ metadata:
     environment: default
 data:
   njs.js: |-
+    {{- if eq .Values.environment "prod"}}
     var delegateRepository = {
         Bahmni: 'dev.bahmnilite.in',
         IN2710015434: 'shreeclinic.bahmnilite.in',
-        iplitclinic1: 'clinic1.bahmnilite.in',
-        IPLitClinic2: 'clinic2.bahmnilite.in',
-        iplitclinic3: 'clinic3.bahmnilite.in',
         deodharhospital: 'deodharhospital.bahmnilite.in',
-        SandhuHospital: 'sandhuhospital.bahmnilite.in',
         'Get Well Polyclinic': 'getwellpolyclinic.bahmnilite.in',
         drbarvaliaclinic: 'drbarvaliaclinic.bahmnilite.in',
         IN0310001453: 'sukhveenhospital.bahmni.in',
         IN2710000192: 'arogyahospital.bahmnilite.in',
-        IN2710000190: 'sandhuhospital.bahmnilite.in',
         IN0610000237: 'vibranthealing.bahmni.in',
     };
+    {{- else if eq .Values.environment "nonprod"}}
+    var delegateRepository = {
+        Bahmni: 'dev.bahmnilite.in',
+        iplitclinic1: 'clinic1.bahmnilite.in',
+        IPLitClinic2: 'clinic2.bahmnilite.in',
+        iplitclinic3: 'clinic3.bahmnilite.in',
+        IN2710000190: 'sandhuhospital.bahmnilite.in',
+        IN0610000237: 'vibranthealing.bahmni.in',
+    {{- end }}
     function delegate(request) {
         var upperCaseHeaders = {};
         Object.keys(request.headersIn).forEach(function (headerKey) {

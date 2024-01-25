@@ -233,7 +233,7 @@ jobs:
       - name: ABDM Helm Upgrade
         run: |
           helm upgrade --install abdm-callback-proxy abdm-callback-proxy/ \
-          --set proxy_url=$ABDM_DNS --namespace abdm --create-namespace
+          --set proxy_url=$ABDM_DNS --set environment=${{ env.ENVIRONMENT_CLUSTER }} --namespace abdm --create-namespace
 
       - uses: webfactory/ssh-agent@v0.4.1
         if: ${{ github.event.inputs.with_cloudfront == 'true' }}

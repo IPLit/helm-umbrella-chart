@@ -1,7 +1,5 @@
 global:
   storageClass: bahmni-efs-sc
-  nodeSelector:
-    eks.amazonaws.com/nodegroup: nonprod
   TZ: "Asia/Kolkata"
 
 metadata:
@@ -170,8 +168,6 @@ postgresql:
       storageClass: bahmni-efs-sc
       accessModes:
         - ReadWriteMany
-    nodeSelector:
-      eks.amazonaws.com/nodegroup: nonprod
   image:
     tag: 14-debian-11
 
@@ -184,8 +180,6 @@ rabbitmq:
     storageClass: bahmni-efs-sc
     accessModes:
       - ReadWriteMany
-  nodeSelector:
-    eks.amazonaws.com/nodegroup: nonprod
 
 patient-documents:
   enabled: true

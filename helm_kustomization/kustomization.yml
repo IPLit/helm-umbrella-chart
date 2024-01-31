@@ -140,7 +140,7 @@ patchesStrategicMerge:
           readinessProbe:
             exec:
               command:
-              - cat
-              - /tmp/healthy
+              - curl
+              - http://127.0.0.1:8080/openmrs/
             initialDelaySeconds: 600
             periodSeconds: 30

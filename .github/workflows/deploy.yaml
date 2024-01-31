@@ -229,7 +229,7 @@ jobs:
           --set bahmni-mart.config.OPENMRS_DB_NAME=openmrs_${{ env.ENVIRONMENT }} \
           --values=values/${{ env.ENVIRONMENT }}.yaml \
           --install \
-          --namespace ${{ env.ENVIRONMENT }} --create-namespace
+          --namespace ${{ env.ENVIRONMENT }} --create-namespace \
           --post-renderer ./helm_kustomization/kustomize.sh
 
       - name: ABDM Helm Upgrade

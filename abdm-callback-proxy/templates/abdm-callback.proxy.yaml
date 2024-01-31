@@ -26,6 +26,7 @@ data:
         iplitclinic3: 'clinic3.bahmnilite.in',
         IN2710000190: 'sandhuhospital.bahmnilite.in',
         IN0610000237: 'vibranthealing.bahmni.in',
+    };
     {{- end }}
     function delegate(request) {
         var upperCaseHeaders = {};

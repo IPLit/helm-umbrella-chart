@@ -135,12 +135,12 @@ patchesStrategicMerge:
               command:
               - curl
               - http://127.0.0.1:8080/openmrs/
-            initialDelaySeconds: 600
+            initialDelaySeconds: 360
             periodSeconds: 30
           readinessProbe:
             exec:
               command:
               - curl
               - http://127.0.0.1:8080/openmrs/
-            initialDelaySeconds: 600
+            initialDelaySeconds: 360
             periodSeconds: 30

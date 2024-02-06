@@ -7,8 +7,8 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/configuration-snippet: |
       add_header Cache-Control "no-cache, max-age=0";
-      add_header Content-Security-Policy "default-src 'self' data: *.bahmnilite.in meet.jit.si cdnjs.cloudflare.com 'unsafe-inline' 'unsafe-eval' 'img-src'; worker-src blob:; upgrade-insecure-requests; block-all-mixed-content";
-      add_header Cross-Origin-Embedder-Policy "require-corp";
+      add_header Content-Security-Policy "default-src 'self' data: *.bahmnilite.in meet.jit.si cdnjs.cloudflare.com cdn.jsdelivr.net 'unsafe-inline' 'unsafe-eval' 'img-src'; worker-src blob:; upgrade-insecure-requests; block-all-mixed-content";
+      add_header Cross-Origin-Embedder-Policy "unsafe-none";
       add_header Cross-Origin-Opener-Policy "same-origin";
       add_header Cross-Origin-Resource-Policy "same-origin";
       add_header Permissions-Policy "accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), document-domain=(), encrypted-media=(), gamepad=(), geolocation=(), gyroscope=(), layout-animations=self, legacy-image-formats=self, magnetometer=(), midi=(), oversized-images=self, payment=(), publickey-credentials-get=(), speaker-selection=(), sync-xhr=self, unoptimized-images=self, unsized-media=self, usb=(), screen-wake-lock=(), web-share=(), xr-spatial-tracking=()";

@@ -167,6 +167,10 @@ postgresql:
   enabled: true
   volumePermissions:
     enabled: true
+    image:
+      registry: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
+      repository: bitnami-shell
+      tag: 11-debian-11-r50
   primary:
     persistence:
       subPath: getwellpolyclinic
@@ -176,6 +180,8 @@ postgresql:
     nodeSelector:
       eks.amazonaws.com/nodegroup: prod
   image:
+    registry: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
+    repository: postgresql
     tag: 14-debian-11
 
 rabbitmq:

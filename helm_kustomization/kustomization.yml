@@ -131,16 +131,22 @@ patchesStrategicMerge:
         containers:
         - name: openmrs
           livenessProbe:
-            exec:
-              command:
-              - curl
-              - http://127.0.0.1:8080/openmrs/
+            httpGet:
+              path: /openmrs/
+              port: 8080
+              scheme: HTTP
             initialDelaySeconds: 360
+            timeoutSeconds: 1
             periodSeconds: 30
+            successThreshold: 1
+            failureThreshold: 3
           readinessProbe:
-            exec:
-              command:
-              - curl
-              - http://127.0.0.1:8080/openmrs/
+            httpGet:
+              path: /openmrs/
+              port: 8080
+              scheme: HTTP
             initialDelaySeconds: 360
+            timeoutSeconds: 1
             periodSeconds: 30
+            successThreshold: 1
+            failureThreshold: 3

@@ -28,9 +28,9 @@ bahmni-web:
     labels:
       environment: clinic3
   image:
-    repository: infoiplitin
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmni-iplit-web
-    tag: 1.0.0-73
+    tag: 1.0.0-85
 
 bahmni-lab:
   enabled: true
@@ -38,7 +38,7 @@ bahmni-lab:
     labels:
       environment: clinic3
   image:
-    repository: bahmni
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmni-lab
     tag: 1.1.0-171
 
@@ -57,13 +57,13 @@ crater:
     ADMIN_EMAIL: "superman@bahmni.org"
   image:
     nginx:
-      repository: bahmni
+      repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
       name: crater-nginx
       tag: 1.1.0-218
     php:
-      repository: bahmni
+      repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
       name: crater-php
-      tag: 1.0.0
+      tag: 1.1.0-105
 
 reports:
   enabled: true
@@ -73,9 +73,9 @@ reports:
   config:
     OPENMRS_HOST: "openmrs"
   image:
-    repository: bahmni
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: reports
-    tag: 1.1.0-131
+    tag: 1.1.0-142
 
 hiu:
   enabled: true
@@ -88,9 +88,9 @@ hiu:
     labels:
       environment: clinic3
   image:
-    repository: bahmniindiadistro
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: hiu
-    tag: 1.0.0-116
+    tag: 1.0.0-29
 
 hiu-db:
   enabled: true
@@ -100,7 +100,7 @@ hiu-db:
     labels:
       environment: clinic3
   image:
-    repository: bahmniindiadistro
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: hiu-db
     tag: 1.0.0-74
 
@@ -113,9 +113,9 @@ hiu-ui:
     labels:
       environment: clinic3
   image:
-    repository: bahmniindiadistro
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: hiu-ui
-    tag: 1.0.0-109
+    tag: 1.0.0-9
 
 hip:
   enabled: true
@@ -130,9 +130,9 @@ hip:
     labels:
       environment: clinic3
   image:
-    repository: bahmniindiadistro
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: hip
-    tag: 1.0.0-352
+    tag: 1.0.0-147
 
 otp-service:
   enabled: true
@@ -142,7 +142,7 @@ otp-service:
     labels:
       environment: clinic3
   image:
-    repository: infoiplitin
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: otp-service
     tag: 1.0.0-12
 
@@ -154,7 +154,7 @@ hip-atomfeed:
     labels:
       environment: clinic3
   image:
-    repository: bahmniindiadistro
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: hip-atomfeed
     tag: 1.0.0-109
 
@@ -195,16 +195,16 @@ patient-documents:
   config:
     OPENMRS_HOST: "openmrs"
   image:
-    repository: bahmni
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: patient-documents
-    tag: 1.1.0-28
+    tag: 1.1.0-29
 
 appointments:
   enabled: true
   image:
-    repository: bahmni
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: appointments
-    tag: 1.1.0-81
+    tag: 1.1.0-95
 
 crater-atomfeed:
   enabled: true
@@ -212,7 +212,7 @@ crater-atomfeed:
     labels:
       environment: clinic3
   image:
-    repository: bahmni
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: crater-atomfeed
     tag: 1.1.0-125
 
@@ -222,18 +222,18 @@ implementer-interface:
     labels:
       environment: clinic3
   image:
-    repository: bahmni
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: implementer-interface
-    tag: 1.1.0-62
+    tag: 1.1.0-67
 
 clinic-config:
   metadata:
     labels:
       environment: clinic3
   image:
-    repository: infoiplitin
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: clinic-config-indiadistro
-    tag: 1.0.0-4
+    tag: 1.0.0-26
 
 abha-verification:
   enabled: true
@@ -241,9 +241,9 @@ abha-verification:
     labels:
       environment: clinic3
   image:
-    repository: infoiplitin
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: abha-verification
-    tag: 1.0.0-3
+    tag: 1.0.0-4
 
 bahmni-metabase:
   enabled: true
@@ -257,7 +257,7 @@ bahmni-metabase:
     MB_DB_HOST: 'bahmni-clinic3-postgresql'
     MART_DB_HOST: 'bahmni-clinic3-postgresql'
   image:
-    repository: bahmni
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmni-metabase
     tag: 1.1.0-34
 
@@ -268,6 +268,6 @@ bahmni-mart:
   secrets:
     MART_DB_HOST: "bahmni-clinic3-postgresql"
   image:
-    repository: bahmni
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmni-mart
     tag: 1.1.0-59

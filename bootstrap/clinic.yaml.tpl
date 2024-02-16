@@ -19,7 +19,7 @@ openmrs:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: openmrs
-    tag: 1.0.0-626-10-iplit
+    tag: 1.0.0-630-1-iplit
 
 bahmni-web:
   enabled: true
@@ -29,7 +29,7 @@ bahmni-web:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmni-iplit-web
-    tag: 1.0.0-81
+    tag: 1.0.0-85
 
 bahmni-lab:
   enabled: true
@@ -62,7 +62,7 @@ crater:
     php:
       repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
       name: crater-php
-      tag: 1.0.0
+      tag: 1.1.0-105
 
 reports:
   enabled: true
@@ -74,7 +74,7 @@ reports:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: reports
-    tag: 1.1.0-131
+    tag: 1.1.0-142
 
 hiu:
   enabled: true
@@ -95,7 +95,7 @@ hiu:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: hiu
-    tag: 1.0.0-116
+    tag: 1.0.0-29
 
 hiu-db:
   enabled: true
@@ -120,7 +120,7 @@ hiu-ui:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: hiu-ui
-    tag: 1.0.0-109
+    tag: 1.0.0-9
 
 hip:
   enabled: true
@@ -137,7 +137,7 @@ hip:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: hip
-    tag: 1.0.0-353
+    tag: 1.0.0-147
 
 otp-service:
   enabled: true
@@ -167,6 +167,10 @@ postgresql:
   enabled: true
   volumePermissions:
     enabled: true
+    image:
+      registry: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
+      repository: bitnami-shell
+      tag: 11-debian-11-r50
   primary:
     persistence:
       subPath: TENANT_NAME
@@ -176,6 +180,8 @@ postgresql:
     nodeSelector:
       eks.amazonaws.com/nodegroup: NODEGROUP_NAME
   image:
+    registry: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
+    repository: postgresql
     tag: 14-debian-11
 
 rabbitmq:
@@ -203,14 +209,14 @@ patient-documents:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: patient-documents
-    tag: 1.1.0-28
+    tag: 1.1.0-29
 
 appointments:
   enabled: true
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: appointments
-    tag: 1.1.0-81
+    tag: 1.1.0-95
 
 crater-atomfeed:
   enabled: true
@@ -230,7 +236,7 @@ implementer-interface:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: implementer-interface
-    tag: 1.1.0-62
+    tag: 1.1.0-67
 
 clinic-config:
   metadata:
@@ -239,7 +245,7 @@ clinic-config:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: clinic-config-indiadistro
-    tag: 1.0.0-19
+    tag: 1.0.0-26
 
 abha-verification:
   enabled: true

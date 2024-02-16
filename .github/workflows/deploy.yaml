@@ -100,7 +100,7 @@ jobs:
           --namespace=ingress-nginx --create-namespace \
           --install \
           --set 'controller.service.annotations.service\.beta\.kubernetes\.io\/aws-load-balancer-ssl-cert'=${{ secrets.MYBAHMNI_CERT_ARN }} \
-          --values=values/ingress_config.yaml 
+          --values=values/ingress_config.yaml
       - name: Upsert Route53 A record with INGRESS_DNS
         run: |
           INGRESS_DNS=$(kubectl -n ingress-nginx  get svc ingress-nginx-controller -o jsonpath="{.status.loadBalancer.ingress[0].hostname}")
@@ -121,6 +121,7 @@ jobs:
       - name: Setup Environment secrets
         shell: bash
         run: |
+          bash helm_kustomization/setupCraterEmailSettings.sh ${{ env.ENVIRONMENT }}
           bash .github/setupEnvSecrets.sh ${{ env.ENVIRONMENT }} ${{ env.ENVIRONMENT_CLUSTER }} ${{ env.DB_TENANT }}
           echo "ENV_CLINIC=${{ env.ENVIRONMENT }}" > helm_kustomization/config.properties
 

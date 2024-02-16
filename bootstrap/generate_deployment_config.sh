@@ -49,6 +49,11 @@ createParameter "/$TENANT_NAME/bahmni_mart/DB_USERNAME" $MART_DB_USERNAME
 createParameter "/$TENANT_NAME/crater/ADMIN_PASSWORD" $CRATER_ADMIN_PASSWORD
 createParameter "/$TENANT_NAME/crater/DB_PASSWORD" $CRATER_DB_PASSWORD
 createParameter "/$TENANT_NAME/crater/DB_USERNAME" $CRATER_DB_USERNAME
+createParameter "/$TENANT_NAME/crater/CRATER_MAIL_USERNAME" "dummy"
+createParameter "/$TENANT_NAME/crater/CRATER_MAIL_PASSWORD" "dummy"
+createParameter "/$TENANT_NAME/crater/CRATER_MAIL_HOST" "dummy"
+createParameter "/$TENANT_NAME/crater/CRATER_MAIL_FROM_ADDRESS" "dummy"
+createParameter "/$TENANT_NAME/crater/CRATER_MAIL_FROM_NAME" "dummy"
 createParameter "/$TENANT_NAME/crater_atomfeed/DB_PASSWORD" $CRATER_ATOMFEED_DB_PASSWORD
 createParameter "/$TENANT_NAME/crater_atomfeed/DB_USERNAME" $CRATER_ATOMFEED_DB_USERNAME
 createParameter "/$TENANT_NAME/metabase/ADMIN_EMAIL" $METABASE_ADMIN_EMAIL

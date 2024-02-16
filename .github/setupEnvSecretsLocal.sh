@@ -4,9 +4,17 @@ set -e
 function exportWithMask {
     SSM_PARAMETER_NAME=$1
     ENV_VARIABLE_NAME=$2
-    
+
     PARAMETER_VALUE=$(aws ssm get-parameter --with-decryption --name "$SSM_PARAMETER_NAME" --query "Parameter.Value" --output text)
     echo "export $ENV_VARIABLE_NAME=\"$PARAMETER_VALUE\""
+}
+
+function exportEncodedWithMask {
+    SSM_PARAMETER_NAME=$1
+    ENV_VARIABLE_NAME=$2
+
+    PARAMETER_VALUE=$(aws ssm get-parameter --with-decryption --name "$SSM_PARAMETER_NAME" --query "Parameter.Value" --output text )
+    echo "export $ENV_VARIABLE_NAME=\"$(echo -n $PARAMETER_VALUE | base64)\""
 }
 
 ENVIRONMENT=$1
@@ -19,12 +27,22 @@ else
     DB_TENANT=$ENVIRONMENT_CLUSTER
 fi;
 echo $DB_TENANT
+
+
 exportWithMask "/$ENVIRONMENT/openmrs/DB_USERNAME" 'OPENMRS_DB_USERNAME'
 exportWithMask "/$ENVIRONMENT/openmrs/DB_PASSWORD" 'OPENMRS_DB_PASSWORD'
 exportWithMask "/$ENVIRONMENT/reports/DB_USERNAME" 'REPORTS_DB_USERNAME'
 exportWithMask "/$ENVIRONMENT/reports/DB_PASSWORD" 'REPORTS_DB_PASSWORD'
 exportWithMask "/$ENVIRONMENT/crater/DB_USERNAME" 'CRATER_DB_USERNAME'
 exportWithMask "/$ENVIRONMENT/crater/DB_PASSWORD" 'CRATER_DB_PASSWORD'
+
+exportEncodedWithMask "/$ENVIRONMENT/crater/CRATER_MAIL_USERNAME" 'CRATER_MAIL_USERNAME'
+exportEncodedWithMask "/$ENVIRONMENT/crater/CRATER_MAIL_PASSWORD" 'CRATER_MAIL_PASSWORD'
+exportEncodedWithMask "/$ENVIRONMENT/crater/CRATER_MAIL_HOST" 'CRATER_MAIL_HOST'
+
+exportEncodedWithMask "/$ENVIRONMENT/crater/CRATER_MAIL_FROM_ADDRESS" 'CRATER_MAIL_FROM_ADDRESS'
+exportEncodedWithMask "/$ENVIRONMENT/crater/CRATER_MAIL_FROM_NAME" 'CRATER_MAIL_FROM_NAME'
+
 exportWithMask "/$ENVIRONMENT/crater_atomfeed/DB_USERNAME" 'CRATER_ATOMFEED_DB_USERNAME'
 exportWithMask "/$ENVIRONMENT/crater_atomfeed/DB_PASSWORD" 'CRATER_ATOMFEED_DB_PASSWORD'
 exportWithMask "/$ENVIRONMENT/crater/ADMIN_PASSWORD" 'CRATER_ADMIN_PASSWORD'

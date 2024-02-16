@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: crater-secrets
+type: Opaque
+data:
+  MAIL_ENCRYPTION: "c3Ns"
+  MAIL_HOST: "${CRATER_MAIL_HOST}"
+  MAIL_PASSWORD: "${CRATER_MAIL_PASSWORD}"
+  MAIL_PORT: "NDY1"
+  MAIL_USERNAME: "${CRATER_MAIL_USERNAME}"
+  MAIL_FROM_ADDRESS: "${CRATER_MAIL_FROM_ADDRESS}"
+  MAIL_FROM_NAME: "${CRATER_MAIL_FROM_NAME}"

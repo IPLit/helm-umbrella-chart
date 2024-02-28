@@ -135,20 +135,18 @@ patchesStrategicMerge:
               path: /openmrs/
               port: 8080
               scheme: HTTP
-            initialDelaySeconds: 360
             timeoutSeconds: 1
             periodSeconds: 30
             successThreshold: 1
             failureThreshold: 3
-          readinessProbe:
+          startupProbe:
             httpGet:
               path: /openmrs/
               port: 8080
               scheme: HTTP
-            initialDelaySeconds: 360
             timeoutSeconds: 1
             periodSeconds: 30
             successThreshold: 1
-            failureThreshold: 3
+            failureThreshold: 40
 
 - crater-mail-secrets.yml

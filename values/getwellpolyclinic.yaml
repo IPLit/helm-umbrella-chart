@@ -81,14 +81,14 @@ hiu:
   config:
     POSTGRES_HOST: "bahmni-getwellpolyclinic-postgresql"
     RABBITMQ_HOST: "bahmni-getwellpolyclinic-rabbitmq"
-    HIU_ID: "Get Well Polyclinic"
+    HIU_ID: "IN2710022778"
     HIU_NAME: "Get Well Polyclinic"
-    CONSENT_MANAGEMENT_SUFFIX: "@sbx"
-    CONSENT_MANAGEMENT_URL: "https://live.ndhm.gov.in/cm"
-    GATEWAY_BASE_URL: "https://dev.abdm.gov.in/gateway/v0.5"
-    GATEWAY_JWK_URL: "https://dev.abdm.gov.in/gateway/v0.5/certs"
-    HFR_AFFINITY_DOMAINS: "facilitysbx.ndhm.gov.in"
-    IDENTITY_JWK_URL : "https://dev.ndhm.gov.in/auth/realms/consent-manager/protocol/openid-connect/certs"
+    CONSENT_MANAGEMENT_SUFFIX: "@abdm"
+    CONSENT_MANAGEMENT_URL: "https://live.abdm.gov.in/cm"
+    GATEWAY_BASE_URL: "https://live.abdm.gov.in/gateway/v0.5"
+    GATEWAY_JWK_URL: "https://live.abdm.gov.in/gateway/v0.5/certs"
+    HFR_AFFINITY_DOMAINS: "facility.abdm.gov.in"
+    IDENTITY_JWK_URL : "https://live.abdm.gov.in/auth/realms/consent-manager/protocol/openid-connect/certs"
   metadata:
     labels:
       environment: getwellpolyclinic
@@ -127,10 +127,12 @@ hip:
   config:
     CONNECTION_STRING: "Host=bahmni-getwellpolyclinic-postgresql;Port=5432;Username=postgres;Password=welcome;Database=hipservice"
     RABBITMQ_HOST: "bahmni-getwellpolyclinic-rabbitmq"
-    BAHMNI_ID: "Get Well Polyclinic"
+    BAHMNI_ID: "IN2710022778"
     BAHMNI_URL: http://openmrs:8080/openmrs
-    GATEWAY_URL: "https://dev.abdm.gov.in/gateway"
-    GATEWAY_CMSUFFIX: "sbx"
+    ABHA_NUMBER_URL: "https://healthid.abdm.gov.in/api"
+    ABHA_ADDRESS_URL: "https://phr.abdm.gov.in/api"
+    GATEWAY_URL: "https://live.abdm.gov.in/gateway"
+    GATEWAY_CMSUFFIX: "abdm"
   metadata:
     labels:
       environment: getwellpolyclinic

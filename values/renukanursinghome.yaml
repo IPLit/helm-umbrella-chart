@@ -1,0 +1,291 @@
+global:
+  storageClass: bahmni-efs-sc
+  nodeSelector:
+    eks.amazonaws.com/nodegroup: prod
+  TZ: "Asia/Kolkata"
+
+metadata:
+  labels:
+    environment: renukanursinghome
+  ingress:
+    PROXY_BODY_SIZE: "7m"
+    ABDM_PROXY_BODY_SIZE: "30m"
+
+openmrs:
+  enabled: true
+  metadata:
+    labels:
+      environment: renukanursinghome
+  image:
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
+    name: openmrs
+    tag: 1.0.0-630-1-iplit
+
+bahmni-web:
+  enabled: true
+  metadata:
+    labels:
+      environment: renukanursinghome
+  image:
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
+    name: bahmni-iplit-web
+    tag: 1.0.0-85
+
+bahmni-lab:
+  enabled: true
+  metadata:
+    labels:
+      environment: renukanursinghome
+  image:
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
+    name: bahmni-lab
+    tag: 1.1.0-171
+
+crater:
+  enabled: true
+  metadata:
+    labels:
+      environment: renukanursinghome
+  config:
+    AUTO_INSTALL: "true"
+    ADMIN_NAME: Super Man
+    COMPANY_NAME: Bahmni
+    COMPANY_SLUG: bahmni
+    COUNTRY_ID: 101
+  secrets:
+    ADMIN_EMAIL: "superman@bahmni.org"
+  image:
+    nginx:
+      repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
+      name: crater-nginx
+      tag: 1.1.0-218
+    php:
+      repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
+      name: crater-php
+      tag: 1.1.0-105
+
+reports:
+  enabled: true
+  metadata:
+    labels:
+      environment: renukanursinghome
+  config:
+    OPENMRS_HOST: "openmrs"
+  image:
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
+    name: reports
+    tag: 1.1.0-142
+  resources: {}
+
+hiu:
+  enabled: true
+  config:
+    POSTGRES_HOST: "bahmni-renukanursinghome-postgresql"
+    RABBITMQ_HOST: "bahmni-renukanursinghome-rabbitmq"
+    HIU_ID: "IN2710025139"
+    HIU_NAME: "Renuka Nursing Home"
+    CONSENT_MANAGEMENT_SUFFIX: "@abdm"
+    CONSENT_MANAGEMENT_URL: "https://live.abdm.gov.in/cm"
+    GATEWAY_BASE_URL: "https://live.abdm.gov.in/gateway/v0.5"
+    GATEWAY_JWK_URL: "https://live.abdm.gov.in/gateway/v0.5/certs"
+    HFR_AFFINITY_DOMAINS: "facility.abdm.gov.in"
+    IDENTITY_JWK_URL : "https://live.abdm.gov.in/auth/realms/consent-manager/protocol/openid-connect/certs"
+  metadata:
+    labels:
+      environment: renukanursinghome
+  image:
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
+    name: hiu
+    tag: 1.0.0-29
+  resources: {}
+
+hiu-db:
+  enabled: true
+  config:
+    JAVA_TOOL_OPTIONS: "-Djdbc.url=jdbc:postgresql://bahmni-renukanursinghome-postgresql:5432/ -Djdbc.username=postgres -Djdbc.password=welcome -Djdbc.database=health_information_user"
+  metadata:
+    labels:
+      environment: renukanursinghome
+  image:
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
+    name: hiu-db
+    tag: 1.0.0-74
+
+hiu-ui:
+  enabled: true
+  config:
+    POSTGRES_HOST: bahmni-renukanursinghome-postgresql
+    RABBITMQ_HOST: bahmni-renukanursinghome-rabbitmq
+  metadata:
+    labels:
+      environment: renukanursinghome
+  image:
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
+    name: hiu-ui
+    tag: 1.0.0-9
+
+hip:
+  enabled: true
+  config:
+    CONNECTION_STRING: "Host=bahmni-renukanursinghome-postgresql;Port=5432;Username=postgres;Password=welcome;Database=hipservice"
+    RABBITMQ_HOST: "bahmni-renukanursinghome-rabbitmq"
+    BAHMNI_ID: "IN2710025139"
+    BAHMNI_URL: http://openmrs:8080/openmrs
+    ABHA_NUMBER_URL: "https://healthid.abdm.gov.in/api"
+    ABHA_ADDRESS_URL: "https://phr.abdm.gov.in/api"
+    GATEWAY_URL: "https://live.abdm.gov.in/gateway"
+    GATEWAY_CMSUFFIX: "abdm"
+  metadata:
+    labels:
+      environment: renukanursinghome
+  image:
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
+    name: hip
+    tag: 1.0.0-147
+  resources: {}
+
+otp-service:
+  enabled: true
+  config:
+    CONNECTION_STRING: "Host=bahmni-renukanursinghome-postgresql;Port=5432;Username=postgres;Password=welcome;Database=otpservice;"
+  metadata:
+    labels:
+      environment: renukanursinghome
+  image:
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
+    name: otp-service
+    tag: 1.0.0-12
+
+hip-atomfeed:
+  enabled: true
+  config:
+    DATABASE_URL: "jdbc:postgresql://bahmni-renukanursinghome-postgresql:5432/"
+  metadata:
+    labels:
+      environment: renukanursinghome
+  image:
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
+    name: hip-atomfeed
+    tag: 1.0.0-109
+  resources: {}
+
+postgresql:
+  enabled: true
+  volumePermissions:
+    enabled: true
+    image:
+      registry: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
+      repository: bitnami-shell
+      tag: 11-debian-11-r50
+  primary:
+    persistence:
+      subPath: renukanursinghome
+      storageClass: bahmni-efs-sc
+      accessModes:
+        - ReadWriteMany
+    nodeSelector:
+      eks.amazonaws.com/nodegroup: prod
+  image:
+    registry: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
+    repository: postgresql
+    tag: 14-debian-11
+
+rabbitmq:
+  enabled: true
+  auth:
+    securePassword: false
+    erlangCookie: bahmni
+  persistence:
+    storageClass: bahmni-efs-sc
+    accessModes:
+      - ReadWriteMany
+  nodeSelector:
+    eks.amazonaws.com/nodegroup: prod
+  image:
+    repository: rabbitmq
+    tag: alpine
+
+patient-documents:
+  enabled: true
+  metadata:
+    labels:
+      environment: renukanursinghome
+  config:
+    OPENMRS_HOST: "openmrs"
+  image:
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
+    name: patient-documents
+    tag: 1.1.0-29
+
+appointments:
+  enabled: true
+  image:
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
+    name: appointments
+    tag: 1.1.0-95
+
+crater-atomfeed:
+  enabled: true
+  metadata:
+    labels:
+      environment: renukanursinghome
+  image:
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
+    name: crater-atomfeed
+    tag: 1.1.0-125
+
+implementer-interface:
+  enabled: true
+  metadata:
+    labels:
+      environment: renukanursinghome
+  image:
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
+    name: implementer-interface
+    tag: 1.1.0-67
+
+clinic-config:
+  metadata:
+    labels:
+      environment: renukanursinghome
+  image:
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
+    name: clinic-config-indiadistro
+    tag: 1.0.0-26
+
+abha-verification:
+  enabled: true
+  metadata:
+    labels:
+      environment: renukanursinghome
+  image:
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
+    name: abha-verification
+    tag: 1.0.0-3
+
+bahmni-metabase:
+  enabled: true
+  config:
+    MB_DB_TYPE: postgres
+    MB_DB_DBNAME: 'metabase'
+    MB_DB_PORT:  5432
+    MART_DB_NAME: martdb
+  secrets:
+    MB_ADMIN_FIRST_NAME: 'Admin'
+    MB_DB_HOST: 'bahmni-renukanursinghome-postgresql'
+    MART_DB_HOST: 'bahmni-renukanursinghome-postgresql'
+  image:
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
+    name: bahmni-metabase
+    tag: 1.1.0-34
+
+bahmni-mart:
+  enabled: true
+  config:
+    MART_DB_NAME: martdb
+  secrets:
+    MART_DB_HOST: "bahmni-renukanursinghome-postgresql"
+  image:
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
+    name: bahmni-mart
+    tag: 1.1.0-59

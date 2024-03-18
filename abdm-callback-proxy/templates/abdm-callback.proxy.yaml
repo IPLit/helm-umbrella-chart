@@ -17,6 +17,9 @@ data:
         IN0310001453: 'sukhveenhospital.bahmni.in',
         IN2710000192: 'arogyahospital.bahmnilite.in',
         IN2710022769: 'vibranthealing.bahmni.in',
+
+        IN2710025138: 'iplitclinic.bahmnilite.in',
+        IN2710025139: 'renukanursinghome.bahmni.in',
     };
     {{- else if eq .Values.environment "nonprod"}}
     var delegateRepository = {

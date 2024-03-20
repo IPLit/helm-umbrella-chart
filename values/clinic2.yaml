@@ -28,8 +28,8 @@ bahmni-web:
       environment: clinic2
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
-    name: bahmni-iplit-web
-    tag: 1.0.0-85
+    name: bahmnilite/infoiplitin/bahmni-iplit-web
+    tag: 1.0.0-86
 
 bahmni-lab:
   enabled: true
@@ -75,6 +75,7 @@ reports:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: reports
     tag: 1.1.0-142
+  resources: {}
 
 hiu:
   enabled: true
@@ -90,6 +91,7 @@ hiu:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: hiu
     tag: 1.0.0-29
+  resources: {}
 
 hiu-db:
   enabled: true
@@ -129,6 +131,7 @@ hip:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: hip
     tag: 1.0.0-147
+  resources: {}
 
 otp-service:
   enabled: true
@@ -153,6 +156,7 @@ hip-atomfeed:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: hip-atomfeed
     tag: 1.0.0-109
+  resources: {}
 
 postgresql:
   enabled: true
@@ -231,8 +235,8 @@ clinic-config:
       environment: clinic2
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
-    name: clinic-config-indiadistro
-    tag: 1.0.0-26
+    name: bahmnilite/infoiplitin/clinic-config-indiadistro
+    tag: 1.0.0-27
 
 abha-verification:
   enabled: true

@@ -18,8 +18,8 @@ openmrs:
   #   OMRS_DB_EXTRA_ARGS: "&zeroDateTimeBehavior=convertToNull"
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
-    name: openmrs
-    tag: 1.0.0-630-1-iplit
+    name: bahmnilite/infoiplitin/openmrs
+    tag: iplit-1.0.0-639-4
 
 bahmni-web:
   enabled: true

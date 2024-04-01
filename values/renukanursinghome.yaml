@@ -55,12 +55,11 @@ crater:
   secrets:
     ADMIN_EMAIL: "superman@bahmni.org"
   image:
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     nginx:
-      repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
       name: bahmnilite/bahmni/crater-nginx
       tag: 1.1.0-228
     php:
-      repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
       name: bahmnilite/bahmni/crater-php
       tag: 1.1.0-107
 

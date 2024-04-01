@@ -57,11 +57,11 @@ crater:
   image:
     nginx:
       repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
-      name: crater-nginx
+      name: bahmnilite/bahmni/crater-nginx
       tag: 1.1.0-228
     php:
       repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
-      name: crater-php
+      name: bahmnilite/bahmni/crater-php
       tag: 1.1.0-107
 
 reports:
@@ -95,7 +95,7 @@ hiu:
       environment: renukanursinghome
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
-    name: hiu
+    name: bahmnilite/infoiplitin/hiu
     tag: 1.0.0-31
   resources: {}
 
@@ -140,7 +140,7 @@ hip:
       environment: renukanursinghome
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
-    name: hip
+    name: bahmnilite/infoiplitin/hip
     tag: 1.0.0-148
   resources: {}
 

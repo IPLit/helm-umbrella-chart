@@ -52,6 +52,7 @@ crater:
     COMPANY_NAME: Bahmni
     COMPANY_SLUG: bahmni
     COUNTRY_ID: 91
+    CRATER_DEFAULT_CURRENCY: INR
   secrets:
     ADMIN_EMAIL: "superman@bahmni.org"
   image:
@@ -225,8 +226,6 @@ appointments:
 
 crater-atomfeed:
   enabled: true
-  config:
-    CRATER_DEFAULT_CURRENCY: INR
   metadata:
     labels:
       environment: renukanursinghome

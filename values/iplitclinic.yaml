@@ -19,7 +19,7 @@ openmrs:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmnilite/infoiplitin/openmrs
-    tag: iplit-1.0.0-639-4
+    tag: iplit-1.0.0-639-5
 
 bahmni-web:
   enabled: true

@@ -29,7 +29,7 @@ bahmni-web:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmnilite/infoiplitin/bahmni-iplit-web
-    tag: 1.0.0-88
+    tag: 1.0.0-89
 
 bahmni-lab:
   enabled: true

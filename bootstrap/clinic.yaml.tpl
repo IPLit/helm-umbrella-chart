@@ -20,6 +20,19 @@ openmrs:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmnilite/infoiplitin/openmrs
     tag: iplit-1.0.0-639-5
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 1
+          podAffinityTerm:
+            labelSelector:
+              matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                    - openmrs
+            topologyKey: kubernetes.io/hostname
+            namespaceSelector: {}
 
 bahmni-web:
   enabled: true
@@ -55,14 +68,26 @@ crater:
   secrets:
     ADMIN_EMAIL: "superman@bahmni.org"
   image:
+    repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     nginx:
-      repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
       name: bahmnilite/bahmni/crater-nginx
       tag: 1.1.0-218
     php:
-      repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
       name: bahmnilite/bahmni/crater-php
       tag: 1.1.0-105
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 1
+          podAffinityTerm:
+            labelSelector:
+              matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                    - "crater-php"
+            topologyKey: kubernetes.io/hostname
+            namespaceSelector: {}
 
 reports:
   enabled: true
@@ -75,6 +100,20 @@ reports:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmnilite/bahmni/reports
     tag: 1.1.0-142
+  resources: {}
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 1
+          podAffinityTerm:
+            labelSelector:
+              matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                    - reports
+            topologyKey: kubernetes.io/hostname
+            namespaceSelector: {}
 
 hiu:
   enabled: true
@@ -96,6 +135,20 @@ hiu:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmnilite/infoiplitin/hiu
     tag: 1.0.0-29
+  resources: {}
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 1
+          podAffinityTerm:
+            labelSelector:
+              matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                    - hiu
+            topologyKey: kubernetes.io/hostname
+            namespaceSelector: {}
 
 hiu-db:
   enabled: true
@@ -138,6 +191,7 @@ hip:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmnilite/infoiplitin/hip
     tag: 1.0.0-147
+  resources: {}
 
 otp-service:
   enabled: true
@@ -162,6 +216,20 @@ hip-atomfeed:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmnilite/bahmniindiadistro/hip-atomfeed
     tag: 1.0.0-109
+  resources: {}
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 1
+          podAffinityTerm:
+            labelSelector:
+              matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                    - "hip-atomfeed"
+            topologyKey: kubernetes.io/hostname
+            namespaceSelector: {}
 
 postgresql:
   enabled: true
@@ -227,6 +295,19 @@ crater-atomfeed:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmnilite/bahmni/crater-atomfeed
     tag: 1.1.0-125
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 1
+          podAffinityTerm:
+            labelSelector:
+              matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                    - "crater-atomfeed"
+            topologyKey: kubernetes.io/hostname
+            namespaceSelector: {}
 
 implementer-interface:
   enabled: true
@@ -272,6 +353,19 @@ bahmni-metabase:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmnilite/bahmni/bahmni-metabase
     tag: 1.1.0-34
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 1
+          podAffinityTerm:
+            labelSelector:
+              matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                    - "bahmni-metabase"
+            topologyKey: kubernetes.io/hostname
+            namespaceSelector: {}
 
 bahmni-mart:
   enabled: true

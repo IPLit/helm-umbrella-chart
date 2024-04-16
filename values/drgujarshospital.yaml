@@ -18,8 +18,8 @@ openmrs:
       environment: drgujarshospital
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
-    name: openmrs
-    tag: 1.0.0-630-1-iplit
+    name: bahmnilite/infoiplitin/openmrs
+    tag: iplit-1.0.0-639-5
   affinity:
     podAntiAffinity:
       preferredDuringSchedulingIgnoredDuringExecution:
@@ -41,8 +41,8 @@ bahmni-web:
       environment: drgujarshospital
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
-    name: bahmni-iplit-web
-    tag: 1.0.0-85
+    name: bahmnilite/infoiplitin/bahmni-iplit-web
+    tag: 1.0.0-90
 
 bahmni-lab:
   enabled: true
@@ -325,8 +325,8 @@ clinic-config:
       environment: drgujarshospital
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
-    name: clinic-config-indiadistro
-    tag: 1.0.0-25
+    name: bahmnilite/infoiplitin/clinic-config-indiadistro
+    tag: 1.0.0-32
 
 abha-verification:
   enabled: true

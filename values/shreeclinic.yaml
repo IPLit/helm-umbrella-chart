@@ -133,8 +133,8 @@ hiu:
       environment: shreeclinic
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
-    name: hiu
-    tag: 1.0.0-116
+    name: bahmnilite/infoiplitin/hiu
+    tag: 1.0.0-31
   resources: {}
   affinity:
     podAntiAffinity:
@@ -179,8 +179,8 @@ hip:
   enabled: true
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
-    name: hip
-    tag: 1.0.0-147
+    name: bahmnilite/infoiplitin/hip
+    tag: 1.0.0-148
   config:
     CONNECTION_STRING: "Host=bahmni-shreeclinic-postgresql;Port=5432;Username=postgres;Password=welcome;Database=hipservice"
     RABBITMQ_HOST: "bahmni-shreeclinic-rabbitmq"

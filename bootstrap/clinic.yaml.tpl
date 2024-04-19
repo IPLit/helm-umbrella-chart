@@ -134,7 +134,7 @@ hiu:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmnilite/infoiplitin/hiu
-    tag: 1.0.0-29
+    tag: 1.0.0-31
   resources: {}
   affinity:
     podAntiAffinity:
@@ -190,7 +190,7 @@ hip:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmnilite/infoiplitin/hip
-    tag: 1.0.0-147
+    tag: 1.0.0-148
   resources: {}
 
 otp-service:

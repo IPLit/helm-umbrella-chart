@@ -72,6 +72,13 @@ spec:
                 name: patient-documents
                 port:
                   number: 8099
+          - path: /uploaded-files
+            pathType: Prefix
+            backend:
+              service:
+                name: patient-documents
+                port:
+                  number: 8099
           {{- end }}
 
           {{- if index .Values "patient-documents" "enabled" }}

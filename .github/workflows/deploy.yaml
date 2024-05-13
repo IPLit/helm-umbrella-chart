@@ -123,7 +123,7 @@ jobs:
       - name: Setup Environment secrets
         shell: bash
         run: |
-          bash helm_kustomization/setupCraterEmailSettings.sh ${{ env.ENVIRONMENT }}
+          bash helm_kustomization/setupAdditionalCustomSettings.sh ${{ env.ENVIRONMENT }}
           bash .github/setupEnvSecrets.sh ${{ env.ENVIRONMENT }} ${{ env.ENVIRONMENT_CLUSTER }} ${{ env.DB_TENANT }}
           echo "ENV_CLINIC=${{ env.ENVIRONMENT }}" > helm_kustomization/config.properties
 
@@ -230,6 +230,7 @@ jobs:
           --set bahmni-mart.secrets.MART_DB_USERNAME=$MART_DB_USERNAME \
           --set bahmni-mart.secrets.MART_DB_PASSWORD=$MART_DB_PASSWORD \
           --set bahmni-mart.config.OPENMRS_DB_NAME=openmrs_${{ env.ENVIRONMENT }} \
+          --set sms-service.secrets.TOKEN=$SMS_TOKEN \
           --values=values/${{ env.ENVIRONMENT }}.yaml \
           --install \
           --namespace ${{ env.ENVIRONMENT }} --create-namespace \

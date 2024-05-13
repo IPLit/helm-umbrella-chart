@@ -56,6 +56,11 @@ dependencies:
     version: ~1.0.0-0
     condition: otp-service.enabled
 
+  - repository: https://bahmni.github.io/helm-charts
+    name: sms-service
+    version: ~1.0.0-0
+    condition: sms-service.enabled
+
   - repository: https://charts.bitnami.com/bitnami
     name: postgresql
     version: 12.1.2

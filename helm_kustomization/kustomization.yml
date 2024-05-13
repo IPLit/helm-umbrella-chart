@@ -151,3 +151,4 @@ patchesStrategicMerge:
 
 - crater-mail-secrets.yml
 - hip-config-map.yml
+- sms-config-map.yml

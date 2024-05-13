@@ -65,3 +65,7 @@ createParameter "/$TENANT_NAME/openmrs/DB_USERNAME" $OPENMRS_DB_USERNAME
 createParameter "/$TENANT_NAME/reports/DB_USERNAME" $REPORTS_DB_USERNAME
 createParameter "/$TENANT_NAME/reports/DB_PASSWORD" $REPORTS_DB_PASSWORD
 createParameter "/$TENANT_NAME/hip/BAHMNI_NAME" $TENANT_NAME
+createParameter "/$TENANT_NAME/sms/SMS_TOKEN" "dummy"
+createParameter "/$TENANT_NAME/sms/SMS_ORIGINATOR" "dummy"
+createParameter "/$TENANT_NAME/sms/SMS_PROVIDER_API" "dummy"
+createParameter "/$TENANT_NAME/sms/SMS_COUNTRY_CODE" "+91"

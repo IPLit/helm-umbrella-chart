@@ -190,7 +190,7 @@ jobs:
           --set crater.secrets.ADMIN_PASSWORD=$CRATER_ADMIN_PASSWORD \
           --set hip.secrets.GATEWAY_CLIENT_ID=$GATEWAY_CLIENT_ID \
           --set hip.secrets.GATEWAY_CLIENT_SECRET=$GATEWAY_CLIENT_SECRET \
-          --set hip.secrets.OPENMRS_PASSWORD=Admin123 \
+          --set hip.secrets.OPENMRS_PASSWORD=$OMRS_ADMIN_USER_PASSWORD \
           --set hip.config.BAHMNI_URL=https://${{env.ENVIRONMENT_DNS}}/openmrs \
           --set hip.config.RABBITMQ_USERNAME=$MQ_USERNAME \
           --set hip.config.RABBITMQ_PASSWORD=$MQ_PASSWORD \
@@ -209,7 +209,7 @@ jobs:
           --set crater-atomfeed.config.CRATER_ATOMFEED_DB_NAME=crater_atomfeed_${{ env.ENVIRONMENT }} \
           --set crater-atomfeed.config.CRATER_URL=https://payments-${{env.ENVIRONMENT_DNS}} \
           --set crater-atomfeed.secrets.OPENMRS_ATOMFEED_USER=superman \
-          --set crater-atomfeed.secrets.OPENMRS_ATOMFEED_PASSWORD=Admin123 \
+          --set crater-atomfeed.secrets.OPENMRS_ATOMFEED_PASSWORD=$OMRS_ADMIN_USER_PASSWORD \
           --set crater-atomfeed.secrets.CRATER_USERNAME=superman@bahmni.org \
           --set crater-atomfeed.secrets.CRATER_PASSWORD=$CRATER_ADMIN_PASSWORD \
           --set crater-atomfeed.secrets.CRATER_ATOMFEED_DB_USERNAME=$CRATER_ATOMFEED_DB_USERNAME \

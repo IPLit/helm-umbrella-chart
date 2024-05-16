@@ -150,5 +150,6 @@ patchesStrategicMerge:
             failureThreshold: 40
 
 - crater-mail-secrets.yml
+- openmrs-secrets.yml
 - hip-config-map.yml
 - sms-config-map.yml

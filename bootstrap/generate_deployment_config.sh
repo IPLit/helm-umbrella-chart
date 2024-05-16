@@ -10,8 +10,6 @@ sed -i "38s@^\( *\)@\          - $TENANT_NAME\n          @" ../.github/workflows
 GATEWAY_CLIENT_ID=$(aws ssm get-parameter --with-decryption --name "/bootstrap/bahmnilite/GATEWAY_CLIENT_ID" --query "Parameter.Value" --output text)
 GATEWAY_CLIENT_SECRET=$(aws ssm get-parameter --with-decryption --name "/bootstrap/bahmnilite/GATEWAY_CLIENT_SECRET" --query "Parameter.Value" --output text)
 METABASE_ADMIN_EMAIL=$(aws ssm get-parameter --with-decryption --name "/bootstrap/bahmnilite/METABASE_ADMIN_EMAIL" --query "Parameter.Value" --output text)
-METABASE_ADMIN_PASSWORD=$(aws ssm get-parameter --with-decryption --name "/bootstrap/bahmnilite/METABASE_ADMIN_PASSWORD" --query "Parameter.Value" --output text)
-CRATER_ADMIN_PASSWORD=$(aws ssm get-parameter --with-decryption --name "/bootstrap/bahmnilite/CRATER_ADMIN_PASSWORD" --query "Parameter.Value" --output text)
 
 function generatePassword {
     tr -dc 'A-Za-z0-9!#$%&\()*+<=>?@[\]^_`{}~' </dev/urandom | head -c 10  ; echo
@@ -38,7 +36,9 @@ OPENMRS_DB_USERNAME=$TENANT_NAME"_superman"
 OPENMRS_DB_PASSWORD=$(generatePassword)
 REPORTS_DB_USERNAME=$TENANT_NAME"-bahmni-report"
 REPORTS_DB_PASSWORD=$(generatePassword)
-
+CRATER_ADMIN_PASSWORD=$(generatePassword)
+METABASE_ADMIN_PASSWORD=$(generatePassword)
+OMRS_ADMIN_USER_PASSWORD=$(generatePassword)
 
 IF_EXIST=$(aws ssm get-parameter --name "/test" 2>&1 | sed -n '/ParameterNotFound/p' | wc -l)
 
@@ -62,6 +62,7 @@ createParameter "/$TENANT_NAME/metabase/MB_DB_PASS" $METABASE_DB_PASSWORD
 createParameter "/$TENANT_NAME/metabase/MB_DB_USER" $METABASE_DB_USERNAME
 createParameter "/$TENANT_NAME/openmrs/DB_PASSWORD" $OPENMRS_DB_PASSWORD
 createParameter "/$TENANT_NAME/openmrs/DB_USERNAME" $OPENMRS_DB_USERNAME
+createParameter "/$TENANT_NAME/openmrs/OMRS_ADMIN_USER_PASSWORD" $OMRS_ADMIN_USER_PASSWORD
 createParameter "/$TENANT_NAME/reports/DB_USERNAME" $REPORTS_DB_USERNAME
 createParameter "/$TENANT_NAME/reports/DB_PASSWORD" $REPORTS_DB_PASSWORD
 createParameter "/$TENANT_NAME/hip/BAHMNI_NAME" $TENANT_NAME

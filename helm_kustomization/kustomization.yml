@@ -1,123 +1,125 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - all.yaml
+- all.yaml
+- hip-atomfeed-secrets.yml
 
 configMapGenerator:
-  - name: health-check
-    env: config.properties
+- name: health-check
+  envs:
+  - config.properties
 generatorOptions:
   disableNameSuffixHash: true
 
 patches:
-  - target:
-      kind: Deployment
-      name: "(clinic-config|openmrs)"
-    patch: |-
-      apiVersion: apps/v1
-      kind: Deployment
-      metadata:
-        name: __ignored__
-      spec:
-        template:
-          spec:
-            serviceAccountName: status-checker
-            initContainers:
-              - name: preinit-check
-                image: alpine:latest
-                command: [ "/bin/sh", "-c"]
-                args:
-                  - apk add postgresql-client kubectl &&
-                    kubectl wait -l statefulset.kubernetes.io/pod-name=bahmni-"$ENV_CLINIC"-rabbitmq-0 --for=condition=ready pod -n "$ENV_CLINIC" --timeout=900s &&
-                    kubectl wait -l statefulset.kubernetes.io/pod-name=bahmni-$ENV_CLINIC-postgresql-0 --for=condition=ready pod -n "$ENV_CLINIC" --timeout=900s &&
-                    pg_isready -h bahmni-$ENV_CLINIC-postgresql
-                envFrom:
-                  - configMapRef:
-                      name: health-check
-                      optional: false
+- target:
+    kind: Deployment
+    name: "(clinic-config|openmrs)"
+  patch: |-
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: __ignored__
+    spec:
+      template:
+        spec:
+          serviceAccountName: status-checker
+          initContainers:
+            - name: preinit-check
+              image: alpine:latest
+              command: [ "/bin/sh", "-c"]
+              args:
+                - apk add postgresql-client kubectl &&
+                  kubectl wait -l statefulset.kubernetes.io/pod-name=bahmni-"$ENV_CLINIC"-rabbitmq-0 --for=condition=ready pod -n "$ENV_CLINIC" --timeout=900s &&
+                  kubectl wait -l statefulset.kubernetes.io/pod-name=bahmni-$ENV_CLINIC-postgresql-0 --for=condition=ready pod -n "$ENV_CLINIC" --timeout=900s &&
+                  pg_isready -h bahmni-$ENV_CLINIC-postgresql
+              envFrom:
+                - configMapRef:
+                    name: health-check
+                    optional: false
 
-  - target:
-      kind: Deployment
-      name: "(bahmni-web|implementer-interface|patient-documents|appointments|bahmni-lab|reports)"
-    patch: |-
-      apiVersion: apps/v1
-      kind: Deployment
-      metadata:
-        name: __ignored__
-      spec:
-        template:
-          spec:
-            serviceAccountName: status-checker
-            initContainers:
-              - name: preinit-check
-                image: alpine:latest
-                command: [ "/bin/sh", "-c"]
-                args:
-                  - apk add postgresql-client kubectl curl &&
-                    kubectl wait deployment/clinic-config --for=condition=available -n "$ENV_CLINIC" --timeout=900s &&
-                    kubectl wait deployment/openmrs --for=condition=available -n "$ENV_CLINIC" --timeout=900s &&
-                    while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' http://openmrs:8080/openmrs/)" != "200" ]]; do sleep 5; done
-                envFrom:
-                  - configMapRef:
-                      name: health-check
-                      optional: false
+- target:
+    kind: Deployment
+    name: "(bahmni-web|implementer-interface|patient-documents|appointments|bahmni-lab|reports)"
+  patch: |-
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: __ignored__
+    spec:
+      template:
+        spec:
+          serviceAccountName: status-checker
+          initContainers:
+            - name: preinit-check
+              image: alpine:latest
+              command: [ "/bin/sh", "-c"]
+              args:
+                - apk add postgresql-client kubectl curl &&
+                  kubectl wait deployment/clinic-config --for=condition=available -n "$ENV_CLINIC" --timeout=900s &&
+                  kubectl wait deployment/openmrs --for=condition=available -n "$ENV_CLINIC" --timeout=900s &&
+                  while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' http://openmrs:8080/openmrs/)" != "200" ]]; do sleep 5; done
+              envFrom:
+                - configMapRef:
+                    name: health-check
+                    optional: false
 
-  - target:
-      kind: Deployment
-      name: "(bahmni-mart|bahmni-metabase|crater-atomfeed|crater-nginx|crater-php)"
-    patch: |-
-      apiVersion: apps/v1
-      kind: Deployment
-      metadata:
-        name: __ignored__
-      spec:
-        template:
-          spec:
-            serviceAccountName: status-checker
-            initContainers:
-              - name: preinit-check
-                image: alpine:latest
-                command: [ "/bin/sh", "-c"]
-                args:
-                  - apk add postgresql-client kubectl curl &&
-                    kubectl wait deployment/bahmni-web --for=condition=available -n "$ENV_CLINIC" --timeout=900s &&
-                    kubectl wait deployment/implementer-interface --for=condition=available -n "$ENV_CLINIC" --timeout=900s &&
-                    kubectl wait deployment/patient-documents --for=condition=available -n "$ENV_CLINIC" --timeout=900s &&
-                    kubectl wait deployment/appointments --for=condition=available -n "$ENV_CLINIC" --timeout=900s &&
-                    kubectl wait deployment/bahmni-lab --for=condition=available -n "$ENV_CLINIC" --timeout=900s &&
-                    kubectl wait deployment/reports --for=condition=available -n "$ENV_CLINIC" --timeout=900s
-                envFrom:
-                  - configMapRef:
-                      name: health-check
-                      optional: false
+- target:
+    kind: Deployment
+    name: "(bahmni-mart|bahmni-metabase|crater-atomfeed|crater-nginx|crater-php)"
+  patch: |-
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: __ignored__
+    spec:
+      template:
+        spec:
+          serviceAccountName: status-checker
+          initContainers:
+            - name: preinit-check
+              image: alpine:latest
+              command: [ "/bin/sh", "-c"]
+              args:
+                - apk add postgresql-client kubectl curl &&
+                  kubectl wait deployment/bahmni-web --for=condition=available -n "$ENV_CLINIC" --timeout=900s &&
+                  kubectl wait deployment/implementer-interface --for=condition=available -n "$ENV_CLINIC" --timeout=900s &&
+                  kubectl wait deployment/patient-documents --for=condition=available -n "$ENV_CLINIC" --timeout=900s &&
+                  kubectl wait deployment/appointments --for=condition=available -n "$ENV_CLINIC" --timeout=900s &&
+                  kubectl wait deployment/bahmni-lab --for=condition=available -n "$ENV_CLINIC" --timeout=900s &&
+                  kubectl wait deployment/reports --for=condition=available -n "$ENV_CLINIC" --timeout=900s
+              envFrom:
+                - configMapRef:
+                    name: health-check
+                    optional: false
 
-  - target:
-      kind: Deployment
-      name: "(abha-verification|hip|hip-atomfeed|hiu|hiu-ui|otp-service)"
-    patch: |-
-      apiVersion: apps/v1
-      kind: Deployment
-      metadata:
-        name: __ignored__
-      spec:
-        template:
-          spec:
-            serviceAccountName: status-checker
-            initContainers:
-              - name: preinit-check
-                image: alpine:latest
-                command: [ "/bin/sh", "-c"]
-                args:
-                  - apk add postgresql-client kubectl curl &&
-                    kubectl wait deployment/bahmni-mart --for=condition=available -n "$ENV_CLINIC" --timeout=900s &&
-                    kubectl wait deployment/bahmni-metabase --for=condition=available -n "$ENV_CLINIC" --timeout=900s &&
-                    kubectl wait deployment/crater-atomfeed --for=condition=available -n "$ENV_CLINIC" --timeout=900s &&
-                    kubectl wait deployment/crater-nginx --for=condition=available -n "$ENV_CLINIC" --timeout=900s &&
-                    kubectl wait deployment/crater-php --for=condition=available -n "$ENV_CLINIC" --timeout=900s
-                envFrom:
-                  - configMapRef:
-                      name: health-check
-                      optional: false
+- target:
+    kind: Deployment
+    name: "(abha-verification|hip|hip-atomfeed|hiu|hiu-ui|otp-service)"
+  patch: |-
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: __ignored__
+    spec:
+      template:
+        spec:
+          serviceAccountName: status-checker
+          initContainers:
+            - name: preinit-check
+              image: alpine:latest
+              command: [ "/bin/sh", "-c"]
+              args:
+                - apk add postgresql-client kubectl curl &&
+                  kubectl wait deployment/bahmni-mart --for=condition=available -n "$ENV_CLINIC" --timeout=900s &&
+                  kubectl wait deployment/bahmni-metabase --for=condition=available -n "$ENV_CLINIC" --timeout=900s &&
+                  kubectl wait deployment/crater-atomfeed --for=condition=available -n "$ENV_CLINIC" --timeout=900s &&
+                  kubectl wait deployment/crater-nginx --for=condition=available -n "$ENV_CLINIC" --timeout=900s &&
+                  kubectl wait deployment/crater-php --for=condition=available -n "$ENV_CLINIC" --timeout=900s
+              envFrom:
+                - configMapRef:
+                    name: health-check
+                    optional: false
 
 patchesStrategicMerge:
 - |-
@@ -153,3 +155,21 @@ patchesStrategicMerge:
 - openmrs-secrets.yml
 - hip-config-map.yml
 - sms-config-map.yml
+
+- |-
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: hip-atomfeed
+  spec:
+    template:
+      spec:
+        containers:
+        - name: hip-atomfeed
+          envFrom:
+            - configMapRef:
+                name: hip-atomfeed-config
+                optional: false
+            - secretRef:
+                name: hip-atomfeed-secrets
+                optional: false

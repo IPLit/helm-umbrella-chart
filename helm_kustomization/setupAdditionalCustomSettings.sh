@@ -20,6 +20,7 @@ export SMS_COUNTRY_CODE=$(echo -n $(aws ssm get-parameter --with-decryption --na
 
 envsubst < helm_kustomization/crater-mail-secrets.yml.tpl > helm_kustomization/crater-mail-secrets.yml
 envsubst < helm_kustomization/openmrs-secrets.yml.tpl > helm_kustomization/openmrs-secrets.yml
+envsubst < helm_kustomization/hip-atomfeed-secrets.yml.tpl > helm_kustomization/hip-atomfeed-secrets.yml
 
 envsubst < helm_kustomization/hip-config-map.yml.tpl > helm_kustomization/hip-config-map.yml
 envsubst < helm_kustomization/sms-config-map.yml.tpl > helm_kustomization/sms-config-map.yml

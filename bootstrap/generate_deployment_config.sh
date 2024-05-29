@@ -12,7 +12,7 @@ GATEWAY_CLIENT_SECRET=$(aws ssm get-parameter --with-decryption --name "/bootstr
 METABASE_ADMIN_EMAIL=$(aws ssm get-parameter --with-decryption --name "/bootstrap/bahmnilite/METABASE_ADMIN_EMAIL" --query "Parameter.Value" --output text)
 
 function generatePassword {
-    tr -dc 'A-Za-z0-9!#$%&\()*+<=>?@[\]^_`{}~' </dev/urandom | head -c 10  ; echo
+    tr -dc 'A-Za-z0-9!#$%&=?@^_~' </dev/urandom | head -c $1  ; echo
 }
 
 function createParameter {
@@ -25,20 +25,20 @@ function createParameter {
 }
 
 MART_DB_USERNAME="bahmni-mart"
-MART_DB_PASSWORD=$(generatePassword)
+MART_DB_PASSWORD=$(generatePassword 10)
 CRATER_DB_USERNAME=$TENANT_NAME"_admin"
-CRATER_DB_PASSWORD=$(generatePassword)
+CRATER_DB_PASSWORD=$(generatePassword 10)
 CRATER_ATOMFEED_DB_USERNAME=$CRATER_DB_USERNAME
 CRATER_ATOMFEED_DB_PASSWORD=$CRATER_DB_PASSWORD
 METABASE_DB_USERNAME="metabase-user"
-METABASE_DB_PASSWORD=$(generatePassword)
+METABASE_DB_PASSWORD=$(generatePassword 10)
 OPENMRS_DB_USERNAME=$TENANT_NAME"_superman"
-OPENMRS_DB_PASSWORD=$(generatePassword)
+OPENMRS_DB_PASSWORD=$(generatePassword 10)
 REPORTS_DB_USERNAME=$TENANT_NAME"-bahmni-report"
-REPORTS_DB_PASSWORD=$(generatePassword)
-CRATER_ADMIN_PASSWORD=$(generatePassword)
-METABASE_ADMIN_PASSWORD=$(generatePassword)
-OMRS_ADMIN_USER_PASSWORD=$(generatePassword)
+REPORTS_DB_PASSWORD=$(generatePassword 10)
+CRATER_ADMIN_PASSWORD=$(generatePassword 10)
+METABASE_ADMIN_PASSWORD=$(generatePassword 10)
+OMRS_ADMIN_USER_PASSWORD=$(generatePassword 16)
 
 IF_EXIST=$(aws ssm get-parameter --name "/test" 2>&1 | sed -n '/ParameterNotFound/p' | wc -l)
 

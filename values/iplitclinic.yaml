@@ -257,6 +257,9 @@ postgresql:
       storageClass: bahmni-efs-sc
       accessModes:
         - ReadWriteMany
+      annotations:
+        volume.beta.kubernetes.io/storage-provisioner: efs.csi.aws.com
+        volume.kubernetes.io/storage-provisioner: efs.csi.aws.com
     nodeSelector:
       eks.amazonaws.com/nodegroup: prod
   image:

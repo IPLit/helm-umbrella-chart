@@ -289,7 +289,7 @@ rabbitmq:
           - -ec
           - |
             echo "Default user setup...";
-            sleep 30;
+            rabbitmqctl wait -P 1 --timeout 30000;
             rabbitmqctl add_user "$RABBITMQ_USERNAME" "$RABBITMQ_PASSWORD" || true;
             rabbitmqctl set_user_tags "$RABBITMQ_USERNAME" administrator || true;
             rabbitmqctl set_permissions  "$RABBITMQ_USERNAME" "." "." ".*"  || true;

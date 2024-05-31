@@ -281,6 +281,16 @@ rabbitmq:
   image:
     repository: rabbitmq
     tag: alpine
+  lifecycleHooks:
+    postStart:
+      exec:
+        command:
+          - /bin/bash
+          - -ec
+          - |
+            rabbitmqctl add_user $RABBITMQ_USERNAME $RABBITMQ_PASSWORD || true;
+            rabbitmqctl set_user_tags $RABBITMQ_USERNAME administrator || true;
+            rabbitmqctl set_permissions  $ "." "." ".*"  || true;
 
 patient-documents:
   enabled: true

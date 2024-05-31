@@ -288,11 +288,12 @@ rabbitmq:
           - /bin/bash
           - -ec
           - |
-            echo "Default user setup..."
-            rabbitmqctl add_user $RABBITMQ_USERNAME $RABBITMQ_PASSWORD || true;
-            rabbitmqctl set_user_tags $RABBITMQ_USERNAME administrator || true;
-            rabbitmqctl set_permissions  $ "." "." ".*"  || true;
-            echo "Default user setup is completed"
+            echo "Default user setup...";
+            sleep 30;
+            rabbitmqctl add_user "$RABBITMQ_USERNAME" "$RABBITMQ_PASSWORD" || true;
+            rabbitmqctl set_user_tags "$RABBITMQ_USERNAME" administrator || true;
+            rabbitmqctl set_permissions  "$RABBITMQ_USERNAME" "." "." ".*"  || true;
+            echo "Default user setup is completed";
     preStop:
       exec:
         command:

@@ -288,9 +288,22 @@ rabbitmq:
           - /bin/bash
           - -ec
           - |
+            echo "Default user setup..."
             rabbitmqctl add_user $RABBITMQ_USERNAME $RABBITMQ_PASSWORD || true;
             rabbitmqctl set_user_tags $RABBITMQ_USERNAME administrator || true;
             rabbitmqctl set_permissions  $ "." "." ".*"  || true;
+            echo "Default user setup is completed"
+    preStop:
+      exec:
+        command:
+          - /bin/bash
+          - -ec
+          - |
+            if [[ -f /opt/bitnami/scripts/rabbitmq/nodeshutdown.sh ]]; then
+                /opt/bitnami/scripts/rabbitmq/nodeshutdown.sh -t "120" -d "false"
+            else
+                rabbitmqctl stop_app
+            fi
 
 patient-documents:
   enabled: true

@@ -4,13 +4,18 @@ controller:
     custom-http-errors: '500'
     enable-modsecurity: "true"
     enable-owasp-modsecurity-crs: "true"
+    modsecurity-snippet: |
+      SecRuleEngine On
+      SecRequestBodyAccess On
+      SecResponseBodyAccess On
+      SecAuditEngine RelevantOnly
+      SecDebugLogLevel 9
     http-snippet: |
       server {
         listen 2443;
         return 308 https://$host$request_uri;
       }
-    modsecurity-snippet: |
-      SecRuleEngine On
+
   containerPort:
     http: 80
     https: 443

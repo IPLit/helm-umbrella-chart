@@ -3,6 +3,8 @@ global:
   nodeSelector:
     eks.amazonaws.com/nodegroup: prod
   TZ: "Asia/Kolkata"
+  waf:
+    enabled: true
 
 metadata:
   labels:

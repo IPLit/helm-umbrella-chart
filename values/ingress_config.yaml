@@ -1,11 +1,16 @@
 controller:
   config:
+    allow-snippet-annotations: 'true'
+    custom-http-errors: '500'
+    enable-modsecurity: "true"
+    enable-owasp-modsecurity-crs: "true"
     http-snippet: |
       server {
         listen 2443;
         return 308 https://$host$request_uri;
       }
-    custom-http-errors: "500"
+    modsecurity-snippet: |
+      SecRuleEngine On
   containerPort:
     http: 80
     https: 443

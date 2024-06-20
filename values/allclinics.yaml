@@ -1,0 +1,154 @@
+global:
+  storageClass: bahmni-efs-sc
+  nodeSelector:
+    eks.amazonaws.com/nodegroup: nonprod
+
+metadata:
+  labels:
+    environment: allclinics
+  ingress:
+    PROXY_BODY_SIZE: "7m"
+    ABDM_PROXY_BODY_SIZE: "30m"
+
+openmrs:
+  enabled: true
+  metadata:
+    labels:
+      environment: allclinics
+bahmni-web:
+  enabled: true
+  metadata:
+    labels:
+      environment: allclinics
+bahmni-lab:
+  enabled: true
+  metadata:
+    labels:
+      environment: allclinics
+crater:
+  enabled: true
+  metadata:
+    labels:
+      environment: allclinics
+  config:
+    AUTO_INSTALL: "true"
+    ADMIN_NAME: Super Man
+    COMPANY_NAME: Bahmni
+    COMPANY_SLUG: bahmni
+    COUNTRY_ID: 101
+  secrets:
+    ADMIN_EMAIL: "superman@bahmni.org"
+reports:
+  enabled: true
+  metadata:
+    labels:
+      environment: allclinics
+  config:
+    OPENMRS_HOST: "openmrs"
+hiu:
+  enabled: true
+  config:
+    POSTGRES_HOST: "bahmni-allclinics-postgresql"
+    RABBITMQ_HOST: "bahmni-allclinics-rabbitmq"
+    HIU_ID: "allclinics"
+    HIU_NAME: "allclinics"
+  metadata:
+    labels:
+      environment: allclinics
+hiu-db:
+  enabled: true
+  config:
+    JAVA_TOOL_OPTIONS: "-Djdbc.url=jdbc:postgresql://bahmni-allclinics-postgresql:5432/ -Djdbc.username=postgres -Djdbc.password=welcome -Djdbc.database=health_information_user"
+  metadata:
+    labels:
+      environment: allclinics
+hiu-ui:
+  enabled: true
+  config:
+    POSTGRES_HOST: bahmni-allclinics-postgresql
+    RABBITMQ_HOST: bahmni-allclinics-rabbitmq
+  metadata:
+    labels:
+      environment: allclinics
+hip:
+  enabled: true
+  config:
+    CONNECTION_STRING: "Host=bahmni-allclinics-postgresql;Port=5432;Username=postgres;Password=welcome;Database=hipservice"
+    RABBITMQ_HOST: "bahmni-allclinics-rabbitmq"
+    BAHMNI_ID: "allclinics"
+#   GATEWAY_URL: "https://nha-suma-azb7fa3pfa-el.a.run.app"
+  metadata:
+    labels:
+      environment: allclinics
+otp-service:
+  enabled: true
+  config:
+      CONNECTION_STRING: "Host=bahmni-allclinics-postgresql;Port=5432;Username=postgres;Password=welcome;Database=otpservice;"
+  metadata:
+    labels:
+      environment: allclinics
+hip-atomfeed:
+  enabled: true
+  config:
+    DATABASE_URL: "jdbc:postgresql://bahmni-allclinics-postgresql:5432/"
+  metadata:
+    labels:
+      environment: allclinics
+
+postgresql:
+  enabled: true
+  volumePermissions:
+    enabled: true
+  primary:
+    persistence:
+      subPath: allclinics
+      storageClass: bahmni-efs-sc
+      accessModes:
+        - ReadWriteMany
+    nodeSelector:
+      eks.amazonaws.com/nodegroup: nonprod
+
+rabbitmq:
+  enabled: true
+  auth:
+    erlangCookie: bahmni
+  persistence:
+    storageClass: bahmni-efs-sc
+    accessModes:
+      - ReadWriteMany
+  nodeSelector:
+    eks.amazonaws.com/nodegroup: nonprod
+
+patient-documents:
+  enabled: true
+  metadata:
+    labels:
+      environment: allclinics
+  config:
+    OPENMRS_HOST: "openmrs"
+
+appointments:
+  enabled: true
+
+crater-atomfeed:
+  enabled: true
+  metadata:
+    labels:
+      environment: allclinics
+
+implementer-interface:
+  enabled: true
+  metadata:
+    labels:
+      environment: allclinics
+
+clinic-config:
+  metadata:
+    labels:
+      environment: allclinics
+
+abha-verification:
+  enabled: true
+  metadata:
+    labels:
+      environment: allclinics

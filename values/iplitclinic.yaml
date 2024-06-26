@@ -21,7 +21,7 @@ openmrs:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmnilite/infoiplitin/openmrs
-    tag: iplit-1.0.0-639-5
+    tag: iplit-1.0.0-661-2
   affinity:
     podAntiAffinity:
       preferredDuringSchedulingIgnoredDuringExecution:
@@ -44,7 +44,7 @@ bahmni-web:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmnilite/infoiplitin/bahmni-iplit-web
-    tag: 1.0.0-90
+    tag: 1.1.0-102
 
 bahmni-lab:
   enabled: true
@@ -53,8 +53,8 @@ bahmni-lab:
       environment: iplitclinic
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
-    name: bahmni-lab
-    tag: 1.1.0-171
+    name: bahmnilite/bahmni/bahmni-lab
+    tag: 1.1.0-173
 
 crater:
   enabled: true
@@ -73,10 +73,10 @@ crater:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     nginx:
       name: bahmnilite/bahmni/crater-nginx
-      tag: 1.1.0-228
+      tag: 1.1.0-230
     php:
       name: bahmnilite/bahmni/crater-php
-      tag: 1.1.0-107
+      tag: 1.1.0-108
   affinity:
     podAntiAffinity:
       preferredDuringSchedulingIgnoredDuringExecution:
@@ -100,7 +100,7 @@ reports:
     OPENMRS_HOST: "openmrs"
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
-    name: reports
+    name: bahmnilite/bahmni/reports
     tag: 1.1.0-142
   resources: {}
   affinity:
@@ -135,8 +135,8 @@ hiu:
       environment: iplitclinic
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
-    name: bahmnilite/infoiplitin/hiu
-    tag: 1.0.0-31
+    name: bahmnilite/bahmniindiadistro/hiu
+    tag: 1.0.0-116
   resources: {}
   affinity:
     podAntiAffinity:
@@ -174,8 +174,8 @@ hiu-ui:
       environment: iplitclinic
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
-    name: hiu-ui
-    tag: 1.0.0-9
+    name: bahmnilite/infoiplitin/hiu-ui
+    tag: 1.0.0-10
 
 hip:
   enabled: true
@@ -194,7 +194,7 @@ hip:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmnilite/infoiplitin/hip
-    tag: 1.0.0-148
+    tag: 1.0.0-149
   resources: {}
 
 otp-service:
@@ -206,7 +206,7 @@ otp-service:
       environment: iplitclinic
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
-    name: otp-service
+    name: bahmnilite/infoiplitin/otp-service
     tag: 1.0.0-12
 
 sms-service:
@@ -228,8 +228,8 @@ hip-atomfeed:
       environment: iplitclinic
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
-    name: hip-atomfeed
-    tag: 1.0.0-109
+    name: bahmnilite/bahmniindiadistro/hip-atomfeed
+    tag: 1.0.0-110
   resources: {}
   affinity:
     podAntiAffinity:
@@ -317,15 +317,15 @@ patient-documents:
     OPENMRS_HOST: "openmrs"
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
-    name: patient-documents
-    tag: 1.1.0-29
+    name: bahmnilite/bahmni/patient-documents
+    tag: 1.1.0-32
 
 appointments:
   enabled: true
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
-    name: appointments
-    tag: 1.1.0-95
+    name: bahmnilite/bahmni/appointments
+    tag: 1.1.0-119
 
 crater-atomfeed:
   enabled: true
@@ -334,7 +334,7 @@ crater-atomfeed:
       environment: iplitclinic
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
-    name: crater-atomfeed
+    name: bahmnilite/bahmni/crater-atomfeed
     tag: 1.1.0-125
   affinity:
     podAntiAffinity:
@@ -357,8 +357,8 @@ implementer-interface:
       environment: iplitclinic
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
-    name: implementer-interface
-    tag: 1.1.0-67
+    name: bahmnilite/bahmni/implementer-interface
+    tag: 1.1.0-74
 
 clinic-config:
   metadata:
@@ -367,7 +367,7 @@ clinic-config:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmnilite/infoiplitin/clinic-config-indiadistro
-    tag: 1.0.0-37
+    tag: 1.1.0-42
 
 abha-verification:
   enabled: true
@@ -376,8 +376,8 @@ abha-verification:
       environment: iplitclinic
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
-    name: abha-verification
-    tag: 1.0.0-3
+    name: bahmnilite/infoiplitin/abha-verification
+    tag: 1.0.0-5
 
 bahmni-metabase:
   enabled: true
@@ -392,8 +392,8 @@ bahmni-metabase:
     MART_DB_HOST: 'bahmni-iplitclinic-postgresql'
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
-    name: bahmni-metabase
-    tag: 1.1.0-34
+    name: bahmnilite/bahmni/bahmni-metabase
+    tag: 1.1.0-38
   affinity:
     podAntiAffinity:
       preferredDuringSchedulingIgnoredDuringExecution:
@@ -416,5 +416,5 @@ bahmni-mart:
     MART_DB_HOST: "bahmni-iplitclinic-postgresql"
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
-    name: bahmni-mart
-    tag: 1.1.0-59
+    name: bahmnilite/bahmni/bahmni-mart
+    tag: 1.1.0-63

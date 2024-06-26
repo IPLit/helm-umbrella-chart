@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: openmrs-config
+data:
+  LUCENE_MATCH_TYPE: "START"
+  DOCUMENT_MAX_SIZE_MB: "7"

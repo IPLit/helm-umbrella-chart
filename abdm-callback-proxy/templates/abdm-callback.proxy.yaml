@@ -30,7 +30,8 @@ data:
         iplitclinic3: 'clinic3.bahmnilite.in',
         IN2710000190: 'sandhuhospital.bahmnilite.in',
         IN0610000237: 'vibranthealing.bahmni.in',
-        IN2710001971: 'lupinstaging.bahmni.in'
+        IN2710001971: 'lupinstaging.bahmni.in',
+        IN2710000191: 'iplitdev.bahmni.in'
     };
     {{- end }}
     function delegate(request) {
@@ -131,6 +132,8 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: abdm-callback-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/enable-modsecurity: 'false'
 spec:
   ingressClassName: nginx
   rules:

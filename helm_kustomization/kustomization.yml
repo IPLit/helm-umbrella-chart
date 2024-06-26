@@ -153,6 +153,7 @@ patchesStrategicMerge:
 
 - crater-mail-secrets.yml
 - openmrs-secrets.yml
+- openmrs-config-map.yml
 - hip-config-map.yml
 - sms-config-map.yml
 

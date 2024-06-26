@@ -1,11 +1,32 @@
 controller:
   config:
+    allow-snippet-annotations: 'true'
+    custom-http-errors: '500'
+    enable-modsecurity: "true"
+    enable-owasp-modsecurity-crs: "true"
+    modsecurity-snippet: |
+      SecRuleEngine On
+      SecRequestBodyAccess On
+      SecResponseBodyAccess On
+      SecRequestBodyLimit 5242880
+      SecResponseBodyLimit 546870912
+      SecResponseBodyLimitAction ProcessPartial
+      SecResponseBodyMimeType text/plain text/html text/xml
+      SecAuditEngine RelevantOnly
+      SecDebugLog /var/log/nginx/error.log
+      SecDebugLogLevel 8
+      SecAuditLogType Serial
+      SecAuditLog /var/log/nginx/error.log
+      SecAction "id:900000,phase:1,nolog,pass,t:none,setvar:tx.paranoia_level=2,setvar:tx.blocking_paranoia_level=2,setvar:tx.enforce_bodyproc_urlencoded=1"
+      SecAction "id:900110,phase:1,nolog,pass,t:none,setvar:tx.inbound_anomaly_score_threshold=10,setvar:tx.outbound_anomaly_score_threshold=7"
+      SecAction "id:900220,phase:1,nolog,pass,t:none,setvar:tx.allowed_request_content_type=|application/x-www-form-urlencoded| |multipart/form-data| |multipart/related| |text/xml| |application/xml| |application/soap+xml| |application/json| |application/cloudevents+json| |application/cloudevents-batch+json| |text/plain| |*/*|"
+      SecRule REQUEST_URI "cgi-bin/(printenv|test-cgi)" "id:100001,phase:1,log,deny,status:403"
     http-snippet: |
       server {
         listen 2443;
         return 308 https://$host$request_uri;
       }
-    custom-http-errors: "500"
+
   containerPort:
     http: 80
     https: 443

@@ -14,6 +14,11 @@ on:
         required: true
         type: boolean
         default: false
+      update_ingress:
+        description: 'Enable this to update ingress controller'
+        required: true
+        type: boolean
+        default: false
       cluster:
         description: 'Cluster to deploy'
         required: false
@@ -35,6 +40,9 @@ on:
           - clinic1
           - clinic2
           - clinic3
+          - salusclinics
+          - nectorhospital
+          - vivekrathod
           - iplitclinic
           - renukanursinghome
           - drgujarshospital
@@ -94,10 +102,11 @@ jobs:
           
           aws eks update-kubeconfig --name $CLUSTER_NAME
       - name: Install Nginx Ingress
+        if: ${{ github.event.inputs.update_ingress == 'true' }}
         run: |
           kubectl apply -f custom-error-pages/custom-error.yaml -n ingress-nginx
           helm upgrade ingress-nginx ingress-nginx \
-          --version 4.4.2 \
+          --version 4.10.1 \
           --repo https://kubernetes.github.io/ingress-nginx \
           --namespace=ingress-nginx --create-namespace \
           --install \
@@ -115,9 +124,15 @@ jobs:
           jq --arg ingress_dns "$INGRESS_DNS" \
              --arg environment_dns "$ENVIRONMENT_DNS" \
              --arg abdm_dns "$ABDM_DNS" \
-             '.Changes[].ResourceRecordSet.AliasTarget.DNSName = $ingress_dns | .Changes[0].ResourceRecordSet.Name = $environment_dns | .Changes[1].ResourceRecordSet.Name = "payments-"+$environment_dns | .Changes[2].ResourceRecordSet.Name = $abdm_dns ' \
+             '.Changes[0].ResourceRecordSet.AliasTarget.DNSName = $ingress_dns | .Changes[1].ResourceRecordSet.Name = "payments-"+$environment_dns | .Changes[2].ResourceRecordSet.Name = $abdm_dns ' \
               aws/route53/lite.mybahmni.in.json > recordset
           aws route53 change-resource-record-sets --hosted-zone-id ${{ secrets.HOSTED_ZONE_ID }} --change-batch file://recordset
+
+          jq --arg ingress_dns "$INGRESS_DNS" \
+             --arg environment_dns "$ENVIRONMENT_DNS" \
+             '.Changes[].ResourceRecordSet.AliasTarget.DNSName = $ingress_dns | .Changes[0].ResourceRecordSet.Name = $environment_dns' \
+              aws/route53/nlb.lite.mybahmni.in.json > nlb.recordset
+          aws route53 change-resource-record-sets --hosted-zone-id ${{ secrets.HOSTED_ZONE_ID }} --change-batch file://nlb.recordset
 
 
       - name: Setup Environment secrets
@@ -190,7 +205,7 @@ jobs:
           --set crater.secrets.ADMIN_PASSWORD=$CRATER_ADMIN_PASSWORD \
           --set hip.secrets.GATEWAY_CLIENT_ID=$GATEWAY_CLIENT_ID \
           --set hip.secrets.GATEWAY_CLIENT_SECRET=$GATEWAY_CLIENT_SECRET \
-          --set hip.secrets.OPENMRS_PASSWORD=Admin123 \
+          --set hip.secrets.OPENMRS_PASSWORD=$OMRS_ADMIN_USER_PASSWORD \
           --set hip.config.BAHMNI_URL=https://${{env.ENVIRONMENT_DNS}}/openmrs \
           --set hip.config.RABBITMQ_USERNAME=$MQ_USERNAME \
           --set hip.config.RABBITMQ_PASSWORD=$MQ_PASSWORD \
@@ -209,7 +224,7 @@ jobs:
           --set crater-atomfeed.config.CRATER_ATOMFEED_DB_NAME=crater_atomfeed_${{ env.ENVIRONMENT }} \
           --set crater-atomfeed.config.CRATER_URL=https://payments-${{env.ENVIRONMENT_DNS}} \
           --set crater-atomfeed.secrets.OPENMRS_ATOMFEED_USER=superman \
-          --set crater-atomfeed.secrets.OPENMRS_ATOMFEED_PASSWORD=Admin123 \
+          --set crater-atomfeed.secrets.OPENMRS_ATOMFEED_PASSWORD=$OMRS_ADMIN_USER_PASSWORD \
           --set crater-atomfeed.secrets.CRATER_USERNAME=superman@bahmni.org \
           --set crater-atomfeed.secrets.CRATER_PASSWORD=$CRATER_ADMIN_PASSWORD \
           --set crater-atomfeed.secrets.CRATER_ATOMFEED_DB_USERNAME=$CRATER_ATOMFEED_DB_USERNAME \

@@ -4,7 +4,7 @@
     {
       "Action": "UPSERT",
       "ResourceRecordSet": {
-        "Name": "{environment domain replaced in the pipeline}.bahmnilite.in",
+        "Name": "prod-ingress-nlb.bahmnilite.in",
         "Type": "A",
         "AliasTarget": {
             "HostedZoneId": "ZVDDRBQ08TROA",
@@ -17,24 +17,22 @@
       "Action": "UPSERT",
       "ResourceRecordSet": {
         "Name": "payments-{environment domain replaced in the pipeline}.bahmnilite.in",
-        "Type": "A",
-        "AliasTarget": {
-            "HostedZoneId": "ZVDDRBQ08TROA",
-            "DNSName": "bogus-DNS-will-be-replaced-in-pipeline.amazonaws.com",
-            "EvaluateTargetHealth": false
-        }
+        "Type": "CNAME",
+        "TTL": 300,
+        "ResourceRecords": [{
+            "Value": "prod-ingress-nlb.bahmnilite.in"
+        }]
       }
     },
     {
       "Action": "UPSERT",
       "ResourceRecordSet": {
         "Name": "{abdm domain replaced in the pipeline}.bahmnilite.in",
-        "Type": "A",
-        "AliasTarget": {
-            "HostedZoneId": "ZVDDRBQ08TROA",
-            "DNSName": "bogus-DNS-will-be-replaced-in-pipeline.amazonaws.com",
-            "EvaluateTargetHealth": false
-        }
+        "Type": "CNAME",
+        "TTL": 300,
+        "ResourceRecords": [{
+            "Value": "prod-ingress-nlb.bahmnilite.in"
+        }]
       }
     }
   ]

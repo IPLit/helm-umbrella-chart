@@ -14,6 +14,11 @@ on:
         required: true
         type: boolean
         default: false
+      update_ingress:
+        description: 'Enable this to update ingress controller'
+        required: true
+        type: boolean
+        default: false
       cluster:
         description: 'Cluster to deploy'
         required: false
@@ -97,6 +102,7 @@ jobs:
           
           aws eks update-kubeconfig --name $CLUSTER_NAME
       - name: Install Nginx Ingress
+        if: ${{ github.event.inputs.update_ingress == 'true' }}
         run: |
           kubectl apply -f custom-error-pages/custom-error.yaml -n ingress-nginx
           helm upgrade ingress-nginx ingress-nginx \

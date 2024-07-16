@@ -3,6 +3,8 @@ global:
   nodeSelector:
     eks.amazonaws.com/nodegroup: prod
   TZ: "Asia/Kolkata"
+  waf:
+    enabled: true
 
 metadata:
   labels:
@@ -20,6 +22,7 @@ openmrs:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmnilite/infoiplitin/openmrs
     tag: iplit-1.0.0-662-4
+
   affinity:
     podAntiAffinity:
       preferredDuringSchedulingIgnoredDuringExecution:
@@ -52,7 +55,7 @@ bahmni-lab:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmnilite/bahmni/bahmni-lab
-    tag: 1.1.0-171
+    tag: 1.1.0-173
 
 crater:
   enabled: true
@@ -100,6 +103,7 @@ reports:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmnilite/bahmni/reports
     tag: 1.1.0-148
+
   resources: {}
   affinity:
     podAntiAffinity:
@@ -133,8 +137,8 @@ hiu:
       environment: iplitclinic
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
-    name: bahmnilite/infoiplitin/hiu
-    tag: 1.0.0-31
+    name: bahmnilite/bahmniindiadistro/hiu
+    tag: 1.0.0-116
   resources: {}
   affinity:
     podAntiAffinity:
@@ -173,7 +177,7 @@ hiu-ui:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmnilite/infoiplitin/hiu-ui
-    tag: 1.0.0-9
+    tag: 1.0.0-10
 
 hip:
   enabled: true
@@ -192,7 +196,7 @@ hip:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmnilite/infoiplitin/hip
-    tag: 1.0.0-148
+    tag: 1.0.0-149
   resources: {}
 
 otp-service:
@@ -227,7 +231,8 @@ hip-atomfeed:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmnilite/bahmniindiadistro/hip-atomfeed
-    tag: 1.0.0-109
+    tag: 1.0.0-110
+
   resources: {}
   affinity:
     podAntiAffinity:
@@ -257,6 +262,9 @@ postgresql:
       storageClass: bahmni-efs-sc
       accessModes:
         - ReadWriteMany
+      labels:
+        app.kubernetes.io/instance: bahmni-iplitclinic
+        app.kubernetes.io/name: postgresql
     nodeSelector:
       eks.amazonaws.com/nodegroup: prod
   image:
@@ -278,6 +286,30 @@ rabbitmq:
   image:
     repository: rabbitmq
     tag: alpine
+  lifecycleHooks:
+    postStart:
+      exec:
+        command:
+          - /bin/bash
+          - -ec
+          - |
+            echo "Default user setup...";
+            rabbitmqctl wait -P 1 --timeout 30000;
+            rabbitmqctl add_user "$RABBITMQ_USERNAME" "$RABBITMQ_PASSWORD" || true;
+            rabbitmqctl set_user_tags "$RABBITMQ_USERNAME" administrator || true;
+            rabbitmqctl set_permissions  "$RABBITMQ_USERNAME" "." "." ".*"  || true;
+            echo "Default user setup is completed";
+    preStop:
+      exec:
+        command:
+          - /bin/bash
+          - -ec
+          - |
+            if [[ -f /opt/bitnami/scripts/rabbitmq/nodeshutdown.sh ]]; then
+                /opt/bitnami/scripts/rabbitmq/nodeshutdown.sh -t "120" -d "false"
+            else
+                rabbitmqctl stop_app
+            fi
 
 patient-documents:
   enabled: true
@@ -328,7 +360,7 @@ implementer-interface:
       environment: iplitclinic
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
-    name: bahmnilite/bahmni/appointments
+    name: bahmnilite/bahmni/implementer-interface
     tag: 1.1.0-74
 
 clinic-config:
@@ -348,7 +380,7 @@ abha-verification:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmnilite/infoiplitin/abha-verification
-    tag: 1.0.0-3
+    tag: 1.0.0-5
 
 bahmni-metabase:
   enabled: true
@@ -388,4 +420,4 @@ bahmni-mart:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmnilite/bahmni/bahmni-mart
-    tag: 1.1.0-65
+    tag: 1.1.0-63

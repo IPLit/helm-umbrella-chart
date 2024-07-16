@@ -21,6 +21,12 @@ metadata:
       add_header Set-Cookie "Path=/; HttpOnly; Secure";
     nginx.ingress.kubernetes.io/proxy-body-size: {{ .Values.metadata.ingress.PROXY_BODY_SIZE }}
     nginx.ingress.kubernetes.io/secure-backends: "true"
+    {{- if .Values.global.waf.enabled }}
+    nginx.ingress.kubernetes.io/enable-modsecurity: 'true'
+    {{- else }}
+    nginx.ingress.kubernetes.io/enable-modsecurity: 'false'
+    {{- end }}
+
 spec:
   ingressClassName: nginx
   rules:
@@ -145,6 +151,15 @@ metadata:
     nginx.ingress.kubernetes.io/configuration-snippet: |
       add_header Set-Cookie "reporting_session=$cookie_JSESSIONID;Path=/;Max-Age=86400";
     nginx.ingress.kubernetes.io/proxy-body-size: {{ .Values.metadata.ingress.PROXY_BODY_SIZE }}
+    {{- if .Values.global.waf.enabled }}
+    nginx.ingress.kubernetes.io/enable-modsecurity: 'true'
+    nginx.ingress.kubernetes.io/modsecurity-snippet: >
+      SecRule REQUEST_URI "openmrs/ws/rest/v1/(user|auditlog|provider|session)" "id:100002,phase:2,nolog,pass,ctl:ruleRemoveByTag=attack-sqli"
+      SecRuleUpdateTargetByTag "attack-sqli" !REQUEST_COOKIES:bahmni.user.location
+    {{- else }}
+    nginx.ingress.kubernetes.io/enable-modsecurity: 'false'
+    {{- end }}
+
 spec:
   ingressClassName: nginx
   rules:
@@ -178,6 +193,11 @@ metadata:
           }
           rewrite  ^/hiprovider(.*) /hip$1 last;
       }
+    {{- if .Values.global.waf.enabled }}
+    nginx.ingress.kubernetes.io/enable-modsecurity: 'true'
+    {{- else }}
+    nginx.ingress.kubernetes.io/enable-modsecurity: 'false'
+    {{- end }}
 spec:
   ingressClassName: nginx
   rules:
@@ -236,6 +256,11 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: {{ .Values.metadata.ingress.PROXY_BODY_SIZE }}
     nginx.ingress.kubernetes.io/rewrite-target: /$1
+    {{- if .Values.global.waf.enabled }}
+    nginx.ingress.kubernetes.io/enable-modsecurity: 'true'
+    {{- else }}
+    nginx.ingress.kubernetes.io/enable-modsecurity: 'false'
+    {{- end }}
 spec:
   ingressClassName: nginx
   rules:

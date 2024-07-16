@@ -11,6 +11,7 @@ spec:
     - ReadWriteMany
   mountOptions:
     - tls
+    - iam
   persistentVolumeReclaimPolicy: Retain
   claimRef:
     namespace: {{ .Values.metadata.labels.environment }}

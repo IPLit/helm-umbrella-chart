@@ -19,7 +19,7 @@ openmrs:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmnilite/infoiplitin/openmrs
-    tag: iplit-1.0.0-639-5
+    tag: iplit-1.0.0-639-10
   affinity:
     podAntiAffinity:
       preferredDuringSchedulingIgnoredDuringExecution:
@@ -42,7 +42,7 @@ bahmni-web:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmnilite/infoiplitin/bahmni-iplit-web
-    tag: 1.0.0-90
+    tag: 1.0.0-91
 
 bahmni-lab:
   enabled: true
@@ -71,10 +71,10 @@ crater:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     nginx:
       name: bahmnilite/bahmni/crater-nginx
-      tag: 1.1.0-218
+      tag: 1.1.0-230
     php:
       name: bahmnilite/bahmni/crater-php
-      tag: 1.1.0-105
+      tag: 1.1.0-108
   affinity:
     podAntiAffinity:
       preferredDuringSchedulingIgnoredDuringExecution:
@@ -284,7 +284,7 @@ appointments:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmnilite/bahmni/appointments
-    tag: 1.1.0-95
+    tag: 1.1.0-110
 
 crater-atomfeed:
   enabled: true
@@ -317,7 +317,7 @@ implementer-interface:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmnilite/bahmni/implementer-interface
-    tag: 1.1.0-67
+    tag: 1.1.0-70
 
 clinic-config:
   metadata:
@@ -326,7 +326,7 @@ clinic-config:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmnilite/infoiplitin/clinic-config-indiadistro
-    tag: 1.0.0-32
+    tag: 1.0.0-37
 
 abha-verification:
   enabled: true
@@ -336,7 +336,7 @@ abha-verification:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmnilite/infoiplitin/abha-verification
-    tag: 1.0.0-3
+    tag: 1.0.0-4
 
 bahmni-metabase:
   enabled: true
@@ -352,7 +352,7 @@ bahmni-metabase:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmnilite/bahmni/bahmni-metabase
-    tag: 1.1.0-34
+    tag: 1.1.0-37
   affinity:
     podAntiAffinity:
       preferredDuringSchedulingIgnoredDuringExecution:

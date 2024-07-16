@@ -8,7 +8,7 @@ global:
 
 metadata:
   labels:
-    environment: renukanursinghome
+    environment: nectorhospital
   ingress:
     PROXY_BODY_SIZE: "7m"
     ABDM_PROXY_BODY_SIZE: "30m"
@@ -17,11 +17,11 @@ openmrs:
   enabled: true
   metadata:
     labels:
-      environment: renukanursinghome
+      environment: nectorhospital
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmnilite/infoiplitin/openmrs
-    tag: iplit-1.0.0-639-5
+    tag: iplit-1.0.0-639-10
   affinity:
     podAntiAffinity:
       preferredDuringSchedulingIgnoredDuringExecution:
@@ -40,44 +40,43 @@ bahmni-web:
   enabled: true
   metadata:
     labels:
-      environment: renukanursinghome
+      environment: nectorhospital
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmnilite/infoiplitin/bahmni-iplit-web
-    tag: 1.0.0-90
+    tag: 1.0.0-91
 
 bahmni-lab:
   enabled: true
   metadata:
     labels:
-      environment: renukanursinghome
+      environment: nectorhospital
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
-    name: bahmni-lab
+    name: bahmnilite/bahmni/bahmni-lab
     tag: 1.1.0-171
 
 crater:
   enabled: true
   metadata:
     labels:
-      environment: renukanursinghome
+      environment: nectorhospital
   config:
     AUTO_INSTALL: "true"
     ADMIN_NAME: Super Man
     COMPANY_NAME: Bahmni
     COMPANY_SLUG: bahmni
-    COUNTRY_ID: 91
-    CRATER_DEFAULT_CURRENCY: INR
+    COUNTRY_ID: 101
   secrets:
     ADMIN_EMAIL: "superman@bahmni.org"
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     nginx:
       name: bahmnilite/bahmni/crater-nginx
-      tag: 1.1.0-228
+      tag: 1.1.0-230
     php:
       name: bahmnilite/bahmni/crater-php
-      tag: 1.1.0-107
+      tag: 1.1.0-108
   affinity:
     podAntiAffinity:
       preferredDuringSchedulingIgnoredDuringExecution:
@@ -96,12 +95,12 @@ reports:
   enabled: true
   metadata:
     labels:
-      environment: renukanursinghome
+      environment: nectorhospital
   config:
     OPENMRS_HOST: "openmrs"
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
-    name: reports
+    name: bahmnilite/bahmni/reports
     tag: 1.1.0-142
   resources: {}
   affinity:
@@ -121,19 +120,19 @@ reports:
 hiu:
   enabled: true
   config:
-    POSTGRES_HOST: "bahmni-renukanursinghome-postgresql"
-    RABBITMQ_HOST: "bahmni-renukanursinghome-rabbitmq"
-    HIU_ID: "IN2710025139"
-    HIU_NAME: "Renuka Nursing Home"
-    CONSENT_MANAGEMENT_SUFFIX: "@abdm"
-    CONSENT_MANAGEMENT_URL: "https://live.abdm.gov.in/cm"
-    GATEWAY_BASE_URL: "https://live.abdm.gov.in/gateway/v0.5"
-    GATEWAY_JWK_URL: "https://live.abdm.gov.in/gateway/v0.5/certs"
-    HFR_AFFINITY_DOMAINS: "facility.abdm.gov.in"
-    IDENTITY_JWK_URL : "https://live.abdm.gov.in/auth/realms/consent-manager/protocol/openid-connect/certs"
+    POSTGRES_HOST: "bahmni-nectorhospital-postgresql"
+    RABBITMQ_HOST: "bahmni-nectorhospital-rabbitmq"
+    HIU_ID: "nectorhospital"
+    HIU_NAME: "nectorhospital"
+    CONSENT_MANAGEMENT_SUFFIX: "@sbx"
+    CONSENT_MANAGEMENT_URL: "https://live.ndhm.gov.in/cm"
+    GATEWAY_BASE_URL: "https://dev.abdm.gov.in/gateway/v0.5"
+    GATEWAY_JWK_URL: "https://dev.abdm.gov.in/gateway/v0.5/certs"
+    HFR_AFFINITY_DOMAINS: "facilitysbx.ndhm.gov.in"
+    IDENTITY_JWK_URL : "https://dev.ndhm.gov.in/auth/realms/consent-manager/protocol/openid-connect/certs"
   metadata:
     labels:
-      environment: renukanursinghome
+      environment: nectorhospital
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmnilite/infoiplitin/hiu
@@ -156,42 +155,40 @@ hiu:
 hiu-db:
   enabled: true
   config:
-    JAVA_TOOL_OPTIONS: "-Djdbc.url=jdbc:postgresql://bahmni-renukanursinghome-postgresql:5432/ -Djdbc.username=postgres -Djdbc.password=welcome -Djdbc.database=health_information_user"
+    JAVA_TOOL_OPTIONS: "-Djdbc.url=jdbc:postgresql://bahmni-nectorhospital-postgresql:5432/ -Djdbc.username=postgres -Djdbc.password=welcome -Djdbc.database=health_information_user"
   metadata:
     labels:
-      environment: renukanursinghome
+      environment: nectorhospital
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
-    name: hiu-db
+    name: bahmnilite/bahmniindiadistro/hiu-db
     tag: 1.0.0-74
 
 hiu-ui:
   enabled: true
   config:
-    POSTGRES_HOST: bahmni-renukanursinghome-postgresql
-    RABBITMQ_HOST: bahmni-renukanursinghome-rabbitmq
+    POSTGRES_HOST: bahmni-nectorhospital-postgresql
+    RABBITMQ_HOST: bahmni-nectorhospital-rabbitmq
   metadata:
     labels:
-      environment: renukanursinghome
+      environment: nectorhospital
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
-    name: hiu-ui
+    name: bahmnilite/infoiplitin/hiu-ui
     tag: 1.0.0-9
 
 hip:
   enabled: true
   config:
-    CONNECTION_STRING: "Host=bahmni-renukanursinghome-postgresql;Port=5432;Username=postgres;Password=welcome;Database=hipservice"
-    RABBITMQ_HOST: "bahmni-renukanursinghome-rabbitmq"
-    BAHMNI_ID: "IN2710025139"
+    CONNECTION_STRING: "Host=bahmni-nectorhospital-postgresql;Port=5432;Username=postgres;Password=welcome;Database=hipservice"
+    RABBITMQ_HOST: "bahmni-nectorhospital-rabbitmq"
+    BAHMNI_ID: "nectorhospital"
     BAHMNI_URL: http://openmrs:8080/openmrs
-    ABHA_NUMBER_URL: "https://healthid.abdm.gov.in/api"
-    ABHA_ADDRESS_URL: "https://phr.abdm.gov.in/api"
-    GATEWAY_URL: "https://live.abdm.gov.in/gateway"
-    GATEWAY_CMSUFFIX: "abdm"
+    GATEWAY_URL: "https://dev.abdm.gov.in/gateway"
+    GATEWAY_CMSUFFIX: "sbx"
   metadata:
     labels:
-      environment: renukanursinghome
+      environment: nectorhospital
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmnilite/infoiplitin/hip
@@ -201,25 +198,25 @@ hip:
 otp-service:
   enabled: true
   config:
-    CONNECTION_STRING: "Host=bahmni-renukanursinghome-postgresql;Port=5432;Username=postgres;Password=welcome;Database=otpservice;"
+    CONNECTION_STRING: "Host=bahmni-nectorhospital-postgresql;Port=5432;Username=postgres;Password=welcome;Database=otpservice;"
   metadata:
     labels:
-      environment: renukanursinghome
+      environment: nectorhospital
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
-    name: otp-service
+    name: bahmnilite/infoiplitin/otp-service
     tag: 1.0.0-12
 
 hip-atomfeed:
   enabled: true
   config:
-    DATABASE_URL: "jdbc:postgresql://bahmni-renukanursinghome-postgresql:5432/"
+    DATABASE_URL: "jdbc:postgresql://bahmni-nectorhospital-postgresql:5432/"
   metadata:
     labels:
-      environment: renukanursinghome
+      environment: nectorhospital
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
-    name: hip-atomfeed
+    name: bahmnilite/bahmniindiadistro/hip-atomfeed
     tag: 1.0.0-109
   resources: {}
   affinity:
@@ -246,7 +243,7 @@ postgresql:
       tag: 11-debian-11-r50
   primary:
     persistence:
-      subPath: renukanursinghome
+      subPath: nectorhospital
       storageClass: bahmni-efs-sc
       accessModes:
         - ReadWriteMany
@@ -276,29 +273,29 @@ patient-documents:
   enabled: true
   metadata:
     labels:
-      environment: renukanursinghome
+      environment: nectorhospital
   config:
     OPENMRS_HOST: "openmrs"
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
-    name: patient-documents
+    name: bahmnilite/bahmni/patient-documents
     tag: 1.1.0-29
 
 appointments:
   enabled: true
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
-    name: appointments
-    tag: 1.1.0-95
+    name: bahmnilite/bahmni/appointments
+    tag: 1.1.0-110
 
 crater-atomfeed:
   enabled: true
   metadata:
     labels:
-      environment: renukanursinghome
+      environment: nectorhospital
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
-    name: crater-atomfeed
+    name: bahmnilite/bahmni/crater-atomfeed
     tag: 1.1.0-125
   affinity:
     podAntiAffinity:
@@ -318,30 +315,30 @@ implementer-interface:
   enabled: true
   metadata:
     labels:
-      environment: renukanursinghome
+      environment: nectorhospital
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
-    name: implementer-interface
-    tag: 1.1.0-67
+    name: bahmnilite/bahmni/implementer-interface
+    tag: 1.1.0-70
 
 clinic-config:
   metadata:
     labels:
-      environment: renukanursinghome
+      environment: nectorhospital
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmnilite/infoiplitin/clinic-config-indiadistro
-    tag: 1.0.0-32
+    tag: 1.0.0-37
 
 abha-verification:
   enabled: true
   metadata:
     labels:
-      environment: renukanursinghome
+      environment: nectorhospital
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
-    name: abha-verification
-    tag: 1.0.0-3
+    name: bahmnilite/infoiplitin/abha-verification
+    tag: 1.0.0-4
 
 bahmni-metabase:
   enabled: true
@@ -352,12 +349,12 @@ bahmni-metabase:
     MART_DB_NAME: martdb
   secrets:
     MB_ADMIN_FIRST_NAME: 'Admin'
-    MB_DB_HOST: 'bahmni-renukanursinghome-postgresql'
-    MART_DB_HOST: 'bahmni-renukanursinghome-postgresql'
+    MB_DB_HOST: 'bahmni-nectorhospital-postgresql'
+    MART_DB_HOST: 'bahmni-nectorhospital-postgresql'
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
-    name: bahmni-metabase
-    tag: 1.1.0-34
+    name: bahmnilite/bahmni/bahmni-metabase
+    tag: 1.1.0-37
   affinity:
     podAntiAffinity:
       preferredDuringSchedulingIgnoredDuringExecution:
@@ -377,8 +374,8 @@ bahmni-mart:
   config:
     MART_DB_NAME: martdb
   secrets:
-    MART_DB_HOST: "bahmni-renukanursinghome-postgresql"
+    MART_DB_HOST: "bahmni-nectorhospital-postgresql"
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
-    name: bahmni-mart
+    name: bahmnilite/bahmni/bahmni-mart
     tag: 1.1.0-59

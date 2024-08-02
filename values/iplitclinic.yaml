@@ -137,8 +137,8 @@ hiu:
       environment: iplitclinic
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
-    name: bahmnilite/bahmniindiadistro/hiu
-    tag: 1.0.0-116
+    name: bahmnilite/infoiplitin/hiu
+    tag: 1.0.0-31
   resources: {}
   affinity:
     podAntiAffinity:

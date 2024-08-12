@@ -3,6 +3,8 @@ kind: Kustomization
 resources:
 - all.yaml
 - hip-atomfeed-secrets.yml
+- openmrs-otp-properties.yml
+- openmrs-appt-properties.yml
 
 configMapGenerator:
 - name: health-check
@@ -122,6 +124,12 @@ patches:
                     optional: false
 
 patchesStrategicMerge:
+- crater-mail-secrets.yml
+- openmrs-secrets.yml
+- openmrs-config-map.yml
+- hip-config-map.yml
+- sms-config-map.yml
+
 - |-
   apiVersion: apps/v1
   kind: Deployment
@@ -130,6 +138,34 @@ patchesStrategicMerge:
   spec:
     template:
       spec:
+        volumes:
+          - name: openmrs-patient-images
+            persistentVolumeClaim:
+              claimName: openmrs-patient-images-pvc
+          - name: openmrs-document-images
+            persistentVolumeClaim:
+              claimName: openmrs-document-images-pvc
+          - name: openmrs-initializer-checksums
+            persistentVolumeClaim:
+              claimName: openmrs-initializer-checksums-pvc
+          - name: openmrs-clinical-forms
+            persistentVolumeClaim:
+              claimName: openmrs-clinical-forms-pvc
+          - name: bahmni-config
+            persistentVolumeClaim:
+              claimName: bahmni-config-pvc
+          - name: bahmni-uploaded-results
+            persistentVolumeClaim:
+              claimName: bahmni-uploaded-results-pvc
+          - name: bahmni-uploaded-files
+            persistentVolumeClaim:
+              claimName: bahmni-uploaded-files-pvc
+          - name: openmrs-otp-properties
+            secret:
+              secretName: openmrs-otp-properties
+          - name: openmrs-appt-properties
+            secret:
+              secretName: openmrs-appt-properties
         containers:
         - name: openmrs
           livenessProbe:
@@ -150,12 +186,29 @@ patchesStrategicMerge:
             periodSeconds: 30
             successThreshold: 1
             failureThreshold: 40
-
-- crater-mail-secrets.yml
-- openmrs-secrets.yml
-- openmrs-config-map.yml
-- hip-config-map.yml
-- sms-config-map.yml
+          volumeMounts:
+            - name: openmrs-patient-images
+              mountPath: /home/bahmni/patient_images
+            - name: openmrs-document-images
+              mountPath: /home/bahmni/document_images
+            - name: openmrs-initializer-checksums
+              mountPath: /openmrs/data/configuration_checksums
+            - name: openmrs-clinical-forms
+              mountPath: /home/bahmni/clinical_forms
+            - name: bahmni-config
+              mountPath: /etc/bahmni_config
+            - name: bahmni-uploaded-results
+              mountPath: /home/bahmni/uploaded_results
+            - name: bahmni-uploaded-files
+              mountPath: /home/bahmni/uploaded-files
+            - mountPath: "/openmrs/data/otp.properties"
+              name: openmrs-otp-properties
+              subPath: otp.properties
+              readOnly: true
+            - mountPath: "/openmrs/data/appt.properties"
+              name: openmrs-appt-properties
+              subPath: appt.properties
+              readOnly: true
 
 - |-
   apiVersion: apps/v1

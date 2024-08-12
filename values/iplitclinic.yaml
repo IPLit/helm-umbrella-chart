@@ -21,7 +21,7 @@ openmrs:
   image:
     repository: 600047163007.dkr.ecr.ap-south-1.amazonaws.com
     name: bahmnilite/infoiplitin/openmrs
-    tag: iplit-1.0.0-662-4
+    tag: iplit-1.0.0-639-5
 
   affinity:
     podAntiAffinity:
@@ -67,7 +67,7 @@ crater:
     ADMIN_NAME: Super Man
     COMPANY_NAME: Bahmni
     COMPANY_SLUG: bahmni
-    COUNTRY_ID: 101
+    COUNTRY_ID: 91
   secrets:
     ADMIN_EMAIL: "superman@bahmni.org"
   image:

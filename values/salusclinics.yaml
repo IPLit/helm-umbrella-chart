@@ -66,7 +66,8 @@ crater:
     ADMIN_NAME: Super Man
     COMPANY_NAME: Bahmni
     COMPANY_SLUG: bahmni
-    COUNTRY_ID: 101
+    COUNTRY_ID: 91
+    CRATER_DEFAULT_CURRENCY: INR
   secrets:
     ADMIN_EMAIL: "superman@bahmni.org"
   image:

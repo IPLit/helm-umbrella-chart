@@ -15,16 +15,18 @@ export OMRS_ADMIN_USER_PASSWORD=$(echo -n $(aws ssm get-parameter --with-decrypt
 export OPENMRS_OTP_PROPERTIES=$(aws ssm get-parameter --with-decryption --name "/$ENVIRONMENT/openmrs/OPENMRS_OTP_PROPERTIES" --query "Parameter.Value" --output text)
 export OPENMRS_APPT_PROPERTIES=$(aws ssm get-parameter --with-decryption --name "/$ENVIRONMENT/openmrs/OPENMRS_APPT_PROPERTIES" --query "Parameter.Value" --output text)
 
-
 export SMS_ORIGINATOR=$(echo -n $(aws ssm get-parameter --with-decryption --name "/$ENVIRONMENT/sms/SMS_ORIGINATOR" --query "Parameter.Value" --output text))
 export SMS_PROVIDER_API=$(echo -n $(aws ssm get-parameter --with-decryption --name "/$ENVIRONMENT/sms/SMS_PROVIDER_API" --query "Parameter.Value" --output text))
 export SMS_COUNTRY_CODE=$(echo -n $(aws ssm get-parameter --with-decryption --name "/$ENVIRONMENT/sms/SMS_COUNTRY_CODE" --query "Parameter.Value" --output text))
+
+export CRATER_CURRENCY_ID=$(aws ssm get-parameter --with-decryption --name "/$ENVIRONMENT/crater_atomfeed/CRATER_CURRENCY_ID" --query "Parameter.Value" --output text)
 
 envsubst < helm_kustomization/crater-mail-secrets.yml.tpl > helm_kustomization/crater-mail-secrets.yml
 envsubst < helm_kustomization/hip-atomfeed-secrets.yml.tpl > helm_kustomization/hip-atomfeed-secrets.yml
 
 envsubst < helm_kustomization/hip-config-map.yml.tpl > helm_kustomization/hip-config-map.yml
 envsubst < helm_kustomization/sms-config-map.yml.tpl > helm_kustomization/sms-config-map.yml
+envsubst < crater-atomfeed-config-map.yml.tpl > helm_kustomization/crater-atomfeed-config-map.yml
 
 envsubst < helm_kustomization/openmrs-secrets.yml.tpl > helm_kustomization/openmrs-secrets.yml
 envsubst < helm_kustomization/openmrs-otp-properties.yml.tpl > helm_kustomization/openmrs-otp-properties.yml

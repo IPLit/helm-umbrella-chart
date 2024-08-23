@@ -39,6 +39,7 @@ REPORTS_DB_PASSWORD=$(generatePassword 10)
 CRATER_ADMIN_PASSWORD=$(generatePassword 10)
 METABASE_ADMIN_PASSWORD=$(generatePassword 10)
 OMRS_ADMIN_USER_PASSWORD=$(generatePassword 16)
+CRATER_CURRENCY_ID="14"
 
 IF_EXIST=$(aws ssm get-parameter --name "/test" 2>&1 | sed -n '/ParameterNotFound/p' | wc -l)
 
@@ -56,6 +57,7 @@ createParameter "/$TENANT_NAME/crater/CRATER_MAIL_FROM_ADDRESS" "dummy"
 createParameter "/$TENANT_NAME/crater/CRATER_MAIL_FROM_NAME" "dummy"
 createParameter "/$TENANT_NAME/crater_atomfeed/DB_PASSWORD" $CRATER_ATOMFEED_DB_PASSWORD
 createParameter "/$TENANT_NAME/crater_atomfeed/DB_USERNAME" $CRATER_ATOMFEED_DB_USERNAME
+createParameter "/$TENANT_NAME/crater_atomfeed/CRATER_CURRENCY_ID" $CRATER_CURRENCY_ID
 createParameter "/$TENANT_NAME/metabase/ADMIN_EMAIL" $METABASE_ADMIN_EMAIL
 createParameter "/$TENANT_NAME/metabase/ADMIN_PASSWORD" $METABASE_ADMIN_PASSWORD
 createParameter "/$TENANT_NAME/metabase/MB_DB_PASS" $METABASE_DB_PASSWORD
